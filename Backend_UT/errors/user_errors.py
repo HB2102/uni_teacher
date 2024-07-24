@@ -26,3 +26,11 @@ ERROR_CREDENTIAL = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
 PROTECTED_ERROR = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail='Protected'
                                 )
+
+
+INVALID_USER_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                   detail='Invalid Username')
+
+
+INVALID_PASSWORD_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                       detail='Invalid Password')
