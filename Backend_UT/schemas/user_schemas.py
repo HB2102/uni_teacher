@@ -22,3 +22,12 @@ class SuperAdminDisplay(BaseModel):
     class Config:
         from_attributes = True
 
+
+class UserAuth(BaseModel):
+    id: int
+    username: str
+    email: str | None
+
+    class Config:
+        from_attributes = True
+
