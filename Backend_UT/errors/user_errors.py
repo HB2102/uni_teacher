@@ -14,3 +14,15 @@ PHONE_NUMBER_NAME_DUPLICATE_ERROR = HTTPException(status_code=status.HTTP_406_NO
                                                   detail='Phone Number Already Exists')
 
 
+USER_NOT_FOUND_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                     detail='User Not Found')
+
+
+ERROR_CREDENTIAL = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                 detail='Invalid Authorization',
+                                 headers={'WWW-authenticate': 'bearer'})
+
+
+PROTECTED_ERROR = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail='Protected'
+                                )
