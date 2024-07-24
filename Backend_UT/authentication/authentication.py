@@ -1,12 +1,10 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter
 from dependencies.dependencies import AUTHENTICATION_DEPENDENCY, DB_DEPENDENCY
 from errors.user_errors import INVALID_USER_ERROR, INVALID_PASSWORD_ERROR
-from fastapi.exceptions import HTTPException
-from sqlalchemy.orm.session import Session
 from database import models
 from database.database import get_db
 from hash.hash import Hash
-from authentication import auth
+from authentication import access
 
 
 router = APIRouter(tags=['Authentication'])
@@ -21,7 +19,7 @@ def get_token(request: AUTHENTICATION_DEPENDENCY, db: DB_DEPENDENCY):
     if not Hash.verify(user.password, request.password):
         raise INVALID_PASSWORD_ERROR
 
-    access_token = auth.create_access_token(data={'sub': user.username})
+    access_token = access.create_access_token(data={'sub': user.username})
 
     return {
         'access_token': access_token,

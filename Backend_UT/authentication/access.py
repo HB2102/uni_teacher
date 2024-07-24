@@ -1,14 +1,9 @@
 from functions.user_functions import get_user_by_username
 from errors.user_errors import ERROR_CREDENTIAL, PROTECTED_ERROR
 from dependencies.dependencies import DB_DEPENDENCY, TOKEN_DEPENDENCY
-from fastapi.exceptions import HTTPException
 from datetime import datetime, timedelta
-from database.database import get_db
 from jose.exceptions import JWTError
-from fastapi import Depends, status
-from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-from typing import Optional
 from jose import jwt
 import os
 
