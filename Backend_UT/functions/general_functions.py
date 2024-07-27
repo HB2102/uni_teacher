@@ -1,4 +1,4 @@
-from database.models import User
+from database.models import User, University
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 
@@ -23,6 +23,15 @@ def check_email_duplicate(email: str, db: Session):
 
 def check_phone_number_duplicate(phone_number: str, db: Session):
     user = db.query(User).filter(User.phone_number == phone_number).first()
+
+    if user:
+        return True
+    else:
+        return False
+
+
+def check_uni_name_duplicate(uni_name: str, db: Session):
+    user = db.query(University).filter(University.name == uni_name).first()
 
     if user:
         return True
