@@ -2,7 +2,6 @@ from fastapi import Depends
 from typing import Annotated
 from sqlalchemy.orm import Session
 from database.database import get_db
-from schemas.user_schemas import UserAuth
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 

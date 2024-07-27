@@ -1,6 +1,4 @@
 from fastapi import APIRouter, Body
-from sqlalchemy.orm import Session
-from schemas.user_schemas import SuperAdminDisplay, UserModel
 from functions import university_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import ADMIN_DEPENDENCY

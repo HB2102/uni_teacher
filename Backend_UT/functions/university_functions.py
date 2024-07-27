@@ -40,7 +40,6 @@ async def delete_uni(uni_id: int, db: Session):
     if not uni:
         raise UNI_DONT_EXIST
 
-
     stmt = delete(TeacherUni).where(TeacherUni.university_id == uni_id)
     db.execute(stmt)
     db.delete(uni)
