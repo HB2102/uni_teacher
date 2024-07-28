@@ -1,16 +1,29 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
 from super_admin_routers import super_admin
 from admin_routers import admin_university, admin_subject
 from authentication import authentication
+import time
 
 
-app = FastAPI(title='Ostad Daneshgah')
+app = FastAPI(
+    title='Ostad Daneshgah',
+    debug=True,
+)
 app.include_router(super_admin.router)
 app.include_router(admin_subject.router)
 app.include_router(admin_university.router)
 app.include_router(authentication.router)
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
 
 
 Base.metadata.create_all(engine)
