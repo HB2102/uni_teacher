@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body
 from functions import university_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY

@@ -17,7 +17,7 @@ class User(Base, ID):
     email = Column(String, unique=True)
     is_admin = Column(Boolean, default=False)
     is_super_admin = Column(Boolean, default=False)
-    is_baned = Column(Boolean, default=False)
+    is_banned = Column(Boolean, default=False)
 
 
 # TEACHER Class =============================================================================================

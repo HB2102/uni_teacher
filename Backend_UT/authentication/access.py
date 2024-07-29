@@ -29,7 +29,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-def get_current_user(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
+async def get_current_user(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     try:
         _dict = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         username = _dict.get('sub')
@@ -40,12 +40,12 @@ def get_current_user(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     except JWTError:
         raise ERROR_CREDENTIAL
 
-    user = get_user_by_username(username, db)
+    user = await get_user_by_username(username, db)
 
     return user
 
 
-def get_current_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
+async def get_current_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     try:
         _dict = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         username = _dict.get('sub')
@@ -56,7 +56,7 @@ def get_current_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     except JWTError:
         raise ERROR_CREDENTIAL
 
-    user = get_user_by_username(username, db)
+    user = await get_user_by_username(username, db)
 
     if not user.is_admin:
         raise PROTECTED_ERROR
@@ -64,7 +64,7 @@ def get_current_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     return user
 
 
-def get_current_super_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
+async def get_current_super_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     try:
         _dict = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         username = _dict.get('sub')
@@ -75,7 +75,7 @@ def get_current_super_admin(token: TOKEN_DEPENDENCY, db: DB_DEPENDENCY):
     except JWTError:
         raise ERROR_CREDENTIAL
 
-    user = get_user_by_username(username, db)
+    user = await get_user_by_username(username, db)
 
     if not user.is_super_admin:
         raise PROTECTED_ERROR
