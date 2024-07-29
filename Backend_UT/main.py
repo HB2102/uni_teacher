@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
 from super_admin_routers import super_admin
-from admin_routers import admin_university, admin_subject, admin_user, admin_teacher
-from general_routers import user, unversity, subject
+from admin_routers import admin_university, admin_subject, admin_user, admin_teacher, admin_uni_teacher, admin_teacher_subject
+from general_routers import user, unversity, subject, university_teacher, teacher_subject
 from authentication import authentication
 import time
 
@@ -12,6 +12,10 @@ app = FastAPI(
     title='Ostad Daneshgah',
     debug=True,
 )
+app.include_router(teacher_subject.router)
+app.include_router(university_teacher.router)
+app.include_router(admin_teacher_subject.router)
+app.include_router(admin_uni_teacher.router)
 app.include_router(subject.router)
 app.include_router(unversity.router)
 app.include_router(user.router)
