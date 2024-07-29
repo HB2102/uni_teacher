@@ -28,4 +28,4 @@ async def update_uni(request: SubjectDisplay, db: DB_DEPENDENCY):
 
 @router.delete('/delete_subject', status_code=200)
 async def delete_subject(subject_id: SUBJECT_ID_BODY, db: DB_DEPENDENCY):
-    return await subject_functions.delete_uni(subject_id=subject_id, db=db)
+    return await subject_functions.delete_subject(subject_id=subject_id, db=db)

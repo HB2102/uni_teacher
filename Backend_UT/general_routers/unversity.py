@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Body
 from functions import university_functions
 from dependencies.dependencies import DB_DEPENDENCY
-from dependencies.access_dependencies import USER_DEPENDENCY
 from schemas.university_schema import UniDisplay
 from typing import Annotated
 

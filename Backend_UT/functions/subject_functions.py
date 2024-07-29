@@ -2,7 +2,7 @@ from sqlalchemy import delete
 from sqlalchemy.orm import Session
 from database.models import Subject, TeacherSubject
 from functions.general_functions import check_subject_name_duplicate
-from errors.subject_errors import SUBJECT_ALREADY_EXISTS_ERROR, SUBJECT_DONT_EXIST
+from errors.subject_errors import SUBJECT_ALREADY_EXISTS_ERROR, SUBJECT_DONT_EXIST, NO_SUBJECT_FOUND
 from schemas.subject_schemas import SubjectDisplay
 
 
@@ -35,7 +35,7 @@ async def update_subject(request: SubjectDisplay , db: Session):
     return subject
 
 
-async def delete_uni(subject_id: int, db: Session):
+async def delete_subject(subject_id: int, db: Session):
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise SUBJECT_DONT_EXIST
@@ -47,3 +47,26 @@ async def delete_uni(subject_id: int, db: Session):
 
     return f"'{subject.name}' Has Been Deleted."
 
+
+async def get_subject_by_id(subject_id:int, db: Session):
+    subject = db.query(Subject).filter(Subject.id == subject_id).first()
+    if not subject:
+        raise SUBJECT_DONT_EXIST
+
+    return subject
+
+
+async def get_all_subjects(db: Session):
+    subjects = db.query(Subject).all()
+    if not subjects:
+        raise NO_SUBJECT_FOUND
+
+    return subjects
+
+
+async def search_subject_name(subject_name: str, db: Session):
+    subjects = db.query(Subject).filter(Subject.name.match(subject_name)).all()
+    if not subjects:
+        raise NO_SUBJECT_FOUND
+
+    return subjects
