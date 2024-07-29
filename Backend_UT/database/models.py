@@ -29,6 +29,7 @@ class Teacher(Base, ID):
     average_behaviour_score = Column(Float, default=None)
     average_grading_score = Column(Float, default=None)
     teacher_pic = Column(String, nullable=True)
+    pic_name = Column(String, nullable=True)
 
 
 # UNIVERSITY Class ==========================================================================================
@@ -94,4 +95,11 @@ class Request(Base, ID):
     __tablename__ = 'request'
     text = Column(String, nullable=False)
     date_added = Column(DateTime, nullable=False)
+    is_reviewed = Column(Boolean, default=False)
+
+
+# DELETED PICTURES Class ===================================================================================
+class DeletedPics(Base, ID):
+    __tablename__ = 'deleted_pics'
+    name = Column(String, nullable=False)
     is_reviewed = Column(Boolean, default=False)

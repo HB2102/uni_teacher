@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
 from super_admin_routers import super_admin
-from admin_routers import admin_university, admin_subject, admin_user
+from admin_routers import admin_university, admin_subject, admin_user, admin_teacher
 from general_routers import user
 from authentication import authentication
 import time
@@ -18,6 +18,7 @@ app.include_router(admin_university.router)
 app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(admin_user.router)
+app.include_router(admin_teacher.router)
 
 
 @app.middleware("http")
