@@ -30,3 +30,12 @@ async def edit_teacher(teacher_id: int, db: DB_DEPENDENCY, teacher_new_name: str
 async def delete_teacher(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY):
     return await teacher_functions.delete_teacher(teacher_id=teacher_id, db=db)
 
+
+@router.delete('/delete_teacher_pic', status_code=200)
+async def delete_teacher_pic(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY):
+    return await teacher_functions.delete_teacher_pic(teacher_id=teacher_id, db=db)
+
+
+@router.post('/add_teacher_pic', status_code=200, response_model=TeacherDisplay)
+async def add_teacher_pic(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY, teacher_pic: UploadFile):
+    return await teacher_functions.add_teacher_pic(teacher_id=teacher_id, db=db, teacher_pic=teacher_pic)

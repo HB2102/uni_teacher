@@ -11,7 +11,11 @@ from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from sqlalchemy import delete
 from database.models import Teacher, DeletedPics, Comment, CommentAction, TeacherUni, TeacherSubject, Rating
-from errors.teacher_errors import TEACHER_ALREADY_EXISTS, UPLOAD_PICTURE_ERROR, UPLOAD_PICTURE_INTERNAL_ERROR, TEACHER_NOT_FOUND
+from errors.teacher_errors import (TEACHER_ALREADY_EXISTS,
+                                   UPLOAD_PICTURE_ERROR,
+                                   UPLOAD_PICTURE_INTERNAL_ERROR,
+                                   TEACHER_NOT_FOUND,
+                                   TEACHER_HAS_NO_PICTURE)
 from functions.general_functions import check_teacher_name_duplicate
 
 
@@ -143,5 +147,57 @@ async def delete_teacher(teacher_id: int, db: Session):
     return f"Teacher '{teacher.full_name}' Has Been Removed."
 
 
+async def delete_teacher_pic(teacher_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
 
+    if not teacher.teacher_pic:
+        raise TEACHER_HAS_NO_PICTURE
+
+    delete_pic = DeletedPics(
+        name=teacher.pic_name
+    )
+    db.add(delete_pic)
+
+    teacher.teacher_pic = None
+    teacher.pic_name = None
+
+    db.commit()
+
+    return f"Picture of '{teacher.full_name}' Has Been Removed."
+
+
+async def add_teacher_pic(teacher_id: int, db: Session, teacher_pic: UploadFile):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    rand_str = ''.join(random.choice(ascii_letters) for _ in range(10))
+    new_name = f'_{rand_str}.'.join(teacher_pic.filename.rsplit('.', 1))
+    teacher_pic.filename = new_name
+    try:
+        file_content = await teacher_pic.read()
+        s3.upload_fileobj(io.BytesIO(file_content), LIARA_BUCKET_NAME, teacher_pic.filename)
+
+    except NoCredentialsError:
+        raise UPLOAD_PICTURE_ERROR
+    except Exception:
+        raise UPLOAD_PICTURE_INTERNAL_ERROR
+
+    filename_encoded = quote(new_name)
+    pic_url = f"https://{LIARA_BUCKET_NAME}.{LIARA_ENDPOINT.replace('https://', '')}/{filename_encoded}"
+
+    if teacher.teacher_pic:
+        delete_pic = DeletedPics(
+            name=teacher.pic_name
+        )
+        db.add(delete_pic)
+
+    teacher.teacher_pic = pic_url
+    teacher.pic_name = new_name
+
+    db.commit()
+
+    return teacher
 

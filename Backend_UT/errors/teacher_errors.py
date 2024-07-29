@@ -15,3 +15,7 @@ UPLOAD_PICTURE_INTERNAL_ERROR = HTTPException(status_code=status.HTTP_503_SERVIC
 
 TEACHER_NOT_FOUND = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                   detail='Teacher Not Found.')
+
+
+TEACHER_HAS_NO_PICTURE = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                        detail='Teacher Has No Picture.')
