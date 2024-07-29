@@ -162,7 +162,7 @@ async def unban_user(user_id: int, db: Session):
 
 
 async def search_user_by_username(user_name: str, db: Session):
-    users = db.query(User).filter(User.username.like(user_name)).all()
+    users = db.query(User).filter(User.username.match(user_name)).all()
 
     if not users:
         raise NO_USER_FOUND_ERROR

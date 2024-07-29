@@ -50,7 +50,7 @@ async def get_all_admins(db: Session):
 
 
 async def search_admin_by_username(user_name: str, db: Session):
-    users = db.query(User).filter(and_(User.username.like(user_name), User.is_admin == True)).all()
+    users = db.query(User).filter(and_(User.username.match(user_name), User.is_admin == True)).all()
 
     if not users:
         raise NO_USER_FOUND_ERROR

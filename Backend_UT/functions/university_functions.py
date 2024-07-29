@@ -2,7 +2,7 @@ from sqlalchemy import delete
 from sqlalchemy.orm import Session
 from database.models import University, TeacherUni
 from functions.general_functions import check_uni_name_duplicate
-from errors.university_errors import UNI_ALREADY_EXISTS_ERROR, UNI_DONT_EXIST
+from errors.university_errors import UNI_ALREADY_EXISTS_ERROR, UNI_DONT_EXIST, NO_UNI_FOUND
 from schemas.university_schema import UniDisplay
 
 
@@ -47,3 +47,26 @@ async def delete_uni(uni_id: int, db: Session):
 
     return f"'{uni.name}' Has Been Deleted."
 
+
+async def get_all_uni(db: Session):
+    universities = db.query(University).all()
+    if not universities:
+        raise NO_UNI_FOUND
+
+    return universities
+
+
+async def get_uni_by_id(uni_id:int, db: Session):
+    uni = db.query(University).filter(University.id == uni_id).first()
+    if not uni:
+        raise UNI_DONT_EXIST
+
+    return uni
+
+
+async def search_uni_name(uni_name: str, db: Session):
+    universities = db.query(University).filter(University.name.match(uni_name)).all()
+    if not universities:
+        raise NO_UNI_FOUND
+
+    return universities

@@ -12,8 +12,6 @@ router = APIRouter(
 )
 
 
-# SUBJECT_NAME_BODY = Annotated[str, Body(embed=True)]
-# SUBJECT_ID_BODY = Annotated[int, Body(embed=True)]
 
 @router.post('/create_user', status_code=201, response_model=UserDisplay)
 async def create_user(request: UserModel, db: DB_DEPENDENCY):
