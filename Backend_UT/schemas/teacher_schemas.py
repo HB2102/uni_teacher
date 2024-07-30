@@ -1,7 +1,4 @@
-import datetime
-from pydantic import BaseModel, EmailStr
-from fastapi import Query
-from typing import Optional
+from pydantic import BaseModel
 from schemas.university_schema import UniDisplay
 from schemas.subject_schemas import SubjectDisplay
 from schemas.comment_schema import CommentDisplay, CommentDisplayUser

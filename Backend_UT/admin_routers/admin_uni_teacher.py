@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import uni_teacher_functions
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
-from schemas.subject_schemas import SubjectDisplay
-from typing import Annotated
 
 
 router = APIRouter(
@@ -11,9 +10,6 @@ router = APIRouter(
     tags=['Admin Subject'],
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
-
-NAME_BODY = Annotated[str, Body(embed=True)]
-ID_BODY = Annotated[int, Body(embed=True)]
 
 
 @router.post('/add_uni_teacher', status_code=200)

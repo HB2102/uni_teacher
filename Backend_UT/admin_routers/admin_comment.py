@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import comment_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY
 from schemas.comment_schema import CommentDisplay
-from typing import Annotated
 
 
 router = APIRouter(
@@ -11,9 +11,6 @@ router = APIRouter(
     tags=['Admin Comment'],
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
-
-NAME_BODY = Annotated[str, Body(embed=True)]
-ID_BODY = Annotated[int, Body(embed=True)]
 
 
 @router.delete('/delete_comment', status_code=200)

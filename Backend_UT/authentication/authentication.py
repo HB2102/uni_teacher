@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from dependencies.dependencies import AUTHENTICATION_DEPENDENCY, DB_DEPENDENCY
 from errors.user_errors import INVALID_USER_ERROR, INVALID_PASSWORD_ERROR
 from database import models
-from database.database import get_db
 from hash.hash import Hash
 from authentication import access
 

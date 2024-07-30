@@ -1,7 +1,9 @@
+import time
 from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
 from super_admin_routers import super_admin
+from authentication import authentication
 from admin_routers import (
     admin_university,
     admin_subject,
@@ -27,8 +29,6 @@ from general_routers import (
     rating,
     teacher
 )
-from authentication import authentication
-import time
 
 
 app = FastAPI(

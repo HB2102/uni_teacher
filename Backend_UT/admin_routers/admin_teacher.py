@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Body, UploadFile, Form
+from fastapi import APIRouter, UploadFile, Form
 from functions import teacher_functions
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY, NAME_BODY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
-from schemas.teacher_schemas import TeacherDisplay, EditTeacherModel
-from typing import Annotated
+from schemas.teacher_schemas import TeacherDisplay
 
 
 router = APIRouter(
@@ -12,12 +12,9 @@ router = APIRouter(
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
 
-TEACHER_NAME_BODY = Annotated[str, Body(embed=True)]
-TEACHER_ID_BODY = Annotated[int, Body(embed=True)]
-
 
 @router.post('/add_teacher', status_code=200, response_model=TeacherDisplay)
-async def add_teacher(teacher_name: TEACHER_NAME_BODY, db: DB_DEPENDENCY, teacher_pic: UploadFile | None = None):
+async def add_teacher(teacher_name: NAME_BODY, db: DB_DEPENDENCY, teacher_pic: UploadFile | None = None):
     return await teacher_functions.add_teacher(teacher_name=teacher_name, db=db, teacher_pic=teacher_pic)
 
 
@@ -27,15 +24,15 @@ async def edit_teacher(db: DB_DEPENDENCY, teacher_id: int = Form(...), teacher_n
 
 
 @router.delete('delete_teacher', status_code=200)
-async def delete_teacher(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY):
+async def delete_teacher(teacher_id: ID_BODY, db: DB_DEPENDENCY):
     return await teacher_functions.delete_teacher(teacher_id=teacher_id, db=db)
 
 
 @router.delete('/delete_teacher_pic', status_code=200)
-async def delete_teacher_pic(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY):
+async def delete_teacher_pic(teacher_id: ID_BODY, db: DB_DEPENDENCY):
     return await teacher_functions.delete_teacher_pic(teacher_id=teacher_id, db=db)
 
 
 @router.post('/add_teacher_pic', status_code=200, response_model=TeacherDisplay)
-async def add_teacher_pic(teacher_id: TEACHER_ID_BODY, db: DB_DEPENDENCY, teacher_pic: UploadFile):
+async def add_teacher_pic(teacher_id: ID_BODY, db: DB_DEPENDENCY, teacher_pic: UploadFile):
     return await teacher_functions.add_teacher_pic(teacher_id=teacher_id, db=db, teacher_pic=teacher_pic)

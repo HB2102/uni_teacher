@@ -1,6 +1,4 @@
-import datetime
 from pydantic import BaseModel, EmailStr
-from fastapi import Query
 
 
 class UserModel(BaseModel):

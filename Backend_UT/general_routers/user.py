@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import user_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import USER_DEPENDENCY
 from schemas.user_schemas import UserDisplay, UserModel, UserUpdateModel
-from typing import Annotated
 
 
 router = APIRouter(

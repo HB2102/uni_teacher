@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Body
 from functions import request_functions
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import NAME_BODY, ID_BODY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
 from schemas.request_schemas import RequestDisplay
-from typing import Annotated
 
 
 router = APIRouter(
@@ -11,9 +11,6 @@ router = APIRouter(
     tags=['Admin Request'],
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
-
-NAME_BODY = Annotated[str, Body(embed=True)]
-ID_BODY = Annotated[int, Body(embed=True)]
 
 
 @router.post('/get_request', status_code=302, response_model=RequestDisplay)

@@ -1,19 +1,20 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import teacher_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import USER_DEPENDENCY
-from schemas.teacher_schemas import TeacherProfileDisplay, TeacherFullProfileDisplay, TeacherProfileUserDisplay, TeacherProfileFullUserDisplay
-from typing import Annotated
+from dependencies.body_dependencies import ID_BODY, NAME_BODY
+from schemas.teacher_schemas import (
+    TeacherProfileDisplay,
+    TeacherFullProfileDisplay,
+    TeacherProfileUserDisplay,
+    TeacherProfileFullUserDisplay
+)
 
 
 router = APIRouter(
     prefix='/teacher',
     tags=['Teacher']
 )
-
-
-ID_BODY = Annotated[int, Body(embed=True)]
-NAME_BODY = Annotated[str, Body(embed=True)]
 
 
 @router.post('/search_teacher_name', status_code=302, response_model=list[TeacherProfileDisplay])

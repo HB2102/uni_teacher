@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import university_functions
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY, NAME_BODY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
 from schemas.university_schema import UniDisplay
-from typing import Annotated
 
 
 router = APIRouter(
@@ -12,12 +12,9 @@ router = APIRouter(
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
 
-UNI_NAME_BODY = Annotated[str, Body(embed=True)]
-UNI_ID_BODY = Annotated[int, Body(embed=True)]
-
 
 @router.post('/add_uni', status_code=201, response_model=UniDisplay)
-async def add_uni(uni_name: UNI_NAME_BODY, db: DB_DEPENDENCY):
+async def add_uni(uni_name: NAME_BODY, db: DB_DEPENDENCY):
     return await university_functions.add_university(uni_name=uni_name, db=db)
 
 
@@ -27,5 +24,5 @@ async def update_uni(request: UniDisplay, db: DB_DEPENDENCY):
 
 
 @router.delete('/delete_uni', status_code=200)
-async def delete_uni(uni_id: UNI_ID_BODY, db: DB_DEPENDENCY):
+async def delete_uni(uni_id: ID_BODY, db: DB_DEPENDENCY):
     return await university_functions.delete_uni(uni_id=uni_id, db=db)

@@ -1,19 +1,15 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from functions import comment_action_functions
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY
 from dependencies.access_dependencies import USER_DEPENDENCY
 from schemas.comment_action_schema import CommentActionModel
-from typing import Annotated
 
 
 router = APIRouter(
     prefix='/comment_action',
     tags=['Comment Action']
 )
-
-
-ID_BODY = Annotated[int, Body(embed=True)]
-NAME_BODY = Annotated[str, Body(embed=True)]
 
 
 @router.post('/like_comment', status_code=200, response_model=CommentActionModel)

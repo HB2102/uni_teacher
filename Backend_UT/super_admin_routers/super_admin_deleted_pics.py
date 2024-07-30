@@ -1,9 +1,9 @@
-from typing import Annotated
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from schemas.deleted_pics_schema import DeletedPicsDisplay
 from sqlalchemy.orm import Session
 from functions import deleted_pictures_function
 from dependencies.dependencies import DB_DEPENDENCY
+from dependencies.body_dependencies import ID_BODY
 from dependencies.access_dependencies import ROUTER_SUPER_ADMIN_DEPENDENCY
 
 
@@ -13,9 +13,6 @@ router = APIRouter(
     dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY]
 )
 
-
-SUBJECT_NAME_BODY = Annotated[str, Body(embed=True)]
-ID_BODY = Annotated[int, Body(embed=True)]
 
 
 @router.get('/deleted_pics', status_code=302, response_model=list[DeletedPicsDisplay])
