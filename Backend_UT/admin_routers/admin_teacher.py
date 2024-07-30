@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, UploadFile
+from fastapi import APIRouter, Body, UploadFile, Form
 from functions import teacher_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
@@ -22,7 +22,7 @@ async def add_teacher(teacher_name: TEACHER_NAME_BODY, db: DB_DEPENDENCY, teache
 
 
 @router.put('/edit_teacher', status_code=200, response_model=TeacherDisplay)
-async def edit_teacher(teacher_id: int, db: DB_DEPENDENCY, teacher_new_name: str | None = None, teacher_pic: UploadFile | None = None):
+async def edit_teacher(db: DB_DEPENDENCY, teacher_id: int = Form(...), teacher_new_name: str | None = Form(None), teacher_pic: UploadFile | None = None):
     return await teacher_functions.edit_teacher(teacher_id=teacher_id, teacher_new_name=teacher_new_name, db=db, teacher_pic=teacher_pic)
 
 

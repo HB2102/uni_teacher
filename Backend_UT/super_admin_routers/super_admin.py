@@ -1,6 +1,5 @@
 from typing import Annotated
 from fastapi import APIRouter, Body
-from sqlalchemy.orm import Session
 from schemas.user_schemas import UserDisplay, UserModel
 from functions import super_admin_functions
 from functions.user_functions import delete_user

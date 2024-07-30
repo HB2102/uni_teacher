@@ -20,7 +20,6 @@ from errors.teacher_errors import (
     NO_TEACHER_FOUND
 )
 from functions.general_functions import check_teacher_name_duplicate
-from functions.uni_teacher_functions import get_all_unis_of_teacher
 
 
 load_dotenv()
