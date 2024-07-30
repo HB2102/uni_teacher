@@ -2,8 +2,30 @@ from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
 from super_admin_routers import super_admin
-from admin_routers import admin_university, admin_subject, admin_user, admin_teacher, admin_uni_teacher, admin_teacher_subject, admin_comment, admin_request, admin_rating
-from general_routers import user, unversity, subject, university_teacher, teacher_subject, comment, comment_action, request, rating
+from admin_routers import (
+    admin_university,
+    admin_subject,
+    admin_user,
+    admin_teacher,
+    admin_uni_teacher,
+    admin_teacher_subject,
+    admin_comment,
+    admin_comment_report,
+    admin_request,
+    admin_rating
+)
+from general_routers import (
+    user,
+    unversity,
+    subject,
+    university_teacher,
+    teacher_subject,
+    comment,
+    comment_action,
+    comment_report,
+    request,
+    rating
+)
 from authentication import authentication
 import time
 
@@ -12,6 +34,8 @@ app = FastAPI(
     title='Ostad Daneshgah',
     debug=True,
 )
+app.include_router(admin_comment_report.router)
+app.include_router(comment_report.router)
 app.include_router(admin_rating.router)
 app.include_router(rating.router)
 app.include_router(request.router)

@@ -1,10 +1,6 @@
-import datetime
-from sqlalchemy import delete, and_
+from sqlalchemy import and_
 from sqlalchemy.orm import Session
-from database.models import Comment, Teacher, User, Subject, CommentAction
-from schemas.comment_schema import AddCommentModel
-from errors.teacher_errors import TEACHER_NOT_FOUND
-from errors.user_errors import USER_NOT_FOUND_ERROR
+from database.models import Comment, CommentAction
 from errors.comment_errors import COMMENT_NOT_FOUND
 from errors.comment_action_errors import COMMENT_ACTION_NOT_FOUND
 

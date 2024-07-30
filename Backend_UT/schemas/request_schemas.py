@@ -13,3 +13,6 @@ class RequestDisplay(BaseModel):
     email: EmailStr | None = None
     date_added: datetime.datetime
     is_reviewed: bool
+
+    class Config:
+        from_attribute = True

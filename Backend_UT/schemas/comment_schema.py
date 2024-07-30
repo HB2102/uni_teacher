@@ -20,6 +20,12 @@ class CommentDisplay(BaseModel):
     number_of_dislikes: int
     is_approved: bool
 
+    class Config:
+        from_attribute = True
+
 
 class CommentDisplayUser(CommentDisplay):
     action: bool | None = None
+
+    class Config:
+        from_attribute = True

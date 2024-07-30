@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy import delete, and_
 from sqlalchemy.orm import Session
-from database.models import Comment, Teacher, User, Subject, CommentAction
+from database.models import Comment, Teacher, User, Subject, CommentAction, CommentReport
 from schemas.comment_schema import AddCommentModel
 from errors.teacher_errors import TEACHER_NOT_FOUND
 from errors.user_errors import USER_NOT_FOUND_ERROR
@@ -50,6 +50,8 @@ async def delete_self_comment(comment_id: int, user_id: int, db: Session):
 
     delete_comment_actions = delete(CommentAction).where(CommentAction.comment_id == comment_id)
     db.execute(delete_comment_actions)
+    delete_comment_reports = delete(CommentReport).where(CommentReport.comment_id == comment_id)
+    db.execute(delete_comment_reports)
 
     db.delete(comment)
     db.commit()
@@ -64,6 +66,8 @@ async def admin_delete_comment(comment_id: int, db: Session):
 
     delete_comment_actions = delete(CommentAction).where(CommentAction.comment_id == comment_id)
     db.execute(delete_comment_actions)
+    delete_comment_reports = delete(CommentReport).where(CommentReport.comment_id == comment_id)
+    db.execute(delete_comment_reports)
 
     db.delete(comment)
     db.commit()

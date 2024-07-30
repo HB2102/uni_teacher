@@ -11,3 +11,6 @@ class AddRatingModel(BaseModel):
 
 class RatingDisplay(AddRatingModel):
     user_id: int
+
+    class Config:
+        from_attribute = True

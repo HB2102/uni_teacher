@@ -1,5 +1,4 @@
 import datetime
-from sqlalchemy import delete, and_
 from sqlalchemy.orm import Session
 from database.models import Request
 from schemas.request_schemas import SendRequestModel

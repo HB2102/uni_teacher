@@ -105,3 +105,12 @@ class DeletedPics(Base, ID):
     __tablename__ = 'deleted_pics'
     name = Column(String, nullable=False)
     is_reviewed = Column(Boolean, default=False)
+
+
+# REPORT COMMENTS Class ====================================================================================
+class CommentReport(Base, ID):
+    __tablename__ = 'comment_report'
+    comment_id = Column(Integer, ForeignKey('comment.id'))
+    reason = Column(String, nullable=True, default=None)
+    date_added = Column(DateTime, nullable=False)
+    is_reviewed = Column(Boolean, default=False)
