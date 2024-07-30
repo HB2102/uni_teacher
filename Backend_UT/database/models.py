@@ -48,6 +48,7 @@ class Subject(Base, ID):
 class Comment(Base, ID):
     __tablename__ = 'comment'
     user_id = Column(Integer, ForeignKey('user.id'))
+    username = Column(String, ForeignKey('user.username'), nullable=False)
     teacher_id = Column(Integer, ForeignKey('teacher.id'))
     subject_id = Column(Integer, ForeignKey('subject.id'), nullable=True, default=None)
     text = Column(String, nullable=False)

@@ -116,7 +116,6 @@ async def delete_user(user_id: int, db: Session):
 
     db.delete(user)
     db.commit()
-
     return f"User '{user.username}' Has Been Deleted"
 
 
