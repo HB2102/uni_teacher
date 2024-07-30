@@ -72,5 +72,6 @@ async def review_request(request_id: int, db: Session):
 
     request.is_reviewed = True
     db.commit()
+    db.refresh(request)
 
     return request
