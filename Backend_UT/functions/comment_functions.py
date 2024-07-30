@@ -35,6 +35,9 @@ async def add_comment(user_id: int, request: AddCommentModel, db: Session):
     )
 
     db.add(comment)
+
+    update_teacher_comment_count(teacher_id=teacher.id, db=db)
+
     db.commit()
 
     return comment
@@ -48,6 +51,8 @@ async def delete_self_comment(comment_id: int, user_id: int, db: Session):
     if comment.user_id != user_id:
         raise CANT_DELETE_OTHERS_COMMENT
 
+
+
     delete_comment_actions = delete(CommentAction).where(CommentAction.comment_id == comment_id)
     db.execute(delete_comment_actions)
     delete_comment_reports = delete(CommentReport).where(CommentReport.comment_id == comment_id)
@@ -55,6 +60,8 @@ async def delete_self_comment(comment_id: int, user_id: int, db: Session):
 
     db.delete(comment)
     db.commit()
+
+    update_teacher_comment_count(teacher_id=comment.teacher_id, db=db)
 
     return 'Comment Removed Successfully'
 
@@ -64,6 +71,7 @@ async def admin_delete_comment(comment_id: int, db: Session):
     if not comment:
         raise COMMENT_NOT_FOUND
 
+
     delete_comment_actions = delete(CommentAction).where(CommentAction.comment_id == comment_id)
     db.execute(delete_comment_actions)
     delete_comment_reports = delete(CommentReport).where(CommentReport.comment_id == comment_id)
@@ -71,6 +79,8 @@ async def admin_delete_comment(comment_id: int, db: Session):
 
     db.delete(comment)
     db.commit()
+
+    update_teacher_comment_count(teacher_id=comment.teacher_id, db=db)
 
     return 'Comment Removed Successfully'
 
@@ -81,6 +91,9 @@ async def approve_comment(comment_id: int, db: Session):
         raise COMMENT_NOT_FOUND
 
     comment.is_approved = True
+    db.commit()
+
+    update_teacher_comment_count(teacher_id=comment.teacher_id, db=db)
 
     return comment
 
@@ -170,3 +183,16 @@ async def get_all_self_comments(user_id: int, db: Session):
     return comments
 
 
+def update_teacher_comment_count(teacher_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    comments = db.query(Comment).filter(and_(Comment.teacher_id == teacher_id, Comment.is_approved == True)).all()
+    if comments:
+        number_of_comments = len(comments)
+    else:
+        number_of_comments = 0
+
+    teacher.number_of_comments = number_of_comments
+    db.commit()

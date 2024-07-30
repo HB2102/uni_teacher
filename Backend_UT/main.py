@@ -24,7 +24,8 @@ from general_routers import (
     comment_action,
     comment_report,
     request,
-    rating
+    rating,
+    teacher
 )
 from authentication import authentication
 import time
@@ -34,6 +35,7 @@ app = FastAPI(
     title='Ostad Daneshgah',
     debug=True,
 )
+app.include_router(teacher.router)
 app.include_router(admin_comment_report.router)
 app.include_router(comment_report.router)
 app.include_router(admin_rating.router)

@@ -3,7 +3,7 @@ import os
 import random
 from string import ascii_letters
 from urllib.parse import quote
-
+from sqlalchemy import and_
 import boto3
 from botocore.exceptions import NoCredentialsError
 from dotenv import load_dotenv
@@ -11,12 +11,16 @@ from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from sqlalchemy import delete
 from database.models import Teacher, DeletedPics, Comment, CommentAction, TeacherUni, TeacherSubject, Rating
-from errors.teacher_errors import (TEACHER_ALREADY_EXISTS,
-                                   UPLOAD_PICTURE_ERROR,
-                                   UPLOAD_PICTURE_INTERNAL_ERROR,
-                                   TEACHER_NOT_FOUND,
-                                   TEACHER_HAS_NO_PICTURE)
+from errors.teacher_errors import (
+    TEACHER_ALREADY_EXISTS,
+    UPLOAD_PICTURE_ERROR,
+    UPLOAD_PICTURE_INTERNAL_ERROR,
+    TEACHER_NOT_FOUND,
+    TEACHER_HAS_NO_PICTURE,
+    NO_TEACHER_FOUND
+)
 from functions.general_functions import check_teacher_name_duplicate
+from functions.uni_teacher_functions import get_all_unis_of_teacher
 
 
 load_dotenv()
@@ -58,7 +62,6 @@ async def add_teacher(teacher_name: str, db: Session, teacher_pic: UploadFile | 
     else:
         pic_url = None
         new_name = None
-
 
     teacher = Teacher(
         full_name=teacher_name,
@@ -201,3 +204,102 @@ async def add_teacher_pic(teacher_id: int, db: Session, teacher_pic: UploadFile)
 
     return teacher
 
+
+async def search_teacher_name(teacher_name: str, db: Session):
+    teachers = db.query(Teacher).filter(Teacher.full_name.ilike(f'%{teacher_name}%')).all()
+    if not teachers:
+        raise NO_TEACHER_FOUND
+
+    teacher_list = []
+    for teacher in teachers:
+        profile = get_teacher_profile(teacher_id=teacher.id, db=db)
+        if profile:
+            teacher_list.append(profile)
+
+    return teacher_list
+
+
+async def get_teacher_profile(teacher_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
+    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+
+    teacher_display = {
+        'teacher': teacher,
+        'unis': unis,
+        'subjects': subjects
+    }
+
+    return teacher_display
+
+
+async def get_teacher_full_profile(teacher_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
+    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    comments = db.query(Comment).filter(and_(Comment.teacher_id == teacher_id, Comment.is_approved == True)).all()
+
+    teacher_display = {
+        'teacher': teacher,
+        'unis': unis,
+        'subjects': subjects,
+        'comments': comments
+    }
+
+    return teacher_display
+
+
+async def get_teacher_profile_user(teacher_id: int, user_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
+    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    rating = db.query(Rating).filter(and_(Rating.teacher_id == teacher_id, Rating.user_id == user_id)).first()
+
+    teacher_display = {
+        'teacher': teacher,
+        'unis': unis,
+        'subjects': subjects,
+        'rating': rating
+    }
+
+    return teacher_display
+
+
+async def get_teacher_full_profile_user(teacher_id: int, user_id: int, db: Session):
+    teacher = db.query(Teacher).filter(Teacher.id == teacher_id).first()
+    if not teacher:
+        raise TEACHER_NOT_FOUND
+
+    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
+    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    rating = db.query(Rating).filter(and_(Rating.teacher_id == teacher_id, Rating.user_id == user_id)).first()
+    comments = db.query(Comment).filter(and_(Comment.teacher_id == teacher_id, Comment.is_approved == True)).order_by(Comment.date_added.desc()).all()
+
+    for comment in comments:
+        comment_action = db.query(CommentAction).filter(CommentAction.comment_id == comment.id).first()
+        if comment_action:
+            if comment_action.action:
+                comment['action'] = True
+            else:
+                comment['action'] = False
+        else:
+            comment['action'] = None
+
+    teacher_display = {
+        'teacher': teacher,
+        'unis': unis,
+        'subjects': subjects,
+        'rating': rating,
+        'comments': comments
+    }
+
+    return teacher_display

@@ -28,6 +28,7 @@ class Teacher(Base, ID):
     average_teaching_score = Column(Float, default=None)
     average_behaviour_score = Column(Float, default=None)
     average_grading_score = Column(Float, default=None)
+    number_of_comments = Column(Integer, default=0)
     teacher_pic = Column(String, nullable=True)
     pic_name = Column(String, nullable=True)
 
