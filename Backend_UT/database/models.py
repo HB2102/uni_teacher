@@ -95,6 +95,7 @@ class Rating(Base, ID):
 class Request(Base, ID):
     __tablename__ = 'request'
     text = Column(String, nullable=False)
+    email = Column(String, nullable=True, default=None)
     date_added = Column(DateTime, nullable=False)
     is_reviewed = Column(Boolean, default=False)
 
