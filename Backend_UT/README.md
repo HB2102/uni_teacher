@@ -7,7 +7,7 @@ like or dislike comments, see the teachers profile and their average ratings
 and see their universities and subjects. This project is written in microservice architecture
 and uses and external service named Liara for both database and cloud file savings.
 This back-end was written with FastAPI web framework and uses postgresql for 
-database and different data structures was used in it.
+database and different data structures was used in it, it also has token base authentication using jwt.
 to use it and test the backend you can follow instructions below:
 
 ### 1. Download project
