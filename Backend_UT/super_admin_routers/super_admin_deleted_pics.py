@@ -9,7 +9,7 @@ from dependencies.access_dependencies import ROUTER_SUPER_ADMIN_DEPENDENCY
 
 router = APIRouter(
     prefix='/super_admin',
-    tags=['Super Admin'],
+    tags=['Super Admin Deleted Pictures'],
     dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY]
 )
 
