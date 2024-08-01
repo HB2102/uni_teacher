@@ -14,17 +14,16 @@ router = APIRouter(
 )
 
 
-
 @router.get('/deleted_pics', status_code=302, response_model=list[DeletedPicsDisplay])
-async def get_deleted_pics(db: Session = DB_DEPENDENCY):
+async def get_deleted_pics(db: DB_DEPENDENCY):
     return await deleted_pictures_function.get_deleted_pics(db=db)
 
 
 @router.get('/all_deleted_pics', status_code=302, response_model=list[DeletedPicsDisplay])
-async def get_all_deleted_pics(db: Session = DB_DEPENDENCY):
+async def get_all_deleted_pics(db: DB_DEPENDENCY):
     return await deleted_pictures_function.get_all_deleted_pics(db=db)
 
 
 @router.put('/review_deleted_pic', status_code=200, response_model=DeletedPicsDisplay)
-async def review_deleted_pic(deleted_pic_id: ID_BODY, db: Session = DB_DEPENDENCY):
+async def review_deleted_pic(deleted_pic_id: ID_BODY, db: DB_DEPENDENCY):
     return await deleted_pictures_function.review_deleted_pics(deleted_pic_id=deleted_pic_id, db=db)

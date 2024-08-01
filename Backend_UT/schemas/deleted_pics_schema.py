@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class DeletedPicsDisplay(BaseModel):
     id: int
-    pic_name: str
+    name: str
     is_reviewed: bool
 
     class Config:

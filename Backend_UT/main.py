@@ -2,7 +2,7 @@ import time
 from fastapi import FastAPI, Request
 from database.database import Base, engine
 from database import models
-from super_admin_routers import super_admin
+from super_admin_routers import super_admin, super_admin_deleted_pics
 from authentication import authentication
 from admin_routers import (
     admin_university,
@@ -46,7 +46,6 @@ app.include_router(comment_report.router)
 app.include_router(comment_action.router)
 app.include_router(teacher_subject.router)
 app.include_router(university_teacher.router)
-app.include_router(super_admin.router)
 app.include_router(admin_user.router)
 app.include_router(admin_rating.router)
 app.include_router(admin_request.router)
@@ -57,6 +56,8 @@ app.include_router(admin_university.router)
 app.include_router(admin_uni_teacher.router)
 app.include_router(admin_comment_report.router)
 app.include_router(admin_teacher_subject.router)
+app.include_router(super_admin.router)
+app.include_router(super_admin_deleted_pics.router)
 app.include_router(authentication.router)
 
 
