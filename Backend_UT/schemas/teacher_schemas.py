@@ -16,7 +16,7 @@ class TeacherDisplay(BaseModel):
     average_teaching_score: float | None = None
     average_behaviour_score: float | None = None
     average_grading_score : float | None = None
-    number_of_comments: int
+    number_of_comments: int | None = None
     teacher_pic: str | None = None
 
     class Config:

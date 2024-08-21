@@ -211,7 +211,7 @@ async def search_teacher_name(teacher_name: str, db: Session):
 
     teacher_list = []
     for teacher in teachers:
-        profile = get_teacher_profile(teacher_id=teacher.id, db=db)
+        profile = await get_teacher_profile(teacher_id=teacher.id, db=db)
         if profile:
             teacher_list.append(profile)
 
