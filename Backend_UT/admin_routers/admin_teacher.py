@@ -23,7 +23,7 @@ async def edit_teacher(db: DB_DEPENDENCY, teacher_id: int = Form(...), teacher_n
     return await teacher_functions.edit_teacher(teacher_id=teacher_id, teacher_new_name=teacher_new_name, db=db, teacher_pic=teacher_pic)
 
 
-@router.delete('delete_teacher', status_code=200)
+@router.delete('/delete_teacher', status_code=200)
 async def delete_teacher(teacher_id: ID_BODY, db: DB_DEPENDENCY):
     return await teacher_functions.delete_teacher(teacher_id=teacher_id, db=db)
 

@@ -15,6 +15,10 @@ async def add_uni_teacher(uni_id: int, teacher_id: int, db: Session):
     if not teacher:
         raise TEACHER_NOT_FOUND
 
+    teacher_uni_check = db.query(TeacherUni).filter(and_(TeacherUni.teacher_id == teacher_id, TeacherUni.university_id == uni_id)).first()
+    if teacher_uni_check:
+        raise TEACHER_UNI_NOT_FOUND
+
     teacher_uni = TeacherUni(
         teacher_id=teacher_id,
         university_id=uni_id
@@ -64,9 +68,16 @@ async def get_all_teachers_of_university(uni_id: int, db: Session):
     if not uni:
         raise UNI_DONT_EXIST
 
-    teachers_ids = db.query(TeacherUni.teacher_id).filter(TeacherUni.university_id == uni_id).all()
-    teachers = db.query(Teacher).filter(Teacher.id.in_(teachers_ids))
+    teachers_ids_tuple = db.query(TeacherUni.teacher_id).filter(TeacherUni.university_id == uni_id).all()
+    if not teachers_ids_tuple:
+        raise NO_TEACHER_FOUND
 
+    teachers_ids = []
+    for teachers_id in teachers_ids_tuple:
+        teachers_ids.append(teachers_id[0])
+
+
+    teachers = db.query(Teacher).filter(Teacher.id.in_(teachers_ids))
     if not teachers:
         raise NO_TEACHER_FOUND
 
@@ -78,7 +89,14 @@ async def get_all_unis_of_teacher(teacher_id: int, db: Session):
     if not teacher:
         raise TEACHER_NOT_FOUND
 
-    uni_ids = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+    uni_ids_tuple = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+    if not uni_ids_tuple:
+        raise NO_UNI_FOUND
+
+    uni_ids = []
+    for uni_id in uni_ids_tuple:
+        uni_ids.append(uni_id[0])
+
     unis = db.query(University).filter(University.id.in_(uni_ids))
 
     if not unis:

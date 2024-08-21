@@ -7,7 +7,7 @@ from dependencies.access_dependencies import ROUTER_ADMIN_DEPENDENCY
 
 router = APIRouter(
     prefix='/admin_subject',
-    tags=['Admin Subject'],
+    tags=['Admin University Teacher'],
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
 
