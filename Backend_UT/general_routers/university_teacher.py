@@ -18,5 +18,5 @@ async def get_all_teachers_of_university(uni_id: ID_BODY, db: DB_DEPENDENCY):
 
 
 @router.post('/get_all_unis_of_teacher', status_code=200, response_model=list[UniDisplay])
-async def get_all_unis_of_teacher(teacher_id, db: DB_DEPENDENCY):
+async def get_all_unis_of_teacher(teacher_id: ID_BODY, db: DB_DEPENDENCY):
     return await uni_teacher_functions.get_all_unis_of_teacher(teacher_id=teacher_id, db=db)

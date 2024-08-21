@@ -123,10 +123,20 @@ async def admin_delete_user(user_id: int, db: Session):
     if not user:
         raise USER_NOT_FOUND_ERROR
 
-    if user.is_admin or user.is_super_admin:
+    if user.is_admin and user.is_super_admin:
         raise DONT_HAVE_ACCESS_ADMIN_ERROR
 
-    return delete_user(user_id=user_id, db=db)
+    delete_comment_actions = delete(CommentAction).where(CommentAction.user_id == user_id)
+    delete_comments = delete(Comment).where(Comment.user_id == user_id)
+    delete_ratings = delete(Rating).where(Rating.user_id == user_id)
+
+    db.execute(delete_comment_actions)
+    db.execute(delete_comments)
+    db.execute(delete_ratings)
+
+    db.delete(user)
+    db.commit()
+    return f"User '{user.username}' Has Been Deleted"
 
 
 async def ban_user(user_id: int, db: Session):
