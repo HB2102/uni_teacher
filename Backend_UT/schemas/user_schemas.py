@@ -31,7 +31,6 @@ class UserAuth(BaseModel):
 
 
 class UserUpdateModel(BaseModel):
-    id: int
     username: str | None = None
     password: str | None = None
     phone_number: str | None = None

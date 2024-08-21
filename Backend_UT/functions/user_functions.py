@@ -8,7 +8,6 @@ from errors.user_errors import (
     USER_NAME_DUPLICATE_ERROR,
     EMAIL_DUPLICATE_ERROR,
     PHONE_NUMBER_NAME_DUPLICATE_ERROR,
-    DONT_HAVE_ACCESS_ERROR,
     NO_USER_FOUND_ERROR,
     DONT_HAVE_ACCESS_ADMIN_ERROR
 )
@@ -71,12 +70,9 @@ async def create_user(request: UserModel, db: Session):
 
 
 async def update_user(user_id: int, request: UserUpdateModel, db: Session):
-    user = db.query(User).filter(User.id == request.id).first()
+    user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise USER_NOT_FOUND_ERROR
-
-    if user_id != request.id:
-        raise DONT_HAVE_ACCESS_ERROR
 
     if request.username:
         if check_username_duplicate(request.username, db):

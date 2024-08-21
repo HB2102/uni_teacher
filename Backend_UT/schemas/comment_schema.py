@@ -28,3 +28,8 @@ class CommentDisplayUser(CommentDisplay):
 
     class Config:
         from_attribute = True
+
+
+class TeacherSearchRequest(BaseModel):
+    teacher_id: int
+    order: str | None = None
