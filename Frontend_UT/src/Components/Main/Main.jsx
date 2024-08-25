@@ -6,8 +6,16 @@ import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { useInView } from 'react-intersection-observer';
 import { TfiEmail } from "react-icons/tfi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
+import { useState } from 'react';
+import Signin from '../SignIn/SignIn';
 function Main() {
-  
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+  const handleClickLogin = () => {
+    setIsMenuOpen(true);
+  };
+
   const { ref: refFirstSection, inView: inViewFirstSection } = useInView({
     triggerOnce: true, 
     threshold: 0,
@@ -103,17 +111,17 @@ function Main() {
                 />
               </div>
             </div>
-            <div className="space-y-2 lg:w-1/2 text-right text-4xl md:text-5xl lg:text-3xl font-bold mb-6" dir='rtl'>
+            {isMenuOpen===true ? <Signin/> : <div className="space-y-2 lg:w-1/2 text-right text-4xl md:text-5xl lg:text-3xl font-bold mb-6" dir='rtl'>
+ 
+ <p className="flex items-center pb-5 leading-relaxed">
+     
+     عاهرذسصخدص
+      <br/>
+     با داشتن حساب کاربری از امکانات بیشتری<br/> بهره‌مند شوید
+ </p> 
+ <button onClick={handleClickLogin} className="bg-teal-500  text-xl px-6 py-2 rounded-full text-white hover:bg-teal-600">ورود/ثبت نام</button>
+ </div> }
            
-
-            <p className="flex items-center pb-5 leading-relaxed">
-                
-                عاهرذسصخدص
-                 <br/>
-                با داشتن حساب کاربری از امکانات بیشتری<br/> بهره‌مند شوید
-            </p> 
-            <button className="bg-teal-500  text-xl px-6 py-2 rounded-full text-white hover:bg-teal-600">ورود/ثبت نام</button>
-            </div>
           </motion.section>
 
           <motion.section 

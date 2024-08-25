@@ -14,7 +14,7 @@ const LandingPage = () => {
 
  </MenuBar>
  <Main></Main>
- <SignIn/>
+
  </div>
  </div>
   )

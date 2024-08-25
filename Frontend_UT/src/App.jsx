@@ -3,7 +3,7 @@ import React from 'react';
 import '../tailwind.config.js'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
-import SignIn from './Components/SignIn/SignIn';
+import Signin from './Components/SignIn/SignIn';
 import MenuBar from './Components/Navbar/Navbar';
 import Main from './Components/Main/Main.jsx';
 import LandingPage from './Components/Landing-page/LandingPage.jsx';
@@ -15,9 +15,9 @@ function App() {
     <Router>
     <div>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<Signin />} />
         <Route path="/home" element={<LandingPage />} />
-        <Route path="/dark" element={<DarkModeSwitch />} />
+
        
       </Routes>
     </div>
