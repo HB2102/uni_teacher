@@ -9,8 +9,12 @@ export default {
     fontFamily: {
       iran: ['iran'], 
     },
+    lineHeight: {
+      'relaxed': '1.25',
+    },
   },
   plugins: [
     () => import('tailwindcss-rtl')
   ],
+  darkMode: "class",
 }
