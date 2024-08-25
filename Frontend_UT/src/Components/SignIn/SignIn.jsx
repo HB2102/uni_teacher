@@ -5,10 +5,10 @@ import { FaUser, FaLock } from "react-icons/fa";
 
 const Signin = () => {
   return (
-    <section className="hero-wrapper">
+    <div className="">
       <div className="flexCenter paddings innerWidth hero-container">
         {/* left side */}
-        <div className="flexColStart hero-left">
+        <div className="flexColStart ">
           <motion.div
             initial={{ x: "-7rem", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -39,7 +39,7 @@ const Signin = () => {
                 <a href="">Forgot password?</a>
               </div>
 
-              <button className="button" type="submit">
+              <button className="button bg-teal-600" type="submit">
                 Login
               </button>
 
@@ -52,7 +52,7 @@ const Signin = () => {
 
       
       </div>
-    </section>
+    </div>
   );
 };
 

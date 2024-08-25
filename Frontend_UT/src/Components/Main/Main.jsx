@@ -95,7 +95,7 @@ function Main() {
             initial={{ x: -300, opacity: 0 }} 
             animate={inViewSecondSection ? { x: 0, opacity: 1 } : { x: -300, opacity: 0 }} 
             transition={{ duration: 1 }} 
-            className="flex flex-col-reverse lg:flex-row items-center"
+            className="flex flex-col-reverse lg:flex-row lg:gap-40 items-center"
           >
             <div className="lg:w-1/2 pb-4">
               <div className="w-full rounded-lg overflow-hidden relative">
@@ -111,7 +111,14 @@ function Main() {
                 />
               </div>
             </div>
-            {isMenuOpen===true ? <Signin/> : <div className="space-y-2 lg:w-1/2 text-right text-4xl md:text-5xl lg:text-3xl font-bold mb-6" dir='rtl'>
+            {isMenuOpen===true ?  
+      <div>
+        <div className="white-gradient"/>
+        
+        <Signin/>
+      </div>
+      
+    : <div className="space-y-2 lg:w-1/2 text-right text-4xl md:text-5xl lg:text-3xl font-bold mb-6" dir='rtl'>
  
  <p className="flex items-center pb-5 leading-relaxed">
      
