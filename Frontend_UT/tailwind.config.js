@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      iran: ['iran'], 
+    },
   },
-  plugins: [],
+  plugins: [
+    () => import('tailwindcss-rtl')
+  ],
 }
