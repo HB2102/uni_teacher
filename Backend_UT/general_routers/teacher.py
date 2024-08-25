@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.post('/search_teacher_name', status_code=302, response_model=list[TeacherProfileDisplay])
+@router.post('/search_teacher_name', status_code=200, response_model=list[TeacherProfileDisplay])
 async def search_teacher_name(teacher_name: NAME_BODY, db: DB_DEPENDENCY):
     return await teacher_functions.search_teacher_name(teacher_name=teacher_name, db=db)
 

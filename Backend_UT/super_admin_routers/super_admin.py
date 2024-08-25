@@ -22,12 +22,12 @@ async def add_super_admin(request: UserModel, db: DB_DEPENDENCY):
     return await super_admin_functions.create_super_admin(request=request, db=db)
 
 
-@router.get('/get_all_admins', status_code=302, response_model=list[UserDisplay], dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY])
+@router.get('/get_all_admins', status_code=200, response_model=list[UserDisplay], dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY])
 async def get_all_admins(db: DB_DEPENDENCY):
     return await super_admin_functions.get_all_admins(db=db)
 
 
-@router.get('/search_admin', status_code=302, response_model=list[UserDisplay], dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY])
+@router.get('/search_admin', status_code=200, response_model=list[UserDisplay], dependencies=[ROUTER_SUPER_ADMIN_DEPENDENCY])
 async def search_admin_username(username: USER_NAME_BODY, db: DB_DEPENDENCY):
     return await super_admin_functions.search_admin_by_username(user_name=username, db=db)
 

@@ -11,17 +11,17 @@ router = APIRouter(
 )
 
 
-@router.get('/get_all_subjects', status_code=302, response_model=list[SubjectDisplay])
+@router.get('/get_all_subjects', status_code=200, response_model=list[SubjectDisplay])
 async def get_all_subjects(db: DB_DEPENDENCY):
     return await subject_functions.get_all_subjects(db=db)
 
 
-@router.post('/get_subject_by_id', status_code=302, response_model=SubjectDisplay)
+@router.post('/get_subject_by_id', status_code=200, response_model=SubjectDisplay)
 async def get_subject_by_id(subjects_id: ID_BODY, db: DB_DEPENDENCY):
     return await subject_functions.get_subject_by_id(subject_id=subjects_id, db=db)
 
 
-@router.post('/search_subject', status_code=302, response_model=list[SubjectDisplay])
+@router.post('/search_subject', status_code=200, response_model=list[SubjectDisplay])
 async def search_subject(subject_name: NAME_BODY, db: DB_DEPENDENCY):
     return await subject_functions.search_subject_name(subject_name=subject_name, db=db)
 

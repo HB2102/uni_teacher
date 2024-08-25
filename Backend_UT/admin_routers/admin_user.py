@@ -13,27 +13,27 @@ router = APIRouter(
 )
 
 
-@router.post('/search_users', status_code=302, response_model=list[UserDisplay])
+@router.post('/search_users', status_code=200, response_model=list[UserDisplay])
 async def search_username(username: NAME_BODY, db: DB_DEPENDENCY):
     return await user_functions.search_user_by_username(user_name=username, db=db)
 
 
-@router.get('/get_all_users', status_code=302, response_model=list[UserDisplay])
+@router.get('/get_all_users', status_code=200, response_model=list[UserDisplay])
 async def get_all_users(db: DB_DEPENDENCY):
     return await user_functions.get_all_users(db=db)
 
 
-@router.post('/get_user_by_username', status_code=302, response_model=UserDisplay)
+@router.post('/get_user_by_username', status_code=200, response_model=UserDisplay)
 async def get_user_by_username(username: NAME_BODY, db: DB_DEPENDENCY):
     return await user_functions.get_user_by_username(username=username, db=db)
 
 
-@router.post('/get_user_by_id', status_code=302, response_model=UserDisplay)
+@router.post('/get_user_by_id', status_code=200, response_model=UserDisplay)
 async def get_user_by_id(user_id: ID_BODY, db: DB_DEPENDENCY):
     return await user_functions.get_user_by_id(user_id=user_id, db=db)
 
 
-@router.get('/get_all_banned_users', status_code=302, response_model=list[UserDisplay])
+@router.get('/get_all_banned_users', status_code=200, response_model=list[UserDisplay])
 async def get_all_banned_users(db: DB_DEPENDENCY):
     return await user_functions.get_all_banned_users(db=db)
 
