@@ -13,27 +13,27 @@ router = APIRouter(
 )
 
 
-@router.post('/get_request', status_code=302, response_model=RequestDisplay)
+@router.post('/get_request', status_code=200, response_model=RequestDisplay)
 async def get_request_by_id(request_id: ID_BODY, db: DB_DEPENDENCY):
     return await request_functions.get_request_by_id(request_id=request_id, db=db)
 
 
-@router.get('/get_request_to_review', status_code=302, response_model=list[RequestDisplay])
+@router.get('/get_request_to_review', status_code=200, response_model=list[RequestDisplay])
 async def get_request_to_review(db: DB_DEPENDENCY):
     return await request_functions.get_requests_to_review(db=db)
 
 
-@router.get('/get_all_requests', status_code=302, response_model=list[RequestDisplay])
+@router.get('/get_all_requests', status_code=200, response_model=list[RequestDisplay])
 async def get_all_requests(db: DB_DEPENDENCY):
     return await request_functions.get_all_requests(db=db)
 
 
-@router.post('/search_request', status_code=302, response_model=list[RequestDisplay])
+@router.post('/search_request', status_code=200, response_model=list[RequestDisplay])
 async def search_request(request_text: NAME_BODY, db: DB_DEPENDENCY):
     return await request_functions.search_request(request_text=request_text, db=db)
 
 
-@router.get('/get_all_reviewed_request', status_code=302, response_model=list[RequestDisplay])
+@router.get('/get_all_reviewed_request', status_code=200, response_model=list[RequestDisplay])
 async def get_all_reviewed_request(db: DB_DEPENDENCY):
     return await request_functions.get_all_reviewed_request(db=db)
 
