@@ -6,17 +6,17 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        iran: ['iran'], 
+      },
       colors: {
-        // New custom color
         myNewColor: {
           DEFAULT: '#3498db',
           light: '#2980b9',
           dark: '#34495e',
         },}
     },
-    fontFamily: {
-      iran: ['iran'], 
-    },
+  
     lineHeight: {
       'relaxed': '1.25',
     },

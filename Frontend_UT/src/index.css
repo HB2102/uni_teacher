@@ -1,3 +1,15 @@
+
+@font-face {
+    font-family: 'iran';
+    src:
+         url('./fonts/iran.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
