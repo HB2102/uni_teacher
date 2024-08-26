@@ -34,8 +34,8 @@ export function Footer() {
       animate={ inViewFooterSection ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }} 
       transition={{ duration: 1 }} 
     >
-      <footer className="relative w-full mt-10">
-        <div className="mx-auto w-full max-w-7xl px-8">
+      <footer className="relative w-full mt-10 ">
+        <div className="mx-auto w-full max-w-full ">
           <div className="grid grid-cols-1 mb-3 justify-between gap-2 md:grid-cols-2">
             <Typography variant="h5" className="">
               فتل بهزادی

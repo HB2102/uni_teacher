@@ -32,9 +32,9 @@ function Main() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-4">
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>      
-        <main className="flex flex-col gap-4 w-full max-w-6xl mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
+        <main className="flex flex-col gap-4 w-full max-w-full mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
           
           <motion.section 
             ref={refFirstSection}
@@ -46,7 +46,7 @@ function Main() {
           >
             <div className="lg:w-1/2">
               <div className="w-full rounded-lg overflow-hidden relative">
-                <FaUniversity style={{ fontSize: '550px', opacity: '0.15' }} className="w-full object-cover text-gray-400" />
+                <FaUniversity style={{ fontSize: '550px', opacity: '0.15' }} className="w-full object-cover text-stone-400" />
                 <PiStudent
                   style={{
                     fontSize: '320px',
@@ -93,7 +93,7 @@ function Main() {
           >
             <div className="lg:w-1/2 pb-4">
               <div className="w-full rounded-lg overflow-hidden relative">
-                <LiaChalkboardTeacherSolid style={{ fontSize: '550px', opacity: '0.15' }} className="w-full object-cover text-gray-400" />
+                <LiaChalkboardTeacherSolid style={{ fontSize: '550px', opacity: '0.15' }} className="w-full object-cover text-stone-400" />
                 <FaUniversity 
                   style={{ 
                     fontSize: '300px', 
@@ -119,7 +119,7 @@ function Main() {
           >
             <div className="lg:w-1/2">
               <div className="w-full rounded-lg overflow-hidden relative">
-                <TfiEmail style={{ fontSize: '500px', opacity: '0.15' }} className="w-full object-cover text-gray-400" />
+                <TfiEmail style={{ fontSize: '500px', opacity: '0.15' }} className="w-full object-cover text-stone-400" />
                 <MdOutlineAlternateEmail
                   style={{
                     fontSize: '300px',

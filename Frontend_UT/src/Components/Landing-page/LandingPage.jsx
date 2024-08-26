@@ -8,8 +8,8 @@ const LandingPage = () => {
   
 
   return (
-    <div className=" min-h-screen bg-gray-900 text-white flex flex-col  items-center justify-center p-4">
-      <div style={{ minHeight: 'calc(100vh - 60px)' }}>
+    <div className="overflow-x min-h-screen bg-gray-950 text-white flex flex-col  items-center justify-center p-4">
+      <div >
  <MenuBar>
 
  </MenuBar>

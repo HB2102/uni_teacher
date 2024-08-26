@@ -138,7 +138,7 @@ const Signin = () => {
               </p>
               <button
                 onClick={handleShowLogin}
-                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600"
+                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600 align-middle"
                 style={{ maxWidth: "150px" }}
               >
                 ورود/ثبت نام

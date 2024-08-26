@@ -23,7 +23,7 @@ function MenuBar() {
   >
     <div >
       <div>
-        <header className="navbar  flex justify-between items-center bg-teal-800 bg-opacity-25 w-full mt-6 mb-1 relative p-7 rounded-3xl">
+        <header className="navbar  flex justify-between items-center bg-teal-800 bg-opacity-25 w-full mt-6 mb-1 relative p-6 rounded-3xl">
 
          
           <div className="flex items-center">
@@ -47,12 +47,12 @@ function MenuBar() {
           <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} absolute sm:relative top-full left-0 w-full sm:w-auto bg-gray-900 sm:bg-transparent p-6 sm:p-0 z-10`}>
             <ul className="flex flex-col gap-3 sm:flex-row sm:space-x-4 items-center">
               <li>
-                <a href="#about" className="relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
+                <h2 href="#about" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   درباره‌ی ما
-                </a>
+                </h2>
               </li>
               <li>
-                <a href="#blog" className="relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
+                <a href="#blog" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   ارسال درخواست
                 </a>
               </li>
