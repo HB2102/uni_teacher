@@ -1,5 +1,35 @@
 
 
+.login-box {
+  width: 90%; 
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+
+.hero-container {
+  width: 50%;
+  padding: 0; 
+}
+.hero-container {
+  width: 100%;
+  padding: 15px;
+}
+
+@media (min-width: 1030px) {
+  .hero-container {
+    width: 50%;
+    padding: 0;
+  }
+}
+
+
+.flexColStart {
+  width: 100%; 
+  padding: 0; 
+  margin: 0;
+}
+
 
   /*-----left Side-----*/
 
@@ -231,8 +261,7 @@
 
 .white-gradient {
     position: absolute;
-    width: 10rem;
-    height: 10rem;
+
     background: rgba(255, 255, 255, .522);
     filter: blur(100px);
     border-radius: 100px;

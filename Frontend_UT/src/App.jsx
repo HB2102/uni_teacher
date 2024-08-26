@@ -8,6 +8,9 @@ import MenuBar from './Components/Navbar/Navbar';
 import Main from './Components/Main/Main.jsx';
 import LandingPage from './Components/Landing-page/LandingPage.jsx';
 import DarkModeSwitch from './Components/Navbar/dark.jsx';
+import Searchbar from './Components/SearchBar/Searchbar.jsx';
+import FooterWithSocialLinks from './Components/show.jsx';
+import Footer from './Components/Footer/Footer.jsx';
 
 
 function App() {
@@ -15,7 +18,7 @@ function App() {
     <Router>
     <div>
       <Routes>
-        <Route path="/" element={<Signin />} />
+        <Route path="/" element={<FooterWithSocialLinks />} />
         <Route path="/home" element={<LandingPage />} />
 
        

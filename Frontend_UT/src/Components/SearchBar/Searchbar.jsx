@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import {AiOutlineSearch} from 'react-icons/ai'
+import MainSearchbar from './MainSearchbar'
 
 const words=[
     'sara',
@@ -24,7 +25,8 @@ const Searchbar = () => {
     }
 
   return (
-    <form className='w-[500px] relative'>
+    <>
+     <form className='w-[500px] relative'>
         <div className="relative">
             <input type="search" placeholder='دنبال چی میگردی؟' className='placeholder:p-12 placeholder:text-gray-700 w-full p-4 rounded-full bg-slate-300' onChange={(e) => handleSearch(e)}/>
             <button className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-slate-600 rounded-full'>
@@ -47,6 +49,10 @@ const Searchbar = () => {
 
         
     </form>
+
+    
+    </>
+   
   )
 }
 

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import MenuBar from '../Navbar/Navbar'
 import Main from '../Main/Main'
-import SignIn from '../SignIn/SignIn'
+import Footer from '../Footer/Footer'
 const LandingPage = () => {
 
   
@@ -14,7 +14,7 @@ const LandingPage = () => {
 
  </MenuBar>
  <Main></Main>
-
+  <Footer/>
  </div>
  </div>
   )

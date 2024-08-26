@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // New custom color
+        myNewColor: {
+          DEFAULT: '#3498db',
+          light: '#2980b9',
+          dark: '#34495e',
+        },}
+    },
     fontFamily: {
       iran: ['iran'], 
     },

@@ -4,7 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { PiStudent } from "react-icons/pi";
 import { FaUniversity } from "react-icons/fa";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { motion } from 'framer-motion'; 
 import DarkModeSwitch from './dark';
 
 
@@ -43,7 +43,7 @@ function MenuBar() {
             )}
           </div>
 
-          
+          <DarkModeSwitch /> 
           <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} absolute sm:relative top-full left-0 w-full sm:w-auto bg-gray-900 sm:bg-transparent p-6 sm:p-0 z-10`}>
             <ul className="flex flex-col gap-3 sm:flex-row sm:space-x-4 items-center">
               <li>
@@ -56,11 +56,10 @@ function MenuBar() {
                   ارسال درخواست
                 </a>
               </li>
-              <li>
-               <DarkModeSwitch/>
-              </li>
             </ul>
+            
           </nav>
+          
         </header>
 
       </div>

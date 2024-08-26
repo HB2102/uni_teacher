@@ -8,12 +8,13 @@ import { TfiEmail } from "react-icons/tfi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { useState } from 'react';
 import Signin from '../SignIn/SignIn';
+import MainSearchbar from '../SearchBar/MainSearchbar';
 function Main() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
 
   const handleClickLogin = () => {
-    setIsMenuOpen(true);
+    setShowLogin(true);
   };
 
   const { ref: refFirstSection, inView: inViewFirstSection } = useInView({
@@ -24,7 +25,7 @@ function Main() {
     triggerOnce: true, 
     threshold: 0, 
   });
-  // Use the useInView hook for the second section
+ 
   const { ref: refSecondSection, inView: inViewSecondSection } = useInView({
     triggerOnce: true,
     threshold: 0,
@@ -33,7 +34,7 @@ function Main() {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>      
-        <main className="flex flex-col gap-4 w-full max-w-7xl mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
+        <main className="flex flex-col gap-4 w-full max-w-6xl mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
           
           <motion.section 
             ref={refFirstSection}
@@ -60,14 +61,7 @@ function Main() {
             <div className="flex flex-col gap-2 items-start lg:w-1/2 p-4 text-center lg:text-right">
               <h1 className="text-4xl lg:leading-relaxed md:text-5xl lg:text-6xl font-bold mb-6">توضیحات متفرقه در تایتل این مجموعه</h1>
               <p className="mb-6">یادآوری: یکم فونت زشته و فاصله‌ی بین خطوط باید اصلاح بشه</p>
-              <div className="flex w-full mb-4 flex-col sm:flex-row">
-                <button className="bg-teal-500 px-6 py-3 rounded-full text-white hover:bg-teal-600">جستجو</button>
-                <input
-                  type="text"
-                  placeholder="دنبال چی میگردی؟"
-                  className="lg:w-2/3 p-3 placeholder:text-gray-500 placeholder:pr-4 rounded-full text-black mb-3 sm:mb-0 sm:mr-2 text-right bg-slate-200"
-                />
-              </div>
+              <MainSearchbar/>
               <ul className="space-y-2 text-sm text-right" dir='rtl'>
             <li className="flex items-center">
                 <span className="bg-teal-500 rounded-full w-2 h-2 mr-2"></span>
@@ -95,7 +89,7 @@ function Main() {
             initial={{ x: -300, opacity: 0 }} 
             animate={inViewSecondSection ? { x: 0, opacity: 1 } : { x: -300, opacity: 0 }} 
             transition={{ duration: 1 }} 
-            className="flex flex-col-reverse lg:flex-row lg:gap-40 items-center"
+            className="flex flex-col-reverse lg:flex-row lg:gap-4 items-center"
           >
             <div className="lg:w-1/2 pb-4">
               <div className="w-full rounded-lg overflow-hidden relative">
@@ -111,23 +105,7 @@ function Main() {
                 />
               </div>
             </div>
-            {isMenuOpen===true ?  
-      <div>
-        <div className="white-gradient"/>
-        
-        <Signin/>
-      </div>
-      
-    : <div className="space-y-2 lg:w-1/2 text-right text-4xl md:text-5xl lg:text-3xl font-bold mb-6" dir='rtl'>
- 
- <p className="flex items-center pb-5 leading-relaxed">
-     
-     عاهرذسصخدص
-      <br/>
-     با داشتن حساب کاربری از امکانات بیشتری<br/> بهره‌مند شوید
- </p> 
- <button onClick={handleClickLogin} className="bg-teal-500  text-xl px-6 py-2 rounded-full text-white hover:bg-teal-600">ورود/ثبت نام</button>
- </div> }
+            <Signin/>
            
           </motion.section>
 
@@ -156,14 +134,7 @@ function Main() {
             <div className="flex flex-col gap-2 items-start lg:w-1/2 p-4 text-center lg:text-right">
               <h1 className="text-4xl lg:leading-relaxed md:text-5xl lg:text-6xl font-bold mb-6">توضیحات متفرقه در تایتل این مجموعه</h1>
               <p className="mb-6">یادآوری: یکم فونت زشته و فاصله‌ی بین خطوط باید اصلاح بشه</p>
-              <div className="flex w-full mb-4 flex-col sm:flex-row">
-                <button className="bg-teal-500 px-6 py-3 rounded-full text-white hover:bg-teal-600">جستجو</button>
-                <input
-                  type="text"
-                  placeholder="دنبال چی میگردی؟"
-                  className="lg:w-2/3 p-3 placeholder:text-gray-500 placeholder:pr-4 rounded-full text-black mb-3 sm:mb-0 sm:mr-2 text-right bg-slate-200"
-                />
-              </div>
+             <MainSearchbar/>
               
             </div>
           </motion.section>
@@ -174,3 +145,4 @@ function Main() {
 }
 
 export default Main;
+
