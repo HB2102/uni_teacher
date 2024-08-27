@@ -105,8 +105,7 @@ function Main() {
                 />
               </div>
             </div>
-            <Signin/>
-           
+            <Signin/>      
           </motion.section>
 
           <motion.section 

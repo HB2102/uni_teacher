@@ -98,6 +98,7 @@
   }
   
   .login-box .remember-forgot {
+    direction: rtl;
     display: flex;
     justify-content: space-between;
     font-size: var(--normal-font-size);
@@ -266,4 +267,5 @@
     filter: blur(100px);
     border-radius: 100px;
 }
+
 

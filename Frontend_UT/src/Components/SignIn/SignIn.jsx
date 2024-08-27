@@ -3,10 +3,70 @@ import "./SignIn.css";
 import { motion } from "framer-motion";
 import { FaUser, FaLock } from "react-icons/fa";
 import { GrFormNextLink } from "react-icons/gr";
-
+import { FaPhoneFlip } from "react-icons/fa6";
+import {BiLogoGmail } from "react-icons/bi";
+import axios from 'axios';
+import Swal from "sweetalert2";  
 const Signin = () => {
   const [showComponent, setshowComponent] = useState("Text");
+  const [signUpData, setSignUpData] = useState({
+    username: '',
+    password: '',
+    phone_number:'',
+    email:''
+  });
 
+  const handleInputChange = (e) => {
+    setSignUpData({
+      ...signUpData,
+      [e.target.name]: e.target.value
+    });
+    console.log(signUpData);
+    
+  };
+  const handleSignUpSubmit = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/user/create_user', signUpData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+  
+      if (response.status === 201) { 
+        console.log('User created successfully:', response.data);
+       // Show success alert using SweetAlert2
+       Swal.fire({
+        title: "Success!",
+        text: "User created successfully.",
+        className:"bg-gray-500 text-white ",
+        icon: "success",
+        timer: 3000, 
+        timerProgressBar: true,  
+        showConfirmButton: true,
+      });
+
+        setSignUpData({
+          username: '',
+          password: '',
+          phone_number: '',
+          email: ''
+        });
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      Swal.fire({
+        title: "Error!",
+        text: "There was a problem creating the user.",
+        className:"bg-gray-500 text-white ",
+        icon: "error",
+        timer: 3000,
+        timerProgressBar: true, 
+        showConfirmButton: true, 
+      });
+    }
+  };
+  
   const handleShowLogin = () => {
     setshowComponent("Login");
     console.log(showComponent);
@@ -30,38 +90,37 @@ const Signin = () => {
                 <h1>ورود </h1>
                 <GrFormNextLink className="text-3xl" onClick={handleShowText}/>
               </div>
-
-              <div className="input-box">
-                <input type="text" required />
-                <label>Username</label>
-                <FaUser />
-              </div>
-              <div className="input-box">
-                <input type="password" required />
-                <label>Password</label>
-                <FaLock />
-              </div>
-
+              <div className="input-box ">
+                  <input name="username" type="text" required value={signUpData.username} onChange={handleInputChange}/>
+                  <label>نام کاربری</label>
+                  <FaUser />
+                </div>
+                <div className="input-box">
+                  <input name="password" type="password" required value={signUpData.password} onChange={handleInputChange} />
+                  <label>رمز عبور</label>
+                  <FaLock />
+                </div>
               <div className="remember-forgot">
-                <label>
+                  <label className="flex flex-row gap-2">
                   <input type="checkbox" />
-                  Remember me
-                </label>
-                <a href="">Forgot password?</a>
-              </div>
-
+                     فراموشم نکن
+                    
+                  </label>
+                  <a href="">مزم یادم رفته</a>
+                </div>
               <button className="button bg-teal-600" type="submit">
                 Login
               </button>
 
               <div className="register-link">
-                Don't have an account?{" "}
-                <button
-                  className="hover:text-teal-400 transition-all duration-300 hover:underline  after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 button p-0 pl-1"
+              <button
+                  className="hover:text-teal-400 transition-all duration-300 hover:underline  after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 button p-0 pr-1"
                   onClick={handleShowRegister}
                 >
-                  Register
+                  بسازید
                 </button>
+              {" "} حساب کاربری ندارید؟
+          
               </div>
             </form>
           </>
@@ -77,28 +136,47 @@ const Signin = () => {
                 type: "spring",
               }}
             >
-              <form className="login-box" action="">
+              <form className="login-box " action="" onSubmit={(e) => {
+            e.preventDefault();
+            handleSignUpSubmit();
+          }}>
                 <div className="flex flex-row justify-between">
                   <h1>ثبت نام</h1>
                   <GrFormNextLink className="text-3xl" onClick={handleShowText} />
                 </div>
 
-                <div className="input-box">
-                  <input type="text" required />
-                  <label>Username</label>
+                <div className="input-box ">
+                  <input name="username" type="text" required value={signUpData.username} onChange={handleInputChange}/>
+                  <label>نام کاربری</label>
                   <FaUser />
+                </div>
+                <div className="input-box">
+                  <input name="password" type="password" required value={signUpData.password} onChange={handleInputChange} />
+                  <label>رمز عبور</label>
+                  <FaLock />
+                </div>
+                <div className="input-box">
+                  <input name="phone_number" type="text" required value={signUpData.phone_number} onChange={handleInputChange} />
+                  <label>شماره موبایل</label>
+                  <FaPhoneFlip />
+                </div>
+                <div className="input-box">
+                  <input name="email" type="email" required value={signUpData.email} onChange={handleInputChange} />
+                  <label>ایمیل</label>
+                  <BiLogoGmail className="h-5 w-5"/>
                 </div>
 
                 <div className="remember-forgot">
-                  <label>
-                    <input type="checkbox" />
-                    Remember me
+                  <label className="flex flex-row gap-2">
+                  <input type="checkbox" />
+                     فراموشم نکن
+                    
                   </label>
-                  <a href="">Forgot password?</a>
+                  
                 </div>
 
                 <button className="button bg-teal-600" type="submit">
-                  Login
+                  Sign up
                 </button>
 
                 <div className="register-link">
@@ -138,7 +216,7 @@ const Signin = () => {
               </p>
               <button
                 onClick={handleShowLogin}
-                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600 align-middle"
+                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600"
                 style={{ maxWidth: "150px" }}
               >
                 ورود/ثبت نام
