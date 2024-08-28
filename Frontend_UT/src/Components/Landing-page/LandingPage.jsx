@@ -8,7 +8,8 @@ const LandingPage = () => {
   
 
   return (
-    <div className="overflow-x min-h-screen bg-gray-950 text-white flex flex-col  items-center justify-center p-4 ">
+  
+    <div  className="overflow-x min-h-screen text-white flex flex-col  items-center justify-center p-4 ">
       <div >
  <MenuBar>
 

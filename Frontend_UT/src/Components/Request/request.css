@@ -1,0 +1,26 @@
+.max-h-64 {
+  max-height: 19rem;
+}
+/*Quick overrides of the form input as using the CDN version*/
+input,
+.form-textarea,
+.form-select,
+.form-multiselect {
+  background-color: #edf2f7;
+}
+/* request.css */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}

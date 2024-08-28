@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import './SignIn.css';
 
-const SignIn= () => {
+const Window= () => {
  
  const [isModalOpen, setIsModalOpen] = useState(false);
 
  const toggleModal = () => {
    setIsModalOpen(!isModalOpen);
+  
  };
 
  return (
@@ -48,4 +49,4 @@ function Modal({ toggleModal }) {
  );
 };
 
-export default SignIn;
+export default Window;

@@ -9,14 +9,8 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { useState } from 'react';
 import Signin from '../SignIn/SignIn';
 import MainSearchbar from '../SearchBar/MainSearchbar';
+import {BiLogoGmail  } from "react-icons/bi";
 function Main() {
-  const [showLogin, setShowLogin] = useState(false);
-
-
-  const handleClickLogin = () => {
-    setShowLogin(true);
-  };
-
   const { ref: refFirstSection, inView: inViewFirstSection } = useInView({
     triggerOnce: true, 
     threshold: 0,
@@ -32,7 +26,7 @@ function Main() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen text-white flex flex-col items-center justify-center p-4">
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>      
         <main className="flex flex-col gap-4 w-full max-w-full mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
           
@@ -118,7 +112,7 @@ function Main() {
           >
             <div className="lg:w-1/2">
               <div className="w-full rounded-lg overflow-hidden relative">
-                <TfiEmail style={{ fontSize: '500px', opacity: '0.15' }} className="w-full object-cover text-stone-400" />
+                <BiLogoGmail style={{ fontSize: '500px', opacity: '0.15' }} className="w-full object-cover text-stone-400" />
                 <MdOutlineAlternateEmail
                   style={{
                     fontSize: '300px',

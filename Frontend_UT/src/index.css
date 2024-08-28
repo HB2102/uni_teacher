@@ -9,9 +9,12 @@
   
 body{
   overflow-x: hidden
+
 }
 
+/* CSS Reset */
 
+ 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -7,7 +7,9 @@ import { FaPhoneFlip } from "react-icons/fa6";
 import {BiLogoGmail } from "react-icons/bi";
 import axios from 'axios';
 import Swal from "sweetalert2";  
+import { useNavigate } from 'react-router-dom';
 const Signin = () => {
+  const navigate = useNavigate();
   const [showComponent, setshowComponent] = useState("Text");
   const [signUpData, setSignUpData] = useState({
     username: '',
@@ -34,17 +36,15 @@ const Signin = () => {
       });
   
       if (response.status === 201) { 
-        console.log('User created successfully:', response.data);
-       // Show success alert using SweetAlert2
-       Swal.fire({
-        title: "Success!",
-        text: "User created successfully.",
-        className:"bg-gray-500 text-white ",
-        icon: "success",
-        timer: 3000, 
-        timerProgressBar: true,  
-        showConfirmButton: true,
-      });
+        navigate('/user-Panel');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title:"اکانت شما با موفقیت ساخته شد",
+          showConfirmButton: false,
+          timerProgressBar: true, 
+          timer: 2000
+        });
 
         setSignUpData({
           username: '',
@@ -56,9 +56,9 @@ const Signin = () => {
     } catch (error) {
       console.error('Error creating user:', error);
       Swal.fire({
+        position: "top-end",
         title: "Error!",
         text: "There was a problem creating the user.",
-        className:"bg-gray-500 text-white ",
         icon: "error",
         timer: 3000,
         timerProgressBar: true, 

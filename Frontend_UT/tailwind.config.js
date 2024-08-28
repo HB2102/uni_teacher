@@ -10,11 +10,29 @@ export default {
         iran: ['iran'], 
       },
       colors: {
-        myNewColor: {
-          DEFAULT: '#3498db',
-          light: '#2980b9',
-          dark: '#34495e',
-        },}
+        background: {
+          light: '#f3f4f6',
+          dark: '#030712',
+          
+        },
+        titles:{
+          light:  '#fafafa',
+          dark: '#030712',
+        },
+        text: {
+          light:  '#fafafa',
+          dark: '#030712',
+          gray:'#374151'
+        },
+        icons:{
+          light:  '#44403c',
+          dark: '#115e59',
+        },
+        nav:{
+          light:  '#99f6e4',
+          dark: '#115e59',
+        }
+      }
     },
   
     lineHeight: {

@@ -6,15 +6,21 @@ import { FaUniversity } from "react-icons/fa";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { motion } from 'framer-motion'; 
 import DarkModeSwitch from './dark';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 function MenuBar() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const handleSendRequest=() =>{
+    navigate("/request");
+  }
+ 
   return (
     <motion.div 
     initial={{ y: -100, opacity: 0 }} 
@@ -27,11 +33,11 @@ function MenuBar() {
 
          
           <div className="flex items-center">
-          <FaUniversity className="bg-teal-500 text-teal-800 border border-teal-800  w-10 h-10 rounded-full mr-3"/>
+            <FaUniversity className="bg-teal-500 text-teal-800 border border-teal-800  w-10 h-10 rounded-full mr-3"/>
             < LiaChalkboardTeacherSolid className="bg-teal-500  text-teal-800 border border-teal-800  w-10 h-10 rounded-full mr-3"/>
             
             < PiStudent className=" bg-teal-500  text-teal-800 border border-teal-800  w-8 h-8 rounded-full mr-3"/>
-            {/* <span className="text-xl font-bold">فوکینگ لوگو</span> */}
+          
           </div>
 
           
@@ -44,17 +50,22 @@ function MenuBar() {
           </div>
 
           <DarkModeSwitch /> 
-          <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} absolute sm:relative top-full left-0 w-full sm:w-auto bg-gray-900 sm:bg-transparent p-6 sm:p-0 z-10`}>
+          <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} absolute sm:relative top-full left-0 w-full sm:w-auto  sm:bg-transparent p-6 sm:p-0 z-10`}>
             <ul className="flex flex-col gap-3 sm:flex-row sm:space-x-4 items-center">
               <li>
                 <h2 href="#about" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   درباره‌ی ما
                 </h2>
               </li>
-              <li>
-                <a href="#blog" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
+              <li onClick={handleSendRequest}
+              >
+             
+                <p  href="#blog" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   ارسال درخواست
-                </a>
+                  <div className='text-black'>
+                  </div>
+                </p>
+              
               </li>
             </ul>
             
@@ -64,6 +75,7 @@ function MenuBar() {
 
       </div>
     </div>
+    
     </motion.div>
   );
 }
