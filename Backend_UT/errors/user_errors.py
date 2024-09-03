@@ -47,3 +47,6 @@ DONT_HAVE_ACCESS_ADMIN_ERROR = HTTPException(status_code=status.HTTP_403_FORBIDD
 NO_USER_FOUND_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                     detail='No Matched User Was Found')
 
+
+USER_IS_BANNED = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                               detail='User Has Been Banned.')

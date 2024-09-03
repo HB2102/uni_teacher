@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from database.models import Comment, Teacher, User, Subject, CommentAction, CommentReport
 from schemas.comment_schema import AddCommentModel
 from errors.teacher_errors import TEACHER_NOT_FOUND
-from errors.user_errors import USER_NOT_FOUND_ERROR
+from errors.user_errors import USER_NOT_FOUND_ERROR, USER_IS_BANNED
 from errors.subject_errors import SUBJECT_DONT_EXIST
 from errors.comment_errors import COMMENT_NOT_FOUND, CANT_DELETE_OTHERS_COMMENT, NO_COMMENT_FOUND
 
@@ -17,6 +17,9 @@ async def add_comment(user_id: int, request: AddCommentModel, db: Session):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise USER_NOT_FOUND_ERROR
+
+    if user.is_banned:
+        raise USER_IS_BANNED
 
     if request.subject_id:
         subject = db.query(Subject).filter(Subject.id == request.subject_id).first()
