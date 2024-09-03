@@ -61,20 +61,20 @@ app.include_router(super_admin_deleted_pics.router)
 app.include_router(authentication.router)
 
 origins = [ 
-     "http://localhost:*",
-     "http://localhost:5173", 
-     "http://localhost:5174",
-     "http://127.0.0.1:8000" 
- ] 
+    "http://localhost:*",
+    "http://localhost:5173", 
+    "http://localhost:5174",
+    "http://127.0.0.1:8000"
+] 
 
 
 app.add_middleware( 
-     CORSMiddleware, 
-     allow_origins=origins,  # Reflect the allowed origins 
-     allow_credentials=True, 
-     allow_methods=["*"],  # Allows all methods 
-     allow_headers=["*"],  # Allows all headers 
- )
+    CORSMiddleware, 
+    allow_origins=origins,  # Reflect the allowed origins 
+    allow_credentials=True, 
+    allow_methods=["*"],  # Allows all methods 
+    allow_headers=["*"],  # Allows all headers
+)
 
 
 @app.middleware("http")
