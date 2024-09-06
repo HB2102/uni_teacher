@@ -9,7 +9,7 @@ from functions.general_functions import (check_username_duplicate,
 
 from errors.user_errors import (USER_NAME_DUPLICATE_ERROR,
                                 EMAIL_DUPLICATE_ERROR,
-                                PHONE_NUMBER_NAME_DUPLICATE_ERROR,
+                                PHONE_NUMBER_DUPLICATE_ERROR,
                                 NO_USER_FOUND_ERROR,
                                 USER_NOT_FOUND_ERROR)
 
@@ -22,7 +22,7 @@ async def create_super_admin(request: UserModel, db: Session):
         raise EMAIL_DUPLICATE_ERROR
 
     if request.phone_number and check_phone_number_duplicate(request.phone_number, db):
-        raise PHONE_NUMBER_NAME_DUPLICATE_ERROR
+        raise PHONE_NUMBER_DUPLICATE_ERROR
 
     super_admin = User(
         username=request.username,

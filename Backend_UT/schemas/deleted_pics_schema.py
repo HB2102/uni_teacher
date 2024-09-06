@@ -7,4 +7,4 @@ class DeletedPicsDisplay(BaseModel):
     is_reviewed: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

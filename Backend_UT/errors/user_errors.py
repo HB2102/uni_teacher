@@ -10,8 +10,8 @@ EMAIL_DUPLICATE_ERROR = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE
                                       detail='Email Already Exists.')
 
 
-PHONE_NUMBER_NAME_DUPLICATE_ERROR = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
-                                                  detail='Phone Number Already Exists.')
+PHONE_NUMBER_DUPLICATE_ERROR = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                             detail='Phone Number Already Exists.')
 
 
 USER_NOT_FOUND_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -50,3 +50,11 @@ NO_USER_FOUND_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
 
 USER_IS_BANNED = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                                detail='User Has Been Banned.')
+
+
+USER_PHONE_VERIFICATION_CODE_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                                   detail='User Phone Verification Code Error.')
+
+
+USER_HAS_NO_PHONE_NUMBER_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                               detail='User Has No Phone Number.')
