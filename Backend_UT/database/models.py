@@ -96,7 +96,7 @@ class Rating(Base, ID):
 class Request(Base, ID):
     __tablename__ = 'request'
     text = Column(String, nullable=False)
-    email = Column(String, nullable=True, default=None)
+    phone_number = Column(String, nullable=True, default=None)
     date_added = Column(DateTime, nullable=False)
     is_reviewed = Column(Boolean, default=False)
 
@@ -113,5 +113,36 @@ class CommentReport(Base, ID):
     __tablename__ = 'comment_report'
     comment_id = Column(Integer, ForeignKey('comment.id'))
     reason = Column(String, nullable=True, default=None)
+    date_added = Column(DateTime, nullable=False)
+    is_reviewed = Column(Boolean, default=False)
+
+
+# ADD TEACHER REQUEST Class ================================================================================
+class AddTeacherRequest(Base, ID):
+    __tablename__ = 'add_teacher_request'
+    teacher_name = Column(String, nullable=False)
+    phone_number = Column(String, nullable=True, default=None)
+    uni_text = Column(String, nullable=True, default=None)
+    subject_text = Column(String, nullable=True, default=None)
+    date_added = Column(DateTime, nullable=False)
+    is_reviewed = Column(Boolean, default=False)
+
+
+# ADD UNIVERSITY REQUEST Class =============================================================================
+class AddUniRequest(Base, ID):
+    __tablename__ = 'add_uni_request'
+    university_names = Column(String, nullable=False)
+    phone_number = Column(String, nullable=True, default=None)
+    description = Column(String, nullable=True, default=None)
+    date_added = Column(DateTime, nullable=False)
+    is_reviewed = Column(Boolean, default=False)
+
+
+# ADD SUBJECT REQUEST Class ================================================================================
+class AddSubjectRequest(Base, ID):
+    __tablename__ = 'add_subject_request'
+    subject_names = Column(String, nullable=False)
+    phone_number = Column(String, nullable=True, default=None)
+    description = Column(String, nullable=True, default=None)
     date_added = Column(DateTime, nullable=False)
     is_reviewed = Column(Boolean, default=False)
