@@ -14,7 +14,8 @@ from errors.user_errors import (
     PHONE_NUMBER_DUPLICATE_ERROR,
     NO_USER_FOUND_ERROR,
     DONT_HAVE_ACCESS_ADMIN_ERROR,
-    USER_PHONE_VERIFICATION_CODE_ERROR
+    USER_PHONE_VERIFICATION_CODE_ERROR,
+    USER_HAS_NO_PHONE_NUMBER_ERROR
 )
 from functions.general_functions import (
     check_username_duplicate,
@@ -226,6 +227,61 @@ async def user_sign_up_phone_verification(phone_number: str, redis_db: Redis, db
 
 
 async def user_phone_verification_check(phone_number: str, code: str, redis_db: Redis):
+    user_verification_code = redis_db.hget(f'phone_verification:{phone_number}', 'code').decode('utf-8')
+
+    if user_verification_code == code:
+        return True
+    else:
+        raise USER_PHONE_VERIFICATION_CODE_ERROR
+
+
+
+async def user_forget_password(username: str, redis_db: Redis, db: Session, sms_service: Client):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise USER_NOT_FOUND_ERROR
+
+    phone_number = user.phone_number
+    if not phone_number:
+        raise USER_HAS_NO_PHONE_NUMBER_ERROR
+    code = randint(100000, 999999)
+
+    user_verification_code = {
+        'code': code,
+    }
+
+    redis_db.hset(f'phone_verification:{phone_number}', mapping=user_verification_code)
+    redis_db.expire(f'phone_verification:{phone_number}', 300)
+
+    sms_service.send(
+        sender=SENDER,
+        recipients=[phone_number],
+        summary=f'کد فراموشی رمز عبور شما {code} میباشد.',
+        message=f"""
+        کاربر گرامی {user.username}،
+        کد فراموشی رمز عبور شما {code}  میباشد.
+        
+        این کد را در اختیار دیگران قرار ندهید.
+        مدت اعتبار: ۵ دقیقه
+
+
+"""
+    )
+
+    return 'SMS Sent.'
+
+
+
+async def user_forget_password_check(username: str, code: str, redis_db: Redis, db: Session):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise USER_NOT_FOUND_ERROR
+
+    phone_number = user.phone_number
+    if not phone_number:
+        raise USER_HAS_NO_PHONE_NUMBER_ERROR
+
+
     user_verification_code = redis_db.hget(f'phone_verification:{phone_number}', 'code').decode('utf-8')
 
     if user_verification_code == code:

@@ -54,3 +54,7 @@ USER_IS_BANNED = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
 
 USER_PHONE_VERIFICATION_CODE_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                                    detail='User Phone Verification Code Error.')
+
+
+USER_HAS_NO_PHONE_NUMBER_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                               detail='User Has No Phone Number.')

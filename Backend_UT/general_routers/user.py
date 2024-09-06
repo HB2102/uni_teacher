@@ -36,3 +36,13 @@ async def user_sign_up_phone_verification(phone_number: NAME_BODY, redis_db: RED
 @router.post('/user_phone_verification_check', status_code=200)
 async def user_phone_verification_check(phone_number: NAME_BODY, code: NAME_BODY, redis_db: REDIS_DEPENDENCY):
     return await user_functions.user_phone_verification_check(phone_number=phone_number, code=code, redis_db=redis_db)
+
+
+@router.post('/user_forget_password', status_code=200)
+async def user_forget_password(username: NAME_BODY, redis_db: REDIS_DEPENDENCY, db: DB_DEPENDENCY, sms_service: SMS_DEPENDENCY):
+    return await user_functions.user_forget_password(username=username, redis_db=redis_db, db=db, sms_service=sms_service)
+
+
+@router.post('/user_forget_password_check', status_code=200)
+async def user_forget_password_check(username: NAME_BODY, code: NAME_BODY, redis_db: REDIS_DEPENDENCY, db: DB_DEPENDENCY):
+    return await user_functions.user_forget_password_check(username=username, code=code, redis_db=redis_db, db=db)
