@@ -124,6 +124,7 @@ class AddTeacherRequest(Base, ID):
     phone_number = Column(String, nullable=True, default=None)
     uni_text = Column(String, nullable=True, default=None)
     subject_text = Column(String, nullable=True, default=None)
+    description = Column(String, nullable=True, default=None)
     date_added = Column(DateTime, nullable=False)
     is_reviewed = Column(Boolean, default=False)
 
