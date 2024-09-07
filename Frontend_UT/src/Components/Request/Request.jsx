@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import AddTeacher from './AddTeacher';
 import AddUni from './AddUni';
 import { useNavigate } from 'react-router-dom';
+import AddSubject from './AddSubject';
 
 const Request = () => {
   const navigate = useNavigate();
@@ -21,11 +22,12 @@ const Request = () => {
   const handleClickDefult = () => setAsk(0);
   const handleAddTeacher = () => setAsk(1);
   const handleAddUni = () => setAsk(2);
+  const handleAddSubject = () => setAsk(3);
 
   const renderContent = () => {
     switch (ask) {
-      case 0:
-        return (<DefaultRequest />);
+      case 3:
+        return (<AddSubject />);
       case 1:
         return (<AddTeacher />);
       case 2:
@@ -84,6 +86,16 @@ const Request = () => {
                   className="block pr-4 align-middle text-gray-700 no-underline hover:text-gray-950"
                 >
                   <span className="pb-1 md:pb-0 text-sm">افزودن دانشگاه</span>
+                </p>
+              </li>
+              <li 
+                onClick={handleAddSubject} 
+                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 3 ? 'border-yellow-600 font-bold' : 'border-transparent'}`}
+              >
+                <p
+                  className="block pr-4 align-middle text-gray-700 no-underline hover:text-gray-950"
+                >
+                  <span className="pb-1 md:pb-0 text-sm">افزودن درس</span>
                 </p>
               </li>
             </ul>

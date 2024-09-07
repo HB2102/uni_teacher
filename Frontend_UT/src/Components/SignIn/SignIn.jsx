@@ -17,7 +17,10 @@ const Signin = () => {
     phone_number:'',
     email:''
   });
-
+  const [signInData, setSignInData] = useState({
+    username: '',
+    password: ''
+  });
   const handleInputChange = (e) => {
     setSignUpData({
       ...signUpData,
@@ -26,6 +29,16 @@ const Signin = () => {
     console.log(signUpData);
     
   };
+
+  const handleInputChangeLogin = (e) => {
+    setSignInData({
+      ...signInData,
+      [e.target.name]: e.target.value
+    });
+    console.log(signInData);
+    
+  };
+
   const handleSignUpSubmit = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/user/create_user', signUpData, {
@@ -66,6 +79,49 @@ const Signin = () => {
       });
     }
   };
+
+  const handleSignInSubmit = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/token', signInData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.status === 200) { 
+        localStorage.setItem('Token', response.data.access_token );
+        navigate('/user-Panel');
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title:"خوش آمدید",
+          showConfirmButton: false,
+          timerProgressBar: true, 
+          timer: 2000
+        });
+
+        setSignUpData({
+          username: '',
+          password: '',
+        });
+      }
+
+    } catch (error) {
+      console.error('Error creating user:', error);
+      Swal.fire({
+        position: "top-end",
+        title: "Error!",
+        text: "There was a problem creating the user.",
+        icon: "error",
+        timer: 2000,
+        timerProgressBar: true, 
+        showConfirmButton: true, 
+      });
+    }
+  };
+
+
   
   const handleShowLogin = () => {
     setshowComponent("Login");
@@ -85,18 +141,21 @@ const Signin = () => {
       case "Login":
         return (
           <>
-            <form className="login-box" action="">
+            <form className="login-box" action="" onSubmit={(e) => {
+            e.preventDefault();
+            handleSignInSubmit();
+          }} >
               <div className="flex flex-row justify-between">
                 <h1>ورود </h1>
                 <GrFormNextLink className="text-3xl" onClick={handleShowText}/>
               </div>
               <div className="input-box ">
-                  <input name="username" type="text" required value={signUpData.username} onChange={handleInputChange}/>
+                  <input name="username" type="text" required value={signInData.username} onChange={handleInputChangeLogin}/>
                   <label>نام کاربری</label>
                   <FaUser />
                 </div>
                 <div className="input-box">
-                  <input name="password" type="password" required value={signUpData.password} onChange={handleInputChange} />
+                  <input name="password" type="password" required value={signInData.password} onChange={handleInputChangeLogin} />
                   <label>رمز عبور</label>
                   <FaLock />
                 </div>

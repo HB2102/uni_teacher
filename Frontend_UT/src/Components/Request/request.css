@@ -1,14 +1,14 @@
 .max-h-64 {
   max-height: 19rem;
 }
-/*Quick overrides of the form input as using the CDN version*/
+
 input,
 .form-textarea,
 .form-select,
 .form-multiselect {
   background-color: #edf2f7;
 }
-/* request.css */
+
 
 @keyframes fadeIn {
   0% {
@@ -23,4 +23,16 @@ input,
 
 .fade-in {
   animation: fadeIn 0.5s ease-out;
+}
+.small-alert-title {
+  font-size: 20px !important; /* Smaller font size for the title */
+}
+
+.swal2-popup {
+  font-size: 25px !important; /* Smaller font size for the entire popup */
+}
+
+.swal2-timer-progress-bar {
+  background-color: #00ff00 !important; /* Green color for the timer bar */
+  height: 4px !important; /* Reduced height for the timer bar */
 }
