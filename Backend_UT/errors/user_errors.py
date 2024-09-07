@@ -58,3 +58,11 @@ USER_PHONE_VERIFICATION_CODE_ERROR = HTTPException(status_code=status.HTTP_404_N
 
 USER_HAS_NO_PHONE_NUMBER_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                                detail='User Has No Phone Number.')
+
+
+SMS_SERVER_ERROR = HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                             detail='There was an error processing your verification. Try again later.')
+
+
+USER_VERIFICATION_CODE_EXPIRED_ERROR = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                                     detail='User Verification Code Expired.')

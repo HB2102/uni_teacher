@@ -1,4 +1,6 @@
 import datetime
+from ippanel import Client
+from sms_service.sms_service import SENDER
 from sqlalchemy.orm import Session
 from database.models import Request
 from schemas.request_schemas import SendRequestModel
@@ -6,14 +8,14 @@ from errors.request_errors import NO_REQUEST_FOUND, REQUEST_NOT_FOUND
 
 
 async def send_request(request_info: SendRequestModel, db: Session):
-    if request_info.email:
-        email = request_info.email
+    if request_info.phone_number:
+        phone_number = request_info.phone_number
     else:
-        email = None
+        phone_number = None
 
     request = Request(
         text=request_info.text,
-        email=email,
+        phone_number=phone_number,
         date_added=datetime.datetime.now(),
     )
 
@@ -72,5 +74,58 @@ async def review_request(request_id: int, db: Session):
     request.is_reviewed = True
     db.commit()
     db.refresh(request)
+
+    return request
+
+
+async def approve_request(request_id: int, db: Session, sms_service: Client):
+    request = db.query(Request).filter(Request.id == request_id).first()
+    if not request:
+        raise REQUEST_NOT_FOUND
+
+
+    request.is_reviewed = True
+    db.commit()
+    db.refresh(request)
+
+    if request.phone_number:
+        sms_service.send(
+            sender=SENDER,
+            recipients=[request.phone_number],
+            summary='درخواست شما تایید شد.',
+            message=f"""
+سامانه استاد دانشگاه
+درخواست شما پس از بررسی توسط مدیران تایید شد.
+با تشکر از همراهی و مشارکت شما.
+
+
+"""
+        )
+
+    return request
+
+
+async def deny_request(request_id: int, db: Session, sms_service: Client):
+    request = db.query(Request).filter(Request.id == request_id).first()
+    if not request:
+        raise REQUEST_NOT_FOUND
+
+    request.is_reviewed = True
+    db.commit()
+    db.refresh(request)
+
+    if request.phone_number:
+        sms_service.send(
+            sender=SENDER,
+            recipients=[request.phone_number],
+            summary='درخواست شما رد شد.',
+            message=f"""
+سامانه استاد دانشگاه
+متاسفانه درخواست ارسالی شما پس از بررسی توسط مدیران مربوطه رد شد.
+با تشکر از همراهی و مشارکت شما.
+
+
+"""
+        )
 
     return request

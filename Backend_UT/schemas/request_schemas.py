@@ -4,13 +4,13 @@ from pydantic import BaseModel, EmailStr
 
 class SendRequestModel(BaseModel):
     text: str
-    email: EmailStr | None = None
+    phone_number: str | None = None
 
 
 class RequestDisplay(BaseModel):
     id: int
     text: str
-    email: EmailStr | None = None
+    phone_number: str | None = None
     date_added: datetime.datetime
     is_reviewed: bool
 

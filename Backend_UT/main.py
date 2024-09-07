@@ -14,7 +14,8 @@ from admin_routers import (
     admin_comment,
     admin_comment_report,
     admin_request,
-    admin_rating
+    admin_rating,
+    admin_add_subject_request
 )
 from general_routers import (
     user,
@@ -27,7 +28,8 @@ from general_routers import (
     comment_report,
     request,
     rating,
-    teacher
+    teacher,
+    add_subject_request
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -46,6 +48,7 @@ app.include_router(comment_report.router)
 app.include_router(comment_action.router)
 app.include_router(teacher_subject.router)
 app.include_router(university_teacher.router)
+app.include_router(add_subject_request.router)
 app.include_router(admin_user.router)
 app.include_router(admin_rating.router)
 app.include_router(admin_request.router)
@@ -58,6 +61,7 @@ app.include_router(admin_comment_report.router)
 app.include_router(admin_teacher_subject.router)
 app.include_router(super_admin.router)
 app.include_router(super_admin_deleted_pics.router)
+app.include_router(admin_add_subject_request.router)
 app.include_router(authentication.router)
 
 origins = [ 

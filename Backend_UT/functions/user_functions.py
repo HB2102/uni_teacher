@@ -15,7 +15,9 @@ from errors.user_errors import (
     NO_USER_FOUND_ERROR,
     DONT_HAVE_ACCESS_ADMIN_ERROR,
     USER_PHONE_VERIFICATION_CODE_ERROR,
-    USER_HAS_NO_PHONE_NUMBER_ERROR
+    USER_HAS_NO_PHONE_NUMBER_ERROR,
+    SMS_SERVER_ERROR,
+    USER_VERIFICATION_CODE_EXPIRED_ERROR
 )
 from functions.general_functions import (
     check_username_duplicate,
@@ -212,12 +214,12 @@ async def user_sign_up_phone_verification(phone_number: str, redis_db: Redis, db
         recipients=[phone_number],
         summary=f'کد احراز هویت شما {code} میباشد.',
         message=f"""
-        به سامانه استاد دانشگاه خوش آمدید.
+به سامانه استاد دانشگاه خوش آمدید.
 
-        کد احراز هویت شما {code}  میباشد.
+کد احراز هویت شما{code}  میباشد.
         
-        این کد را در اختیار دیگران قرار ندهید.
-        مدت اعتبار: ۵ دقیقه
+این کد را در اختیار دیگران قرار ندهید.
+مدت اعتبار: ۵ دقیقه
         
         
 """,
@@ -246,29 +248,33 @@ async def user_forget_password(username: str, redis_db: Redis, db: Session, sms_
         raise USER_HAS_NO_PHONE_NUMBER_ERROR
     code = randint(100000, 999999)
 
-    user_verification_code = {
-        'code': code,
-    }
+    try:
+        user_verification_code = {
+            'code': code,
+        }
 
-    redis_db.hset(f'phone_verification:{phone_number}', mapping=user_verification_code)
-    redis_db.expire(f'phone_verification:{phone_number}', 300)
+        redis_db.hset(f'phone_verification:{phone_number}', mapping=user_verification_code)
+        redis_db.expire(f'phone_verification:{phone_number}', 300)
 
-    sms_service.send(
-        sender=SENDER,
-        recipients=[phone_number],
-        summary=f'کد فراموشی رمز عبور شما {code} میباشد.',
-        message=f"""
-        کاربر گرامی {user.username}،
-        کد فراموشی رمز عبور شما {code}  میباشد.
-        
-        این کد را در اختیار دیگران قرار ندهید.
-        مدت اعتبار: ۵ دقیقه
+        sms_service.send(
+            sender=SENDER,
+            recipients=[phone_number],
+            summary=f'کد فراموشی رمز عبور شما {code} میباشد.',
+            message=f"""
+کاربر گرامی {user.username}،
+کد فراموشی رمز عبور شما{code}  میباشد.
+            
+این کد را در اختیار دیگران قرار ندهید.
+مدت اعتبار: ۵ دقیقه
+    
+    
+    """
+        )
 
+        return 'SMS Sent.'
 
-"""
-    )
-
-    return 'SMS Sent.'
+    except:
+        raise SMS_SERVER_ERROR
 
 
 
@@ -282,9 +288,11 @@ async def user_forget_password_check(username: str, code: str, redis_db: Redis, 
         raise USER_HAS_NO_PHONE_NUMBER_ERROR
 
 
-    user_verification_code = redis_db.hget(f'phone_verification:{phone_number}', 'code').decode('utf-8')
+    user_verification_code = redis_db.hget(f'phone_verification:{phone_number}', 'code')
+    if not user_verification_code:
+        raise USER_VERIFICATION_CODE_EXPIRED_ERROR
 
-    if user_verification_code == code:
+    if user_verification_code.decode('utf-8') == code:
         return True
     else:
         raise USER_PHONE_VERIFICATION_CODE_ERROR
