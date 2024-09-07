@@ -53,3 +53,8 @@ async def approve_add_uni_request(request_id: ID_BODY, db: DB_DEPENDENCY, sms_se
 @router.post('/deny_add_uni_request', status_code=200, response_model=AddUniRequestDisplay)
 async def deny_add_uni_request(request_id: ID_BODY, db: DB_DEPENDENCY, sms_service: SMS_DEPENDENCY):
     return await add_uni_request_functions.deny_add_uni_request(request_id=request_id, db=db, sms_service=sms_service)
+
+
+@router.delete('/delete_add_uni_request', status_code=200, response_model=AddUniRequestDisplay)
+async def delete_add_uni_request(request_id: ID_BODY, db: DB_DEPENDENCY):
+    return await add_uni_request_functions.delete_add_uni_request(request_id=request_id, db=db)

@@ -116,3 +116,14 @@ async def deny_add_subject_request(request_id: int, db: Session, sms_service: Cl
         )
 
     return request
+
+
+async def remove_add_subject_request(request_id: int, db: Session):
+    request = db.query(AddSubjectRequest).filter(AddSubjectRequest.id == request_id).first()
+    if not request:
+        raise ADD_SUBJECT_REQUEST_NOT_FOUND
+
+    db.delete(request)
+    db.commit()
+
+    return 'Request Deleted.'

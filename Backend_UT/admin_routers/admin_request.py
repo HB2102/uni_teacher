@@ -51,3 +51,8 @@ async def approve_request(request_id: ID_BODY, db: DB_DEPENDENCY, sms_service: S
 @router.post('/deny_request', status_code=200, response_model=RequestDisplay)
 async def deny_request(request_id: ID_BODY, db: DB_DEPENDENCY, sms_service: SMS_DEPENDENCY):
     return await request_functions.deny_request(request_id=request_id, db=db, sms_service=sms_service)
+
+
+@router.delete('/remove_request', status_code=200)
+async def remove_request(request_id: ID_BODY, db: DB_DEPENDENCY):
+    return await request_functions.remove_request(request_id=request_id, db=db)

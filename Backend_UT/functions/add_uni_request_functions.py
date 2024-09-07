@@ -119,3 +119,14 @@ async def deny_add_uni_request(request_id: int, db: Session, sms_service: Client
 
     return request
 
+
+async def delete_add_uni_request(request_id: int, db: Session):
+    request = db.query(AddUniRequest).filter(AddUniRequest.id == request_id).first()
+
+    if not request:
+        raise ADD_UNI_REQUEST_NOT_FOUND
+
+    db.delete(request)
+    db.commit()
+
+    return 'Request Deleted.'

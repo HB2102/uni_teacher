@@ -51,3 +51,8 @@ async def approve_add_subject_request(request_id: ID_BODY, db: DB_DEPENDENCY, sm
 @router.post('/deny_add_subject_request', status_code=200, response_model=AddSubjectRequestDisplay)
 async def deny_add_subject_request(request_id: ID_BODY, db: DB_DEPENDENCY, sms_service: SMS_DEPENDENCY):
     return await add_subject_request_functions.deny_add_subject_request(request_id=request_id, db=db, sms_service=sms_service)
+
+
+@router.delete('/delete_add_subject_request', status_code=200, response_model=AddSubjectRequestDisplay)
+async def delete_add_subject_request(request_id: ID_BODY, db: DB_DEPENDENCY):
+    return await add_subject_request_functions.remove_add_subject_request(request_id=request_id, db=db)

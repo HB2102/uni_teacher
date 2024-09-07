@@ -115,3 +115,14 @@ async def deny_request(request_id: int, db: Session, sms_service: Client):
         )
 
     return request
+
+
+async def remove_request(request_id: int, db: Session):
+    request = db.query(Request).filter(Request.id == request_id).first()
+    if not request:
+        raise REQUEST_NOT_FOUND
+
+    db.delete(request)
+    db.commit()
+
+    return 'Request Deleted.'

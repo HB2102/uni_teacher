@@ -120,3 +120,14 @@ async def deny_add_teacher_request(request_id: int, db: Session, sms_service: Cl
         )
 
     return request
+
+
+async def delete_add_teacher_request(request_id: int, db: Session):
+    request = db.query(AddTeacherRequest).filter(AddTeacherRequest.id == request_id).first()
+    if not request:
+        raise ADD_TEACHER_REQUEST_NOT_FOUND
+
+    db.delete(request)
+    db.commit()
+
+    return "Request Deleted."
