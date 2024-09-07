@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
 import "./request.css";
 import axios from 'axios';
-import Swal from "sweetalert2";  
 import { motion } from 'framer-motion';
 import BackButton from './BackButton';
 import { useNavigate } from 'react-router-dom';
 
-const DefultRequest = () => {
+const AddSubject = () => {
   const navigate = useNavigate();
         const variants = {
             hidden: { opacity: 0, y: 10 },
@@ -36,28 +35,7 @@ const DefultRequest = () => {
       );
   
       if (response.status === 200) {
-        Swal.fire({
-          position: "top-end",
-          title: "ارسال شد",
-          showConfirmButton: false,
-          timerProgressBar: true,
-          timer: 2000,
-          background: '#ffffff', 
-          width: '400px',
-          padding: '0.5em', 
-          customClass: {
-              title: 'small-alert-title', 
-          },
-          didOpen: () => {
-              const progressBar = Swal.getTimerProgressBar();
-              progressBar.style.backgroundColor = '#00ff00'; 
-              progressBar.style.height = '3px';
-              progressBar.style.width = '100%'; 
-          }
-      });
-      
-      
-  
+        navigate('/')
         setPhone_number('');  
         setRequestText('');
       }
@@ -84,8 +62,9 @@ const DefultRequest = () => {
 
       {/* Section container */}
       <section className="w-full">
+        {/* Section 2 */}
         <h2 id="section1" className="font-iran font-bold break-normal text-text-gray px-2 pb-8 text-xl">
-          ثبت درخواست
+          افزودن دانشگاه
         </h2>
         <div  className="p-8 mt-6 lg:mt-0 rounded shadow bg-white dark:bg-background-dark">
           <form>
@@ -151,4 +130,4 @@ const DefultRequest = () => {
   );
 };
 
-export default DefultRequest;
+export default AddSubject;
