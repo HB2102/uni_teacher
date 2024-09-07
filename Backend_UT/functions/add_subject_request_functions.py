@@ -1,8 +1,8 @@
 import datetime
 from ippanel import Client
-from sms_service.sms_service import SENDER
 from sqlalchemy.orm import Session
 from database.models import AddSubjectRequest
+from sms_service.sms_service import SENDER, APPROVE_ADD_SUBJECT_PATTERN, DENY_ADD_SUBJECT_PATTERN
 from schemas.add_subject_request_schemas import SendAddSubjectRequestModel
 from errors.add_subject_request_errors import ADD_SUBJECT_REQUEST_NOT_FOUND, NO_ADD_SUBJECT_REQUEST_FOUND
 
@@ -44,7 +44,7 @@ async def get_add_subject_request_to_review(db: Session):
 
 
 async def get_all_add_subject_request(db: Session):
-    requests = db.query(AddSubjectRequest).order_by(AddSubjectRequest.date_added.desc()).all()
+    requests = db.query(AddSubjectRequest).order_by(AddSubjectRequest.date_added.asc()).all()
     if not requests:
         raise NO_ADD_SUBJECT_REQUEST_FOUND
 
@@ -90,17 +90,10 @@ async def approve_add_subject_request(request_id: int, db: Session, sms_service:
     db.refresh(request)
 
     if request.phone_number:
-        sms_service.send(
+        sms_service.send_pattern(
+            pattern_code=APPROVE_ADD_SUBJECT_PATTERN,
             sender=SENDER,
-            recipients=[request.phone_number],
-            summary='درخواست شما تایید شد.',
-            message=f"""
-سامانه استاد دانشگاه
-درخواست افزودن درس شما پس از بررسی توسط مدیران تایید شد.
-با تشکر از همراهی و مشارکت شما.
-
-
-"""
+            recipient=request.phone_number,
         )
 
     return request
@@ -116,18 +109,10 @@ async def deny_add_subject_request(request_id: int, db: Session, sms_service: Cl
     db.refresh(request)
 
     if request.phone_number:
-        sms_service.send(
+        sms_service.send_pattern(
+            pattern_code=DENY_ADD_SUBJECT_PATTERN,
             sender=SENDER,
-            recipients=[request.phone_number],
-            summary='درخواست شما رد شد.',
-            message=f"""
-سامانه استاد دانشگاه
-متاسفانه درخواست افزودن درس شما پس از بررسی توسط مدیران مربوطه رد شد.
-با تشکر از همراهی و مشارکت شما.
-
-
-"""
-
+            recipient=request.phone_number,
         )
 
     return request

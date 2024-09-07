@@ -1,10 +1,10 @@
 import datetime
 from ippanel import Client
-from sms_service.sms_service import SENDER
 from sqlalchemy.orm import Session
 from database.models import Request
 from schemas.request_schemas import SendRequestModel
 from errors.request_errors import NO_REQUEST_FOUND, REQUEST_NOT_FOUND
+from sms_service.sms_service import SENDER, APPROVE_REQUEST_PATTERN, DENY_REQUEST_PATTERN
 
 
 async def send_request(request_info: SendRequestModel, db: Session):
@@ -89,17 +89,10 @@ async def approve_request(request_id: int, db: Session, sms_service: Client):
     db.refresh(request)
 
     if request.phone_number:
-        sms_service.send(
+        sms_service.send_pattern(
+            pattern_code=APPROVE_REQUEST_PATTERN,
             sender=SENDER,
-            recipients=[request.phone_number],
-            summary='درخواست شما تایید شد.',
-            message=f"""
-سامانه استاد دانشگاه
-درخواست شما پس از بررسی توسط مدیران تایید شد.
-با تشکر از همراهی و مشارکت شما.
-
-
-"""
+            recipient=request.phone_number
         )
 
     return request
@@ -115,17 +108,10 @@ async def deny_request(request_id: int, db: Session, sms_service: Client):
     db.refresh(request)
 
     if request.phone_number:
-        sms_service.send(
+        sms_service.send_pattern(
+            pattern_code=DENY_REQUEST_PATTERN,
             sender=SENDER,
-            recipients=[request.phone_number],
-            summary='درخواست شما رد شد.',
-            message=f"""
-سامانه استاد دانشگاه
-متاسفانه درخواست ارسالی شما پس از بررسی توسط مدیران مربوطه رد شد.
-با تشکر از همراهی و مشارکت شما.
-
-
-"""
+            recipient=request.phone_number
         )
 
     return request

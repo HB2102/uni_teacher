@@ -5,7 +5,7 @@ from hash.hash import Hash
 from random import randint
 from redis import Redis
 from ippanel import Client
-from sms_service.sms_service import SENDER
+from sms_service.sms_service import SENDER, VERIFICATION_PATTERN, FORGET_PASSWORD_PATTERN
 from schemas.user_schemas import UserModel, UserUpdateModel
 from errors.user_errors import (
     USER_NOT_FOUND_ERROR,
@@ -209,20 +209,15 @@ async def user_sign_up_phone_verification(phone_number: str, redis_db: Redis, db
     redis_db.hset(f'phone_verification:{phone_number}', mapping=user_verification_code)
     redis_db.expire(f'phone_verification:{phone_number}', 300)
 
-    sms_service.send(
-        sender=SENDER,
-        recipients=[phone_number],
-        summary=f'کد احراز هویت شما {code} میباشد.',
-        message=f"""
-به سامانه استاد دانشگاه خوش آمدید.
+    pattern_values = {
+        'verification-code': code,
+    }
 
-کد احراز هویت شما{code}  میباشد.
-        
-این کد را در اختیار دیگران قرار ندهید.
-مدت اعتبار: ۵ دقیقه
-        
-        
-""",
+    sms_service.send_pattern(
+        pattern_code=VERIFICATION_PATTERN,
+        sender=SENDER,
+        recipient=phone_number,
+        values=pattern_values
     )
 
     return 'SMS Sent.'
@@ -256,19 +251,17 @@ async def user_forget_password(username: str, redis_db: Redis, db: Session, sms_
         redis_db.hset(f'phone_verification:{phone_number}', mapping=user_verification_code)
         redis_db.expire(f'phone_verification:{phone_number}', 300)
 
-        sms_service.send(
+
+        pattern_values = {
+            'verification-code': code,
+            'username': username
+        }
+
+        sms_service.send_pattern(
+            pattern_code=FORGET_PASSWORD_PATTERN,
             sender=SENDER,
-            recipients=[phone_number],
-            summary=f'کد فراموشی رمز عبور شما {code} میباشد.',
-            message=f"""
-کاربر گرامی {user.username}،
-کد فراموشی رمز عبور شما{code}  میباشد.
-            
-این کد را در اختیار دیگران قرار ندهید.
-مدت اعتبار: ۵ دقیقه
-    
-    
-    """
+            recipient=phone_number,
+            values=pattern_values
         )
 
         return 'SMS Sent.'

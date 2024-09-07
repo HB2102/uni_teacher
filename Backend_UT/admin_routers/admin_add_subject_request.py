@@ -7,8 +7,8 @@ from schemas.add_subject_request_schemas import AddSubjectRequestDisplay
 
 
 router = APIRouter(
-    prefix='/admin_request',
-    tags=['Admin Request'],
+    prefix='/admin_add_subject_request',
+    tags=['Admin ADD Subject Request'],
     dependencies=[ROUTER_ADMIN_DEPENDENCY]
 )
 
