@@ -17,6 +17,9 @@ function MenuBar() {
 
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const handleAboutUs=()=>{
+    navigate("/AboutUs")
+  }
   const handleSendRequest=() =>{
     navigate("/request");
   }
@@ -52,7 +55,7 @@ function MenuBar() {
           <DarkModeSwitch /> 
           <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} absolute sm:relative top-full left-0 w-full sm:w-auto  sm:bg-transparent p-6 sm:p-0 z-10`}>
             <ul className="flex flex-col gap-3 sm:flex-row sm:space-x-4 items-center">
-              <li>
+              <li onClick={handleAboutUs}>
                 <h2 href="#about" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 hover:underline after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   درباره‌ی ما
                 </h2>

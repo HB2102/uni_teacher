@@ -53,11 +53,25 @@ const Signin = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title:"اکانت شما با موفقیت ساخته شد",
+          title: "اکانت شما با موفقیت ساخته شد",
           showConfirmButton: false,
-          timerProgressBar: true, 
-          timer: 2000
-        });
+          timerProgressBar: true,
+          timer: 2000,
+          background: '#ffffff',
+          width: '400px',
+          padding: '0.5em',
+          customClass: {
+              title: 'small-alert-title',
+              icon: 'small-success-icon',  // Add a custom class for the icon
+          },
+          didOpen: () => {
+              const progressBar = Swal.getTimerProgressBar();
+              progressBar.style.backgroundColor = '#00ff00';
+              progressBar.style.height = '3px';
+              progressBar.style.width = '100%';
+          }
+      });
+      
 
         setSignUpData({
           username: '',
@@ -94,12 +108,23 @@ const Signin = () => {
 
         Swal.fire({
           position: "top-end",
-          icon: "success",
-          title:"خوش آمدید",
+          title: 'خوش آمدید',
           showConfirmButton: false,
-          timerProgressBar: true, 
-          timer: 2000
-        });
+          timerProgressBar: true,
+          timer: 2000,
+          background: '#ffffff', 
+          width: '400px',
+          padding: '0.5em', 
+          customClass: {
+              title: 'small-alert-title', 
+          },
+          didOpen: () => {
+              const progressBar = Swal.getTimerProgressBar();
+              progressBar.style.backgroundColor = '#00ff00'; 
+              progressBar.style.height = '3px';
+              progressBar.style.width = '100%'; 
+          }
+      })
 
         setSignUpData({
           username: '',

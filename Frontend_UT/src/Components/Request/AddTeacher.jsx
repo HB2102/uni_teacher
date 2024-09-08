@@ -4,7 +4,6 @@ import "./request.css";
 import axios from 'axios';
 import Swal from "sweetalert2";  
 import { motion } from 'framer-motion';
-import BackButton from './BackButton';
 import { useNavigate } from 'react-router-dom';
 
 const AddTeacher = () => {
@@ -36,7 +35,7 @@ const AddTeacher = () => {
   const handleClick = async () => {
     console.log("Submitting request");
     try {
-      const response = await axios.post('http://127.0.0.1:8000/request/send_request', 
+      const response = await axios.post('http://127.0.0.1:8000/add_teacher_request/send_add_teacher_request', 
        requestData, 
         {
           headers: { 'Content-Type': 'application/json' }
@@ -214,7 +213,7 @@ const AddTeacher = () => {
             <div className="md:w-full">
                 <button
                 onClick={handleClick}
-                  className="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded pt-3"
+                  className="shadow bg-teal-700 hover:bg-teal-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded pt-3"
                   type="button"
                 >
                   ارسال درخواست

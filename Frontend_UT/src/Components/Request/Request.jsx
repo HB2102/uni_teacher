@@ -59,7 +59,7 @@ const Request = () => {
             <ul className="list-reset py-2 md:py-0">
               <li 
                 onClick={handleClickDefult} 
-                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 0 ? 'border-yellow-600 font-bold' : 'border-transparent'}`}
+                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 0 ? 'border-teal-600 font-bold' : 'border-transparent'}`}
               >
                 <p
                   
@@ -70,7 +70,7 @@ const Request = () => {
               </li>
               <li 
                 onClick={handleAddTeacher} 
-                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 1 ? 'border-yellow-600 font-bold' : 'border-transparent'}`}
+                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 1 ? 'border-teal-600 font-bold' : 'border-transparent'}`}
               >
                 <p
                   className="block pr-4 align-middle text-gray-700 no-underline hover:text-gray-950"
@@ -80,7 +80,7 @@ const Request = () => {
               </li>
               <li 
                 onClick={handleAddUni} 
-                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 2 ? 'border-yellow-600 font-bold' : 'border-transparent'}`}
+                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 2 ? 'border-teal-600 font-bold' : 'border-transparent'}`}
               >
                 <p
                   className="block pr-4 align-middle text-gray-700 no-underline hover:text-gray-950"
@@ -90,7 +90,7 @@ const Request = () => {
               </li>
               <li 
                 onClick={handleAddSubject} 
-                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 3 ? 'border-yellow-600 font-bold' : 'border-transparent'}`}
+                className={`py-1 md:my-2 hover:bg-teal-50 lg:hover:bg-transparent border-r-4 ${ask === 3 ? 'border-teal-600 font-bold' : 'border-transparent'}`}
               >
                 <p
                   className="block pr-4 align-middle text-gray-700 no-underline hover:text-gray-950"
@@ -113,8 +113,8 @@ const Request = () => {
           {renderContent()}
         </section>
         <div onClick={handleBackHome} className="w-full lg:w-4/5 lg:mr-auto text-base md:text-sm text-gray-600 px-4 py-5"> {/* Changed margin from left to right */}
-          <span className="text-base text-yellow-600 font-bold">&lt;</span>{' '}
-          <a  className="text-base md:text-sm text-yellow-600 font-bold no-underline hover:underline">
+          <span className="text-base text-teal-600 font-bold">&lt;</span>{' '}
+          <a  className="text-base md:text-sm text-teal-600 font-bold no-underline hover:underline">
             بازگشت به صفحه‌ی اصلی
           </a>
         </div>

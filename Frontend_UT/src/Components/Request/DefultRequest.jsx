@@ -4,7 +4,6 @@ import "./request.css";
 import axios from 'axios';
 import Swal from "sweetalert2";  
 import { motion } from 'framer-motion';
-import BackButton from './BackButton';
 import { useNavigate } from 'react-router-dom';
 
 const DefultRequest = () => {
@@ -135,7 +134,7 @@ const DefultRequest = () => {
             <div className="md:w-full">
                 <button
                 onClick={handleClick}
-                  className="shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded pt-3"
+                  className="shadow bg-teal-700 hover:bg-teal-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-8 rounded pt-3"
                   type="button"
                 >
                   ارسال درخواست
