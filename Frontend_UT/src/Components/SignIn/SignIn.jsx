@@ -8,6 +8,8 @@ import {BiLogoGmail } from "react-icons/bi";
 import axios from 'axios';
 import Swal from "sweetalert2";  
 import { useNavigate } from 'react-router-dom';
+import OTPVerification from "./verify";
+import VerifyRegister from "./VerifyRegister";
 const Signin = () => {
   const navigate = useNavigate();
   const [showComponent, setshowComponent] = useState("Text");
@@ -40,58 +42,29 @@ const Signin = () => {
   };
 
   const handleSignUpSubmit = async () => {
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/user/create_user', signUpData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      });
-  
-      if (response.status === 201) { 
-        navigate('/user-Panel');
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "اکانت شما با موفقیت ساخته شد",
-          showConfirmButton: false,
-          timerProgressBar: true,
-          timer: 2000,
-          background: '#ffffff',
-          width: '400px',
-          padding: '0.5em',
-          customClass: {
-              title: 'small-alert-title',
-              icon: 'small-success-icon',  // Add a custom class for the icon
-          },
-          didOpen: () => {
-              const progressBar = Swal.getTimerProgressBar();
-              progressBar.style.backgroundColor = '#00ff00';
-              progressBar.style.height = '3px';
-              progressBar.style.width = '100%';
-          }
-      });
-      
-
-        setSignUpData({
-          username: '',
-          password: '',
-          phone_number: '',
-          email: ''
-        });
-      }
-    } catch (error) {
-      console.error('Error creating user:', error);
+   
+    const response = await axios.post('http://127.0.0.1:8000/user/user_sign_up_phone_verification',{phone_number: signUpData.phone_number}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    });
+    console.log(response);
+    
+    if (response.status ===200) {
+      setshowComponent("VerifyRegister")
+    }else{
       Swal.fire({
-        position: "top-end",
-        title: "Error!",
-        text: "There was a problem creating the user.",
-        icon: "error",
-        timer: 3000,
-        timerProgressBar: true, 
-        showConfirmButton: true, 
-      });
+            position: "top-end",
+            title: "Error!",
+            text: "این شماره قبلا در سامانه ثبت شده",
+            icon: "error",
+            timer: 3000,
+            timerProgressBar: true, 
+            showConfirmButton: true, 
+          });
     }
+   
   };
 
   const handleSignInSubmit = async () => {
@@ -111,7 +84,7 @@ const Signin = () => {
           title: 'خوش آمدید',
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 2000,
+          timer: 3000,
           background: '#ffffff', 
           width: '400px',
           padding: '0.5em', 
@@ -139,7 +112,7 @@ const Signin = () => {
         title: "Error!",
         text: "There was a problem creating the user.",
         icon: "error",
-        timer: 2000,
+        timer: 3000,
         timerProgressBar: true, 
         showConfirmButton: true, 
       });
@@ -147,19 +120,38 @@ const Signin = () => {
   };
 
 
-  
-  const handleShowLogin = () => {
-    setshowComponent("Login");
-    console.log(showComponent);
+  const handleShows = (e) => {
+    if (e==="Text") {
+      setshowComponent("Text");
+    }
+    if (e==="Register") {
+      setshowComponent("Register");
+    }
+    if (e==="Login") {
+      setshowComponent("Login");
+    }
+    if (e==="Verify") {
+      setshowComponent("Verify");
+    }
   };
-  const handleShowRegister = () => {
-    setshowComponent("Register");
-    console.log(showComponent);
-  };
-  const handleShowText = () => {
-    setshowComponent("Text");
-    console.log(showComponent);
-  };
+  const user_forget_password = async()=>{
+    setshowComponent("Verify");
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/user/user_forget_password', {
+        username: signInData.username
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log('Error during verification', error);
+      Swal.fire('Error', 'Request failed. Please try again.', 'error');
+    }
+
+  }
 
   const renderContent = () => {
     switch (showComponent) {
@@ -172,7 +164,7 @@ const Signin = () => {
           }} >
               <div className="flex flex-row justify-between">
                 <h1>ورود </h1>
-                <GrFormNextLink className="text-3xl" onClick={handleShowText}/>
+                <GrFormNextLink className="text-3xl" onClick={() => handleShows("Text")}/>
               </div>
               <div className="input-box ">
                   <input name="username" type="text" required value={signInData.username} onChange={handleInputChangeLogin}/>
@@ -188,18 +180,17 @@ const Signin = () => {
                   <label className="flex flex-row gap-2">
                   <input type="checkbox" />
                      فراموشم نکن
-                    
                   </label>
-                  <a href="">مزم یادم رفته</a>
+                  <button  onClick={user_forget_password} >رمزم یادم رفته</button>
                 </div>
               <button className="button bg-teal-600" type="submit">
-                Login
+                ورود
               </button>
 
               <div className="register-link">
               <button
                   className="hover:text-teal-400 transition-all duration-300 hover:underline  after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 button p-0 pr-1"
-                  onClick={handleShowRegister}
+                  onClick={() => handleShows("Register")}
                 >
                   بسازید
                 </button>
@@ -226,7 +217,7 @@ const Signin = () => {
           }}>
                 <div className="flex flex-row justify-between">
                   <h1>ثبت نام</h1>
-                  <GrFormNextLink className="text-3xl" onClick={handleShowText} />
+                  <GrFormNextLink className="text-3xl" onClick={() => handleShows("Text")} />
                 </div>
 
                 <div className="input-box ">
@@ -266,7 +257,7 @@ const Signin = () => {
                 <div className="register-link">
                   <button
                     className="hover:text-teal-400 transition-all duration-300 hover:underline  after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 button p-0 pr-1"
-                    onClick={handleShowLogin}
+                    onClick={() => handleShows("Login")}
                   >
                     ورود
                   </button>
@@ -299,7 +290,7 @@ const Signin = () => {
                 بهره‌مند شوید
               </p>
               <button
-                onClick={handleShowLogin}
+                onClick={() => handleShows("Login")}
                 className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600"
                 style={{ maxWidth: "150px" }}
               >
@@ -309,8 +300,30 @@ const Signin = () => {
             </motion.div>
           </>
         );
+        case "Verify":
+          return(
+            <div dir="rtl"  >
+            <GrFormNextLink className="text-3xl " onClick={() => handleShows("Text")}/>
+            <OTPVerification 
+             signInData={signInData} 
+             setSignInData={setSignInData} /> 
+            
+            </div>
+          )
+          case "VerifyRegister":
+            return(
+              <div dir="rtl"  >
+              <GrFormNextLink className="text-3xl " onClick={() => handleShows("Text")}/>
+              <VerifyRegister 
+            signUpData={signUpData} 
+            setSignUpData={setSignUpData} 
+          />
+                  
+              </div>
+            )
+
       default:
-        return null;
+        return null  ;
     }
   };
 
