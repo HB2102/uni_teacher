@@ -1,41 +1,43 @@
 import time
 from fastapi import FastAPI, Request
 from database.database import Base, engine
-from database import models
-from super_admin_routers import super_admin, super_admin_deleted_pics
 from authentication import authentication
-from admin_routers import (
-    admin_university,
-    admin_subject,
-    admin_user,
-    admin_teacher,
-    admin_uni_teacher,
-    admin_teacher_subject,
-    admin_comment,
-    admin_comment_report,
-    admin_request,
-    admin_rating,
-    admin_add_subject_request,
-    admin_add_uni_request,
-    admin_add_teacher_request,
-)
-from general_routers import (
-    user,
-    unversity,
-    subject,
-    university_teacher,
-    teacher_subject,
-    comment,
-    comment_action,
-    comment_report,
-    request,
-    rating,
-    teacher,
-    add_subject_request,
-    add_uni_request,
-    add_teacher_request,
-)
 from fastapi.middleware.cors import CORSMiddleware
+from routers.super_admin_routers import (
+    super_admin,
+    super_admin_deleted_pics
+)
+from routers.admin_routers import (
+    admin_teacher_subject,
+    admin_user,
+    admin_rating,
+    admin_university,
+    admin_comment_report,
+    admin_add_uni_request,
+    admin_request,
+    admin_teacher,
+    admin_comment,
+    admin_subject,
+    admin_uni_teacher,
+    admin_add_teacher_request,
+    admin_add_subject_request
+)
+from routers.general_routers import (
+    request,
+    comment_report,
+    add_teacher_request,
+    unversity,
+    add_uni_request,
+    add_subject_request,
+    user,
+    comment_action,
+    rating,
+    teacher_subject,
+    subject,
+    teacher,
+    university_teacher,
+    comment
+)
 
 app = FastAPI(
     title='Ostad Daneshgah',
