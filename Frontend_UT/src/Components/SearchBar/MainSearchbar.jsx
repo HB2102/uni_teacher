@@ -5,7 +5,10 @@ const words = ['sara', 'mamad', 'mamadali', 'samad', 'eli'];
 
 const MainSearchbar = () => {
   const [activeSearch, setActiveSearch] = useState([]);
-
+const logclick=()=>{
+  console.log("nsndhdcbsdh");
+  
+}
   const handleSearch = (e) => {
     if (e.target.value === '') {
       setActiveSearch([]);
@@ -28,7 +31,7 @@ const MainSearchbar = () => {
           {activeSearch.length > 0 && (
             <div className="absolute top-full left-0 right-0 mt-1 p-4 bg-slate-800 text-white rounded-xl flex flex-col gap-2"> 
               {activeSearch.map((s, index) => (
-                <span key={index}>{s}</span>
+                <span onClick={logclick} key={index}>{s}</span>
               ))}
             </div>
           )}

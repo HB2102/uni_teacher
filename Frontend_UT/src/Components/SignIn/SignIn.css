@@ -269,3 +269,34 @@
 }
 
 
+.small-alert-title {
+  font-size: 20px !important; /* Smaller font size for the title */
+}
+
+.swal2-popup {
+  font-size: 25px !important; /* Smaller font size for the entire popup */
+}
+
+.swal2-timer-progress-bar {
+  background-color: #00ff00 !important; /* Green color for the timer bar */
+  height: 4px !important; /* Reduced height for the timer bar */
+}
+
+/* Custom class for smaller success icon */
+.small-success-icon .swal2-success {
+  font-size: 0.5em !important; /* Decrease the size of the success icon */
+}
+
+.small-success-icon .swal2-success-ring {
+  width: 2em !important;  /* Adjust ring size around the success icon */
+  height: 2em !important;
+}
+
+.small-success-icon .swal2-success-circular-line-left,
+.small-success-icon .swal2-success-circular-line-right {
+  width: 2em !important; /* Adjust the circular lines around the success icon */
+}
+
+.small-success-icon .swal2-success-fix {
+  width: 1em !important; /* Adjust the size of the "fix" part of the icon */
+}
