@@ -1,5 +1,6 @@
 // src/components/UserForm.js
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 const UserPanel= () => {
     const [name, setName] = useState('');
@@ -10,7 +11,7 @@ const UserPanel= () => {
         if (savedName) {
             setStoredName(savedName);
         }
-        console.log(localStorage.getItem('Token'));
+        console.log(Cookies.get('auth_token'));
         
     }, []);
 

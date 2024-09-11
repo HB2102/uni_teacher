@@ -4,12 +4,13 @@ import '../tailwind.config.js'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import LandingPage from './Components/Landing-page/LandingPage.jsx';
-import Searchbar from './Components/SearchBar/Searchbar.jsx';
+import Searchbar from './Components/SearchBar/search page/Searchbar.jsx';
 import UserPanel from './Components/User/UserPanel.jsx';
 import Request from './Components/Request/Request.jsx';
 
 import AboutUs from './Components/About/AboutUs.jsx';
 import OTPVerification from './Components/SignIn/verify.jsx';
+import Signin from './Components/SignIn/SignIn.jsx';
 
 
 
@@ -22,7 +23,7 @@ function App() {
         <Route path="/user-panel" element={< UserPanel/>} />
         <Route path="/request" element={<Request />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path='/test' element={<OTPVerification/>} />
+        <Route path='/test' element={<Searchbar/>} />
       </Routes>
     </div>
   </Router>

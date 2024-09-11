@@ -10,6 +10,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import OTPVerification from "./verify";
 import VerifyRegister from "./VerifyRegister";
+import Cookies from 'js-cookie';
+
 const Signin = () => {
   const navigate = useNavigate();
   const [showComponent, setshowComponent] = useState("Text");
@@ -68,15 +70,19 @@ const Signin = () => {
   };
 
   const handleSignInSubmit = async () => {
+  console.log(Cookies.get('auth_token'));
+  
     try {
       const response = await axios.post('http://127.0.0.1:8000/token', signInData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+      
+      
       if (response.status === 200) { 
-        localStorage.setItem('Token', response.data.access_token );
+        const expirationTime = Date.now() + (30 * 60 * 1000);
+        Cookies.set('auth_token', response.data.access_token , { expires: expirationTime });
         navigate('/user-Panel');
 
         Swal.fire({
@@ -329,7 +335,7 @@ const Signin = () => {
 
   return (
     <div className="flexCenter paddings innerWidth hero-container">
-      {/* left side */}
+   
       <div className="flexColStart">
         <motion.div
           initial={{ x: "-7rem", opacity: 0 }}

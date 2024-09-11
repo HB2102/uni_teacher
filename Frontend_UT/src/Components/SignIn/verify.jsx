@@ -11,7 +11,7 @@ const OTPVerification = ({ signInData, setSignInData }) => {
   const handleKeyDown = (e, index) => {
     const input = e.target;
 
-    // Prevent entering any non-numeric characters except for Backspace, Delete, and Tab
+    
     if (!/^[0-9]{1}$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Tab') {
       e.preventDefault();
     }

@@ -26,7 +26,7 @@ function Main() {
   });
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen text-white flex flex-col items-center justify-center p-4 pt-20">
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>      
         <main className="flex flex-col gap-4 w-full max-w-full mt-6 sm:py-5 md:py-22 lg:py-22 xl:py-18">
           
