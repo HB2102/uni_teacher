@@ -6,11 +6,15 @@ import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { useInView } from 'react-intersection-observer';
 import { TfiEmail } from "react-icons/tfi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import Signin from '../SignIn/SignIn';
 import MainSearchbar from '../SearchBar/MainSearchbar';
 import {BiLogoGmail  } from "react-icons/bi";
-function Main() {
+import SwitchSearch from '../SearchBar/swichSearch';
+import Cookies from 'js-cookie';
+import LogOut from '../SignIn/LogOut';
+function Main({ isAuthenticated, onLogOut, onLogin }) {
+
   const { ref: refFirstSection, inView: inViewFirstSection } = useInView({
     triggerOnce: true, 
     threshold: 0,
@@ -56,11 +60,9 @@ function Main() {
               <h1 className="text-4xl lg:leading-relaxed md:text-5xl lg:text-6xl font-bold mb-6">توضیحات متفرقه در تایتل این مجموعه</h1>
               <p className="mb-6">یادآوری: یکم فونت زشته و فاصله‌ی بین خطوط باید اصلاح بشه</p>
               <MainSearchbar/>
-              <ul className="space-y-2 text-sm text-right" dir='rtl'>
-            <li className="flex items-center">
-                <span className="bg-teal-500 rounded-full w-2 h-2 mr-2"></span>
-                صفحه باید راست چین بشه
-            </li>
+              <SwitchSearch/>
+              {/* <ul className="space-y-2 text-sm text-right" dir='rtl'>
+            
             <li className="flex items-center">
                 <span className="bg-teal-500 rounded-full w-2 h-2 mr-2"></span>
                 خود نوشته ها راست چین نشدن
@@ -73,7 +75,7 @@ function Main() {
                 <span className="bg-teal-500 rounded-full w-2 h-2 mr-2"></span>
                 دست نزن به فرانت بکند کار کثیف
             </li>
-            </ul>
+            </ul> */}
             </div>
           </motion.section>
 
@@ -99,7 +101,12 @@ function Main() {
                 />
               </div>
             </div>
-            <Signin/>      
+            {isAuthenticated  ? <LogOut onLogOut={onLogOut} /> : <Signin onLogin={onLogin} />}
+
+         
+              
+      
+           
           </motion.section>
 
           <motion.section 

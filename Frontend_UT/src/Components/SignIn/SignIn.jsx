@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useRef} from "react";
 import "./SignIn.css";
 import { motion } from "framer-motion";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -13,6 +13,7 @@ import VerifyRegister from "./VerifyRegister";
 import Cookies from 'js-cookie';
 
 const Signin = () => {
+  
   const navigate = useNavigate();
   const [showComponent, setshowComponent] = useState("Text");
   const [signUpData, setSignUpData] = useState({
@@ -284,7 +285,7 @@ const Signin = () => {
                 type: "spring",
               }}
             >
-            <div
+            <div 
               className="login-box space-y-2 text-right text-4xl lg:text-3xl md:text-3xl font-bold mb-6"
               dir="rtl"
             >
@@ -295,13 +296,15 @@ const Signin = () => {
                 
                 بهره‌مند شوید
               </p>
+             
               <button
                 onClick={() => handleShows("Login")}
-                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white hover:bg-teal-600"
+                className="bg-teal-500 text-xl px-4 py-2 rounded-full text-white transition-all duration-300 ease-in-out transform hover:bg-teal-600 hover:scale-105 hover:shadow-lg"
                 style={{ maxWidth: "150px" }}
               >
                 ورود/ثبت نام
               </button>
+
             </div>
             </motion.div>
           </>
@@ -334,7 +337,7 @@ const Signin = () => {
   };
 
   return (
-    <div className="flexCenter paddings innerWidth hero-container">
+    <div id="login" className="flexCenter paddings innerWidth hero-container">
    
       <div className="flexColStart">
         <motion.div
