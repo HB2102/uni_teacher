@@ -290,8 +290,8 @@ const Signin = () => {
               dir="rtl"
             >
               <p className="flex items-center pb-5 leading-relaxed">
-                عاهرذسصخدص
-                <br />
+               
+                
                 با داشتن حساب کاربری از امکانات بیشتری
                 
                 بهره‌مند شوید

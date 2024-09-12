@@ -14,7 +14,7 @@ import SwitchSearch from '../SearchBar/swichSearch';
 import Cookies from 'js-cookie';
 import LogOut from '../SignIn/LogOut';
 function Main({ isAuthenticated, onLogOut, onLogin }) {
-
+  const [searchAsk, setSearchAsk] = useState(0);
   const { ref: refFirstSection, inView: inViewFirstSection } = useInView({
     triggerOnce: true, 
     threshold: 0,
@@ -59,8 +59,8 @@ function Main({ isAuthenticated, onLogOut, onLogin }) {
             <div className="flex flex-col gap-2 items-start lg:w-1/2 p-4 text-center lg:text-right">
               <h1 className="text-4xl lg:leading-relaxed md:text-5xl lg:text-6xl font-bold mb-6">توضیحات متفرقه در تایتل این مجموعه</h1>
               <p className="mb-6">یادآوری: یکم فونت زشته و فاصله‌ی بین خطوط باید اصلاح بشه</p>
-              <MainSearchbar/>
-              <SwitchSearch/>
+              <MainSearchbar searchAsk={searchAsk}/>
+              <SwitchSearch setSearchAsk={setSearchAsk} searchAsk={searchAsk}/>
               {/* <ul className="space-y-2 text-sm text-right" dir='rtl'>
             
             <li className="flex items-center">
