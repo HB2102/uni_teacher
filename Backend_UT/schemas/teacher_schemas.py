@@ -5,7 +5,7 @@ from schemas.comment_schema import CommentDisplay, CommentDisplayUser
 from schemas.rating_schema import RatingDisplay
 
 
-class TeacherSearchDisplay(BaseModel):
+class TeacherMiniDisplay(BaseModel):
     id: int
     full_name: str
 

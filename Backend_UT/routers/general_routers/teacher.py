@@ -7,7 +7,8 @@ from schemas.teacher_schemas import (
     TeacherProfileDisplay,
     TeacherFullProfileDisplay,
     TeacherProfileUserDisplay,
-    TeacherProfileFullUserDisplay
+    TeacherProfileFullUserDisplay,
+    TeacherMiniDisplay,
 )
 
 
@@ -15,6 +16,11 @@ router = APIRouter(
     prefix='/teacher',
     tags=['Teacher']
 )
+
+
+@router.get('/get_all_teachers', status_code=200, response_model=list[TeacherMiniDisplay])
+async def get_all_teachers(db: DB_DEPENDENCY):
+    return await teacher_functions.get_all_teachers(db=db)
 
 
 @router.post('/search_teacher_name', status_code=200, response_model=list[TeacherProfileDisplay])

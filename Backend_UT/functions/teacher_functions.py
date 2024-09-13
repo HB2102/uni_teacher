@@ -302,3 +302,11 @@ async def get_teacher_full_profile_user(teacher_id: int, user_id: int, db: Sessi
     }
 
     return teacher_display
+
+
+async def get_all_teachers(db: Session):
+    teachers = db.query(Teacher).all()
+    if not teachers:
+        raise NO_TEACHER_FOUND
+
+    return teachers
