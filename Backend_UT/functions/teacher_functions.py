@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from sqlalchemy import delete
-from database.models import Teacher, DeletedPics, Comment, CommentAction, TeacherUni, TeacherSubject, Rating
+from database.models import Teacher, DeletedPics, Comment, CommentAction, TeacherUni, TeacherSubject, Rating, University, Subject
 from errors.teacher_errors import (
     TEACHER_ALREADY_EXISTS,
     UPLOAD_PICTURE_ERROR,
@@ -223,8 +223,22 @@ async def get_teacher_profile(teacher_id: int, db: Session):
     if not teacher:
         raise TEACHER_NOT_FOUND
 
-    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
-    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    uni_ids_tuple = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+
+    uni_ids = []
+    for uni_id in uni_ids_tuple:
+        uni_ids.append(uni_id[0])
+
+    unis = db.query(University).filter(University.id.in_(uni_ids)).all()
+
+
+    subjects_ids_tuple = db.query(TeacherSubject.subject_id).filter(TeacherSubject.teacher_id == teacher_id).all()
+
+    subjects_ids = []
+    for subject_id in subjects_ids_tuple:
+        subjects_ids.append(subject_id[0])
+
+    subjects = db.query(Subject).filter(Subject.id.in_(subjects_ids)).all()
 
     teacher_display = {
         'teacher': teacher,
@@ -233,6 +247,8 @@ async def get_teacher_profile(teacher_id: int, db: Session):
     }
 
     return teacher_display
+
+
 
 
 async def get_teacher_full_profile(teacher_id: int, db: Session):
