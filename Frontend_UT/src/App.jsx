@@ -11,6 +11,7 @@ import Request from './Components/Request/Request.jsx';
 import AboutUs from './Components/About/AboutUs.jsx';
 import OTPVerification from './Components/SignIn/verify.jsx';
 import Signin from './Components/SignIn/SignIn.jsx';
+import UserInfo from './Components/User/UserInfo.jsx';
 
 
 
@@ -23,7 +24,8 @@ function App() {
         <Route path="/user-panel" element={< UserPanel/>} />
         <Route path="/request" element={<Request />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path='/test' element={<Searchbar/>} />
+        <Route path='/search' element={<Searchbar/>} />
+        <Route path='/test' element={<UserInfo/>} />
       </Routes>
     </div>
   </Router>

@@ -21,6 +21,9 @@ function MenuBar({ isAuthenticated }) {
   const handleAboutUs=()=>{
     navigate("/AboutUs")
   }
+  const handleUserInfo=()=>{
+    navigate("/test")
+  }
   const handleSendRequest=() =>{
     navigate("/request");
   }
@@ -67,7 +70,14 @@ function MenuBar({ isAuthenticated }) {
                             ثبت‌نام / ورود
                         </h2>
                     )}
-                </li>
+              </li>
+              <li onClick={handleUserInfo}>
+                {
+                  isAuthenticated ?  <h2 className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
+                  پروفایل
+              </h2> : ""
+                }
+              </li>
               <li onClick={handleAboutUs}>
                 <h2 href="#about" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
                   درباره‌ی ما
