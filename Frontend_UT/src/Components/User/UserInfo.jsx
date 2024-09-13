@@ -1,6 +1,10 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const UserInfo = () => {
+  const navigate = useNavigate();
+  const handleBackHome = ()=> {
+    navigate("/");
+  }
   return (
     <div className="bg-white w-full flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row text-[#161931] font-[Plus Jakarta Sans]">
      
@@ -11,9 +15,9 @@ const UserInfo = () => {
           <a href="#" className="flex items-center px-3 py-2.5 font-bold bg-white text-indigo-900 border rounded-full text-right">
             ویرایش پروفایل
           </a>
-          <a href="#" className="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
+          <div  onClick={handleBackHome}  href="#" className="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full">
             بازگشت به صفحه‌ی اصلی
-          </a>
+          </div>
          
         </div>
       </aside>
@@ -21,7 +25,7 @@ const UserInfo = () => {
       <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
         <div className="p-2 md:p-4">
           <div className="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
-            <h2 className="pl-6 text-2xl font-bold sm:text-xl">Public Profile</h2>
+            <h2 className="pl-6 text-2xl font-bold sm:text-xl">ویرایش اطلاعات</h2>
 
             <div className="grid max-w-2xl mx-auto mt-8">
               <div className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
