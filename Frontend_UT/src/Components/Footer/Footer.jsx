@@ -3,30 +3,44 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaGithub } from 'react-icons/fa';
 import {BiLogoGmail , BiLogoTelegram } from "react-icons/bi";
+import { useNavigate } from 'react-router-dom';
 const LINKS = [
   {
     title: "تماس با ما",
-    items: ["Overview", "Features", "Solutions", "Tutorials"],
+    items: "Request",
   },
   {
     title: "درباره‌ی ما",
-    items: ["About us", "Careers", "Press", "News"],
+    items: "About",
   },
   {
     title: "بلا بلا بلا",
-    items: ["Blog", "Newsletter", "Events", "Help center"],
+    items: "blah",
   },
 ];
  
 const currentYear = new Date().getFullYear();
  
 export function Footer() {
-
+  const navigate = useNavigate();
   const { ref: refFooterSection, inView: inViewFooterSection } = useInView({
     triggerOnce: true, 
     threshold: 0,
   });
-
+ const handleNavigate=(link)=>{
+  console.log(link);
+  
+switch (link) {
+    case "Request" :
+      navigate('/Request')
+      break;
+    case "About" :
+      navigate('/AboutUs')
+      break;
+  default:
+    break;
+}
+ }
   return (
     <motion.div 
       ref={refFooterSection}
@@ -42,7 +56,7 @@ export function Footer() {
             </Typography>
             <div className="grid grid-cols-3 justify-between">
               {LINKS.map(({ title, items }) => (
-                <h2 key={title}>
+                <h2 key={title} onClick={() => handleNavigate(items)}>
                   <Typography color="white" className="font-medium opacity-40">
                     {title}
                   </Typography>
