@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import "./MainSearch.css";
-const words = ['sara', 'mamad', 'mamadali', 'samad', 'eli'];
-
-const MainSearchbar = () => {
+import axios from 'axios';
+const MainSearchbar = ({ searchAsk }) => {
   const [activeSearch, setActiveSearch] = useState([]);
+  const [words, setWords] = useState([]);
+  useEffect(() => {
+    handleAllData()
+  }, [searchAsk])
 const logclick=()=>{
   console.log("nsndhdcbsdh");
   
@@ -17,15 +20,49 @@ const logclick=()=>{
     setActiveSearch(words.filter((w) => w.includes(e.target.value)).slice(0, 8));
   };
 
+  const handleAllData= async()=>{
+    switch (searchAsk) {
+      case 2:
+          try {
+            const response = await axios.get('http://127.0.0.1:8000/university/get_all_uni');
+            // console.log('Search result:', response.data);
+            const  transformedWords = response.data.map(obj => obj.name);
+            setWords(transformedWords)
+            } catch (error) {
+              console.log('Error fetching search results:', error);
+            }
+        break;
+        case 3:
+          try {
+            const response = await axios.get('http://127.0.0.1:8000/subject/get_all_subjects');
+            // console.log('Search result:', response.data);
+            const  transformedWords = response.data.map(obj => obj.name);
+            setWords(transformedWords)
+            } catch (error) {
+              console.log('Error fetching search results:', error);
+            }
+        break;
+    
+      default:
+        // console.log("choose an option stupid !");
+        
+        break;
+    }
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+  };
+
   return (
-    <form className="w-full relative">
+    <form className="w-full relative" onSubmit={handleSubmit}>
       <div className="flex mb-4 flex-col relative sm:flex-row">
-        <button className="bg-teal-500 px-6 py-3 rounded-s-full text-white hover:bg-teal-600">جستجو</button>
+        <button className="bg-teal-500 px-6 py-3 sm:rounded-s-full rounded-none text-white hover:bg-teal-600">جستجو</button>
         <div className="relative w-full lg:w-2/3"> 
           <input
             type="text"
             placeholder="دنبال چی میگردی؟"
-            className="css w-full p-3 placeholder:text-gray-500 placeholder:pr-1 rounded-e-full text-black mb-3 sm:mb-0 sm:mr-0 text-right bg-slate-200"
+            className="css w-full p-3 placeholder:text-gray-500 placeholder:pr-1 sm:rounded-e-full rounded-none text-black mb-3 sm:mb-0 sm:mr-0 text-right bg-slate-200"
             onChange={(e) => handleSearch(e)}
           />
           {activeSearch.length > 0 && (
