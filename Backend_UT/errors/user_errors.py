@@ -23,6 +23,22 @@ ERROR_CREDENTIAL = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                  headers={'WWW-authenticate': 'bearer'})
 
 
+TOKEN_EXPIRED_ERROR = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                    detail='Token Expired.')
+
+
+INVALID_TOKEN_ERROR = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                    detail='Invalid or Expired Token.')
+
+
+ACCESS_TOKEN_DEMAND_ERROR = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                                          detail='Please Provide Access Token Instead of Refresh Token.')
+
+
+REFRESH_TOKEN_DEMAND_ERROR = HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                                           detail='Please Provide Refresh Token Instead of Access Token.')
+
+
 PROTECTED_ERROR = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail='Protected.'
                                 )

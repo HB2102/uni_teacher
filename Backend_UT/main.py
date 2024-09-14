@@ -1,7 +1,7 @@
 import time
 from fastapi import FastAPI, Request
 from database.database import Base, engine
-from authentication import authentication
+from authentication import authentication_route
 from fastapi.middleware.cors import CORSMiddleware
 from routers.super_admin_routers import (
     super_admin,
@@ -72,7 +72,7 @@ app.include_router(admin_add_uni_request.router)
 app.include_router(admin_add_teacher_request.router)
 app.include_router(super_admin.router)
 app.include_router(super_admin_deleted_pics.router)
-app.include_router(authentication.router)
+app.include_router(authentication_route.router)
 
 
 origins = [ 
