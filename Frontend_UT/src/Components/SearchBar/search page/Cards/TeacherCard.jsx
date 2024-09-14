@@ -1,13 +1,15 @@
 import React from 'react';
 import { FaRegComments } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
+import '../search.css'
+const ReviewCard = ({name , Score , comment , imageURL , subs , unis, key}) => {
     const navigate = useNavigate();
     const handleSendRequest=() =>{
         navigate("/request");
       }
+
   return (
-    <article dir='rtl' className="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md w-10/12 sm:w-[48%] md:w-[48%] lg:w-1/4 xl:w-1/5 mt-9">
+    <article dir='rtl' className="farmer-motion p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md w-10/12 sm:w-[48%] md:w-[48%] lg:w-1/4 xl:w-1/5 mt-9">
       <div dir='rtl' className="flex items-center mb-4">
         <img
           className="w-10 h-10 ml-4 rounded-full"
