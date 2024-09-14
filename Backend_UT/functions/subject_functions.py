@@ -77,10 +77,10 @@ async def get_best_teachers_of_subject(subject_id: int, db: Session, limit: int 
     if not subject:
         raise SUBJECT_DONT_EXIST
 
-    subject_teachers = db.query(TeacherSubject.teacher_id).filter(TeacherSubject.subject_id == subject_id).all()
+    teacher_ids_tuple = db.query(TeacherSubject.teacher_id).filter(TeacherSubject.subject_id == subject_id).all()
 
     teacher_ids = []
-    for teacher_id in subject_teachers:
+    for teacher_id in teacher_ids_tuple:
         teacher_ids.append(teacher_id[0])
 
     teachers = db.query(Teacher).filter(Teacher.id.in_(teacher_ids)).order_by(Teacher.total_average_score.desc()).limit(limit).all()

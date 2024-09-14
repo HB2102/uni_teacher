@@ -1,9 +1,11 @@
 from sqlalchemy import delete
 from sqlalchemy.orm import Session
-from database.models import University, TeacherUni
+from database.models import University, TeacherUni, Teacher
 from functions.general_functions import check_uni_name_duplicate
 from errors.university_errors import UNI_ALREADY_EXISTS_ERROR, UNI_DONT_EXIST, NO_UNI_FOUND
 from schemas.university_schema import UniDisplay
+from functions.teacher_functions import get_teacher_profile
+
 
 
 async def add_university(uni_name: str, db: Session):
@@ -70,3 +72,26 @@ async def search_uni_name(uni_name: str, db: Session):
         raise NO_UNI_FOUND
 
     return universities
+
+
+async def get_best_teachers_of_uni(uni_id: int, db: Session, limit: int | None = 10):
+    uni = db.query(University).filter(University.id == uni_id).first()
+    if not uni:
+        raise UNI_DONT_EXIST
+
+    teacher_ids_tuple = db.query(TeacherUni.teacher_id).filter(TeacherUni.university_id == uni_id).all()
+
+    teacher_ids = []
+    for teacher_id in teacher_ids_tuple:
+        teacher_ids.append(teacher_id[0])
+
+
+    teachers = db.query(Teacher).filter(Teacher.id.in_(teacher_ids)).order_by(Teacher.total_average_score.desc()).limit(limit).all()
+
+    teacher_display = []
+    for teacher in teachers:
+        profile = get_teacher_profile(teacher_id=teacher.id, db=db)
+        if profile:
+            teacher_display.append(profile)
+
+    return teacher_display
