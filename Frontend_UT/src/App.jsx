@@ -14,6 +14,7 @@ import Signin from './Components/SignIn/SignIn.jsx';
 import UserInfo from './Components/User/UserInfo.jsx';
 import SearchPage from './Components/SearchBar/search page/SearchPage.jsx';
 import UniCards from './Components/SearchBar/search page/Cards/UniCards.jsx';
+import SubjectTeachers from './Components/Relations/Sub-Teacher/SubjectTeachers.jsx';
 
 
 
@@ -27,7 +28,8 @@ function App() {
         <Route path="/request" element={<Request />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path='/search' element={<SearchPage/>} />
-        <Route path='/test' element={<UniCards/>} />
+        <Route path='/user-info' element={<UserInfo/>} />
+        <Route path='/test' element={<SubjectTeachers/>} />
       </Routes>
     </div>
   </Router>

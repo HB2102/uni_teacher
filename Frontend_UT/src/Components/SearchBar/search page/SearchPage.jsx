@@ -8,7 +8,7 @@ import SubjectCards from './Cards/SubjectCards';
 import { useNavigate } from 'react-router-dom';
 const SearchPage = () => {
     const navigate = useNavigate();
-    const [searchAsk, setSearchAsk] = useState(0);
+    const [searchAsk, setSearchAsk] = useState(1);
     const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
@@ -26,12 +26,7 @@ const SearchPage = () => {
         <>
       
             <Searchbar searchAsk={searchAsk} setSearchResult={setSearchResult} searchResult={searchResult} />
-            <div onClick={handleBackHome} dir='rtl' className="w-full lg:w-4/5 lg:mr-auto text-base md:text-sm text-gray-600 px-4 pt-5"> {/* Changed margin from left to right */}
-          <span className="text-base text-teal-600 font-bold">&lt;</span>{' '}
-          <a  className="text-base md:text-sm text-teal-600 font-bold no-underline hover:underline">
-            بازگشت به صفحه‌ی اصلی
-          </a>
-        </div>
+          
             <div dir="rtl" className="w-full flex items-center justify-center m-auto mt-11">
                 <SwitchSearch setSearchAsk={setSearchAsk} searchAsk={searchAsk} />
             </div>
@@ -79,6 +74,12 @@ const SearchPage = () => {
                     )) : null}
                 </div>
             ) : null}
+              <div onClick={handleBackHome} dir='rtl' className="w-full flex h-full items-end  lg:w-4/5 lg:mr-auto text-base md:text-sm text-gray-600 px-4 pt-5"> {/* Changed margin from left to right */}
+          <span className="text-base text-teal-600 font-bold">&lt;</span>{' '}
+          <a  className="text-base md:text-sm text-teal-600 font-bold no-underline hover:underline">
+            بازگشت به صفحه‌ی اصلی
+          </a>
+        </div>
         </>
     );
 };

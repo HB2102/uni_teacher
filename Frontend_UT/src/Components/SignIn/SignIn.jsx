@@ -84,7 +84,7 @@ const Signin = () => {
       if (response.status === 200) { 
         const expirationTime = Date.now() + (30 * 60 * 1000);
         Cookies.set('auth_token', response.data.access_token , { expires: expirationTime });
-        navigate('/user-Panel');
+        navigate('/search');
 
         Swal.fire({
           position: "top-end",
