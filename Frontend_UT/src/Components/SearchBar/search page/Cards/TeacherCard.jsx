@@ -2,7 +2,7 @@ import React from 'react';
 import { FaRegComments } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../search.css'
-const ReviewCard = ({name , Score , comment , imageURL , subs , unis, key}) => {
+const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
     const navigate = useNavigate();
     const handleSendRequest=() =>{
         navigate("/request");

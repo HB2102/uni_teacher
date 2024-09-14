@@ -3,13 +3,20 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import SwitchSearch from '../swichSearch';
 import Searchbar from './Searchbar';
 import ReviewCard from './Cards/TeacherCard';
+import UniCards from './Cards/UniCards';
+import SubjectCards from './Cards/SubjectCards';
 
 const SearchPage = () => {
     const [searchAsk, setSearchAsk] = useState(0);
     const [searchResult, setSearchResult] = useState([]);
-    const [animatedResults, setAnimatedResults] = useState([]);  // For animation tracking
 
+    useEffect(() => {
+        Clear();
+    }, [searchAsk]); 
 
+    const Clear = () => {
+        setSearchResult([]);
+    };
 
     return (
         <>
@@ -18,11 +25,11 @@ const SearchPage = () => {
                 <SwitchSearch setSearchAsk={setSearchAsk} searchAsk={searchAsk} />
             </div>
             {searchAsk === 1 ? (
-                <div className='flex flex-row gap-5 items-center justify-center flex-wrap' >
-                    {searchResult.map((result, key) => (
-
-                            <ReviewCard
-                          
+                <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
+                    {searchResult.length > 0 ? 
+                     searchResult.map((result, key) => (
+                        result.teacher && (
+                            <ReviewCard                         
                                 key={key}
                                 name={result.teacher.full_name}
                                 Score={result.teacher.total_average_score}
@@ -31,8 +38,34 @@ const SearchPage = () => {
                                 subs={result.subjects}
                                 unis={result.unis}
                             />
-                      
-                    ))}
+                        )
+                    ))
+                    
+                    : null}
+                </div>
+            ) : null}
+            {searchAsk === 2 ? (
+                <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
+                    {searchResult.length > 0 ?
+                    searchResult.map((result, key) => (
+                        <UniCards                         
+                            key={key}
+                            name={result.name}
+                            id={result.id}
+                        />
+                    )) : null}
+                </div>
+            ) : null}
+            {searchAsk === 3 ? (
+                <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
+                    {searchResult.length > 0 ?
+                    searchResult.map((result, key) => (
+                        <SubjectCards                         
+                            key={key}
+                            name={result.name}
+                            id={result.id}
+                        />
+                    )) : null}
                 </div>
             ) : null}
         </>
