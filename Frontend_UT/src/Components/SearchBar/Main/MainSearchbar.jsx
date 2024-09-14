@@ -85,7 +85,7 @@ const logclick=(s)=>{
   return (
     <form className="w-full relative" onSubmit={handleSubmit}>
       <div className="flex mb-4 flex-col relative sm:flex-row">
-        <button className="bg-teal-500 px-6 py-3 sm:rounded-s-full rounded-none text-white hover:bg-teal-600">جستجو</button>
+        <button className="bg-teal-700 px-6 py-3 sm:rounded-s-full rounded-none text-white hover:bg-teal-900">جستجو</button>
         <div className="relative w-full lg:w-2/3"> 
           <input
             type="text"

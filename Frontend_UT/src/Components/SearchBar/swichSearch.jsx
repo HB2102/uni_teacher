@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const SwitchSearch = ({ setSearchAsk , searchAsk }) => {
     return (
         <div className="">
-            <div className="sm:w-fit xs:w-[90%] sm:px-4 py-2 rounded-sm flex md:flex-no-wrap xs:flex-wrap md:gap-4 xs:gap-1 justify-center dark:bg-gray-200 text-white dark:text-black cursor-pointer md:text-lg md:font-semibold xs:text-sm">
+            <div className="sm:w-fit xs:w-[90%] sm:px-4 py-2 rounded-sm flex md:flex-no-wrap xs:flex-wrap md:gap-4 xs:gap-1 justify-center  text-white dark:text-black cursor-pointer md:text-lg md:font-semibold xs:text-sm">
                 <div className="px-4 cursor-default dark:hover:border-blue-500 rounded-b-md">
                     جستجو :
                 </div>

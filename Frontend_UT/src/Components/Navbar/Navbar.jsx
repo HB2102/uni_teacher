@@ -11,8 +11,6 @@ import Cookies from 'js-cookie';
 
 
 function MenuBar({ isAuthenticated }) {
-
- 
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
  
@@ -27,7 +25,9 @@ function MenuBar({ isAuthenticated }) {
   const handleSendRequest=() =>{
     navigate("/request");
   }
- 
+  const handleSearch=()=>{
+    navigate("/search")
+  }
   return (
     <motion.div 
     initial={{ y: -100, opacity: 0 }} 
@@ -70,6 +70,11 @@ function MenuBar({ isAuthenticated }) {
                             ثبت‌نام / ورود
                         </h2>
                     )}
+              </li>
+              <li>
+              <h2 onClick={handleSearch} href="#about" className="text-lg relative text-white hover:text-teal-400 transition-all duration-300 after:content-[''] after:absolute after:block after:w-0 after:h-0.5 after:bg-teal-400 after:transition-all after:duration-300 after:left-1/2 after:bottom-0 hover:after:w-full hover:after:left-0">
+                  جستجو
+                </h2>
               </li>
               <li onClick={handleUserInfo}>
                 {

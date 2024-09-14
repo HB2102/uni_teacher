@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import axios from 'axios';
 
-const Searchbar = ({ searchAsk }) => {
+const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
   const [activeSearch, setActiveSearch] = useState([]);
   const [words, setWords] = useState([]);
   const [searchInput, setSearchInput] = useState('');
@@ -15,15 +15,9 @@ const Searchbar = ({ searchAsk }) => {
     Clear();
   }, [searchAsk]);
 
-  useEffect(() => {
-    if (searchInput !== '') {
-      handleSubmit(); // Automatically submit the form when searchInput is set via ResultClick
-    }
-  }, [searchInput]);
 
   const ResultClick = (s) => {
     setSearchInput(s);
-
     setActiveSearch('')
   };
     const Clear=()=>{
@@ -74,9 +68,28 @@ const Searchbar = ({ searchAsk }) => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+    
     switch (searchAsk) {
       case 1:
-        // You can add your custom logic for case 1 here
+        try {
+            const response = await axios.post(
+              'http://127.0.0.1:8000/teacher/search_teacher_name',
+              {
+                teacher_name: searchInput,
+              },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+              }
+            );
+            setSearchResult(response.data)
+            console.log(response.data);  
+            setActiveSearch('')
+          } catch (error) {
+            console.log('Error searching university:', error);
+          }
         break;
       case 2:
         try {
@@ -111,7 +124,9 @@ const Searchbar = ({ searchAsk }) => {
               },
             }
           );
-          console.log(response);
+          setSearchResult(response.data)
+          console.log(searchResult);
+          
         } catch (error) {
           console.log('Error searching subject:', error);
         }
@@ -128,11 +143,11 @@ const Searchbar = ({ searchAsk }) => {
           <input
             type="search"
             placeholder='دنبال چی میگردی؟'
-            className='placeholder:p-3 placeholder:text-gray-700 w-full p-4 rounded-full bg-slate-300'
+            className='placeholder:p-3 placeholder:text-gray-700 w-full p-4 rounded-full bg-slate-200'
             value={searchInput}
             onChange={handleSearch}
           />
-          <button type="submit" className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-teal-600 rounded-full'>
+          <button type="submit" className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-gray-600 rounded-full'>
             <AiOutlineSearch />
           </button>
         </div>

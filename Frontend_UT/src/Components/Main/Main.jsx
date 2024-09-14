@@ -8,7 +8,7 @@ import { TfiEmail } from "react-icons/tfi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { useState , useEffect} from 'react';
 import Signin from '../SignIn/SignIn';
-import MainSearchbar from '../SearchBar/MainSearchbar';
+import MainSearchbar from '../SearchBar/Main/MainSearchbar';
 import {BiLogoGmail  } from "react-icons/bi";
 import SwitchSearch from '../SearchBar/swichSearch';
 import Cookies from 'js-cookie';
