@@ -3,6 +3,7 @@ from functions import subject_functions
 from dependencies.dependencies import DB_DEPENDENCY
 from dependencies.body_dependencies import ID_BODY, NAME_BODY
 from schemas.subject_schemas import SubjectDisplay
+from schemas.teacher_schemas import TeacherProfileDisplay
 
 
 router = APIRouter(
@@ -25,3 +26,7 @@ async def get_subject_by_id(subjects_id: ID_BODY, db: DB_DEPENDENCY):
 async def search_subject(subject_name: NAME_BODY, db: DB_DEPENDENCY):
     return await subject_functions.search_subject_name(subject_name=subject_name, db=db)
 
+
+@router.post('/get_best_teachers_of_subject', status_code=200, response_model=list[TeacherProfileDisplay])
+async def get_best_teachers_of_subject(subject_id: ID_BODY, db: DB_DEPENDENCY, limit: ID_BODY | None = 10):
+    return await subject_functions.get_best_teachers_of_subject(subject_id=subject_id, db=db, limit=limit)
