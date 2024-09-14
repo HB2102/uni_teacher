@@ -4,7 +4,6 @@ import { PiStudent } from "react-icons/pi";
 import { FaUniversity } from "react-icons/fa";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { useInView } from 'react-intersection-observer';
-import { TfiEmail } from "react-icons/tfi";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { useState , useEffect} from 'react';
 import Signin from '../SignIn/SignIn';
