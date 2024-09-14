@@ -9,4 +9,9 @@ class UniDisplay(BaseModel):
         from_attribute = True
 
 
+class BestUniTeacherRequest(BaseModel):
+    uni_id: int
+    limit: int | None = None
+
+
 
