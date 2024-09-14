@@ -13,6 +13,7 @@ import OTPVerification from './Components/SignIn/verify.jsx';
 import Signin from './Components/SignIn/SignIn.jsx';
 import UserInfo from './Components/User/UserInfo.jsx';
 import SearchPage from './Components/SearchBar/search page/SearchPage.jsx';
+import UniCards from './Components/SearchBar/search page/Cards/UniCards.jsx';
 
 
 
@@ -26,7 +27,7 @@ function App() {
         <Route path="/request" element={<Request />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path='/search' element={<SearchPage/>} />
-        <Route path='/test' element={<UserInfo/>} />
+        <Route path='/test' element={<UniCards/>} />
       </Routes>
     </div>
   </Router>

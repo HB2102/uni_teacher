@@ -21,6 +21,7 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
     setActiveSearch('')
   };
     const Clear=()=>{
+    
     setSearchInput('')
     }
   const handleSearch = (e) => {
@@ -68,7 +69,7 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
-    
+    setActiveSearch('')
     switch (searchAsk) {
       case 1:
         try {
@@ -106,6 +107,7 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
             }
           );
           console.log(response);
+          setSearchResult(response.data)
         } catch (error) {
           console.log('Error searching university:', error);
         }
