@@ -10,7 +10,17 @@ from dotenv import load_dotenv
 from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from sqlalchemy import delete
-from database.models import Teacher, DeletedPics, Comment, CommentAction, TeacherUni, TeacherSubject, Rating, University, Subject
+from database.models import (
+    Teacher,
+    DeletedPics,
+    Comment,
+    CommentAction,
+    TeacherUni,
+    TeacherSubject,
+    Rating,
+    University,
+    Subject
+)
 from errors.teacher_errors import (
     TEACHER_ALREADY_EXISTS,
     UPLOAD_PICTURE_ERROR,
