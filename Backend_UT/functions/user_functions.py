@@ -98,7 +98,7 @@ async def update_user(user_id: int, request: UserUpdateModel, db: Session):
         if check_phone_number_duplicate(request.phone_number, db):
             raise PHONE_NUMBER_DUPLICATE_ERROR
 
-        user.email = request.email
+        user.phone_number = request.phone_number
 
     if request.password:
         user.password = Hash.bcrypt(request.password)
