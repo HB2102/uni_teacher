@@ -57,7 +57,7 @@ switch (link) {
             <div className="grid grid-cols-3 justify-between">
               {LINKS.map(({ title, items }) => (
                 <h2 key={title} onClick={() => handleNavigate(items)}>
-                  <Typography color="white" className="font-medium opacity-40">
+                  <Typography color="white" className="font-medium opacity-40 cursor-pointer">
                     {title}
                   </Typography>
                 </h2>
@@ -69,7 +69,8 @@ switch (link) {
               variant="small"
               className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
             >
-              &copy; {currentYear} <a href="https://material-tailwind.com/"> فتل بهزادی</a>. All
+              &copy; {currentYear} <a href="https://github.com/elafatal"> فتل </a>
+               <a href="https://github.com/HB2102"> بهزادی</a> All
               Rights Reserved.
             </Typography>
             <div className="flex gap-4 text-blue-gray-900 sm:justify-center">

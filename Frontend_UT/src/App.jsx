@@ -12,6 +12,7 @@ import AboutUs from './Components/About/AboutUs.jsx';
 import OTPVerification from './Components/SignIn/verify.jsx';
 import Signin from './Components/SignIn/SignIn.jsx';
 import UserInfo from './Components/User/UserInfo.jsx';
+import SearchPage from './Components/SearchBar/search page/SearchPage.jsx';
 
 
 
@@ -24,7 +25,7 @@ function App() {
         <Route path="/user-panel" element={< UserPanel/>} />
         <Route path="/request" element={<Request />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path='/search' element={<Searchbar/>} />
+        <Route path='/search' element={<SearchPage/>} />
         <Route path='/test' element={<UserInfo/>} />
       </Routes>
     </div>
