@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from functions import university_functions
 from dependencies.dependencies import DB_DEPENDENCY
-from dependencies.body_dependencies import ID_BODY, NAME_BODY
-from schemas.university_schema import UniDisplay
+from dependencies.body_dependencies import ID_BODY, NAME_BODY, ID_BODY_OR_NONE
+from schemas.university_schema import UniDisplay, BestUniTeacherRequest
 from schemas.teacher_schemas import TeacherProfileDisplay
 
 
@@ -28,5 +28,5 @@ async def search_uni(uni_name: NAME_BODY, db: DB_DEPENDENCY):
 
 
 @router.post('/get_best_teachers_of_uni', status_code=200, response_model=list[TeacherProfileDisplay])
-async def get_best_teachers_of_uni(uni_id: ID_BODY, db: DB_DEPENDENCY, limit: ID_BODY | None = 10):
-    return await university_functions.get_best_teachers_of_uni(uni_id=uni_id, db=db, limit=limit)
+async def get_best_teachers_of_uni(request: BestUniTeacherRequest, db: DB_DEPENDENCY):
+    return await university_functions.get_best_teachers_of_uni(request=request, db=db)

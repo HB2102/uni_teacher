@@ -7,3 +7,9 @@ class SubjectDisplay(BaseModel):
 
     class Config:
         from_attribute = True
+
+
+
+class BestSubjectTeacherRequest(BaseModel):
+    subject_id: int
+    limit: int | None = None

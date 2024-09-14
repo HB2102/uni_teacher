@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database.models import Subject, TeacherSubject, Teacher
 from functions.general_functions import check_subject_name_duplicate
 from errors.subject_errors import SUBJECT_ALREADY_EXISTS_ERROR, SUBJECT_DONT_EXIST, NO_SUBJECT_FOUND
-from schemas.subject_schemas import SubjectDisplay
+from schemas.subject_schemas import SubjectDisplay, BestSubjectTeacherRequest
 from functions.teacher_functions import get_teacher_profile
 
 async def add_subject(subject_name: str, db: Session):
@@ -72,7 +72,8 @@ async def search_subject_name(subject_name: str, db: Session):
     return subjects
 
 
-async def get_best_teachers_of_subject(subject_id: int, db: Session, limit: int | None = 10):
+async def get_best_teachers_of_subject(request: BestSubjectTeacherRequest, db: Session):
+    subject_id = request.subject_id
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise SUBJECT_DONT_EXIST
@@ -82,6 +83,13 @@ async def get_best_teachers_of_subject(subject_id: int, db: Session, limit: int 
     teacher_ids = []
     for teacher_id in teacher_ids_tuple:
         teacher_ids.append(teacher_id[0])
+
+
+    if request.limit:
+        limit = request.limit
+    else:
+        limit = 10
+
 
     teachers = db.query(Teacher).filter(Teacher.id.in_(teacher_ids)).order_by(Teacher.total_average_score.desc()).limit(limit).all()
 
