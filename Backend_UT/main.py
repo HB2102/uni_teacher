@@ -74,6 +74,7 @@ app.include_router(super_admin.router)
 app.include_router(super_admin_deleted_pics.router)
 app.include_router(authentication.router)
 
+
 origins = [ 
     "http://localhost:*",
     "http://localhost:5173", 
