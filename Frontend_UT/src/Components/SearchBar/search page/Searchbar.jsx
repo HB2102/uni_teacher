@@ -2,28 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import axios from 'axios';
 
-const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
+const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSearchResult  ,setError}) => {
   const [activeSearch, setActiveSearch] = useState([]);
   const [words, setWords] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  
 
   useEffect(() => {
     handleAllData();
   }, [searchAsk]);
 
   useEffect(() => {
-    Clear();
+    handleSubmit();
   }, [searchAsk]);
 
+  useEffect(() => {
+    Clear();
+  }, [searchAsk2]);
 
+    const Clear=()=>{ 
+    setSearchInput('')
+    }
   const ResultClick = (s) => {
     setSearchInput(s);
     setActiveSearch('')
   };
-    const Clear=()=>{
-    
-    setSearchInput('')
-    }
+
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
     if (e.target.value === '') {
@@ -63,6 +66,8 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
         }
         break;
       default:
+        console.log("i hate this project");
+        
         break;
     }
   };
@@ -72,7 +77,8 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
     setActiveSearch('')
     switch (searchAsk) {
       case 1:
-        try {
+        if (searchInput !== '') {
+          try {
             const response = await axios.post(
               'http://127.0.0.1:8000/teacher/search_teacher_name',
               {
@@ -85,55 +91,66 @@ const Searchbar = ({  searchAsk , setSearchResult ,searchResult }) => {
                 },
               }
             );
-            setSearchResult(response.data)
-            console.log(response.data);  
-            setActiveSearch('')
+              setSearchResult(response.data)
+              // console.log(response.data);  
+              setActiveSearch('')  
           } catch (error) {
             console.log('Error searching university:', error);
+            setError(true)
           }
+        }
         break;
       case 2:
-        try {
-          const response = await axios.post(
-            'http://127.0.0.1:8000/university/search_uni',
-            {
-              uni_name: searchInput,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
+        if (searchInput !== '') {
+          try {
+            const response = await axios.post(
+              'http://127.0.0.1:8000/university/search_uni',
+              {
+                uni_name: searchInput,
               },
-            }
-          );
-          console.log(response);
-          setSearchResult(response.data)
-        } catch (error) {
-          console.log('Error searching university:', error);
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+              }
+            );
+              setSearchResult(response.data)
+              // console.log(response.data);  
+              setActiveSearch('')  
+      
+          } catch (error) {
+            console.log('Error searching university:', error);
+            setError(true)
+          }  
         }
         break;
       case 3:
-        try {
-          const response = await axios.post(
-            'http://127.0.0.1:8000/subject/search_subject',
-            {
-              subject_name: searchInput,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
+        if (searchInput !== '') {
+          try {
+            const response = await axios.post(
+              'http://127.0.0.1:8000/subject/search_subject',
+              {
+                subject_name: searchInput,
               },
-            }
-          );
-          setSearchResult(response.data)
-          console.log(searchResult);
-          
-        } catch (error) {
-          console.log('Error searching subject:', error);
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+              }
+            );
+              setSearchResult(response.data)
+              // console.log(response.data);  
+              setActiveSearch('')  
+          } catch (error) {
+            console.log('Error searching subject:', error);
+            setError(true)
+          }
         }
         break;
       default:
+        console.log("i hate this project");
         break;
     }
   };
