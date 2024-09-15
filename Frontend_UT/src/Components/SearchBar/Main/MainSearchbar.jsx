@@ -1,11 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import "./MainSearch.css";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const MainSearchbar = ({ searchAsk }) => {
+  const navigate = useNavigate();
   const [activeSearch, setActiveSearch] = useState([]);
   const [words, setWords] = useState([]);
-  const [searchInput, setSearchInput] = useState('');  // State for capturing user input
+  const [searchInput, setSearchInput] = useState(''); 
   useEffect(() => {
     handleAllData()
   }, [searchAsk])
@@ -13,11 +15,11 @@ const MainSearchbar = ({ searchAsk }) => {
     Clear();
   }, [searchAsk]);
 
-  useEffect(() => {
-    if (searchInput !== '') {
-      handleSubmit(); // Automatically submit the form when searchInput is set via ResultClick
-    }
-  }, [searchInput]);
+  // useEffect(() => {
+  //   if (searchInput !== '') {
+  //     handleSubmit(); 
+  //   }
+  // }, [searchInput]);
 
 
   const Clear=()=>{
@@ -78,6 +80,13 @@ const logclick=(s)=>{
   }
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+   
+    navigate('/search', {
+      state: {
+          searchAsk: searchAsk,
+          searchInput : searchInput
+      }
+  });
     console.log(searchInput);
     
   };
