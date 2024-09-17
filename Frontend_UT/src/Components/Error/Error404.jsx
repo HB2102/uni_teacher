@@ -12,13 +12,13 @@ const Error404 = () => {
         <>
          <div className='flex flex-row gap-5 items-center justify-center flex-wrap mt-20'>       
                      <main className="farmer-motion h-80 w-full flex flex-col justify-center items-center">
-                    <h1 className="text-9xl font-extrabold text-white tracking-widest">404</h1>
-                    <div className="bg-red-900 px-2 text-sm rounded rotate-12 absolute">
+                    <h1 className="text-9xl font-extrabold text-text-gray dark:text-white tracking-widest">404</h1>
+                    <div className="bg-red-900 dark:text-text-gray text-white px-2 text-sm rounded rotate-12 absolute">
                         نتیجه‌ای یافت نشد
                     </div>
                     <button class="mt-5">
                       <a
-                        className="relative inline-block text-sm font-medium text-red-900 group active:text-red-500 focus:outline-none focus:ring"
+                        className="relative inline-block text-sm font-medium dark:text-red-900 dark:active:text-red-500 text-red-500 group active:text-red-400 focus:outline-none focus:ring"
                       >
                         <span
                           className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-red-900 group-hover:translate-y-0 group-hover:translate-x-0"
