@@ -20,7 +20,7 @@ function MenuBar({ isAuthenticated }) {
     navigate("/AboutUs")
   }
   const handleUserInfo=()=>{
-    navigate("/test")
+    navigate("/user-info")
   }
   const handleSendRequest=() =>{
     navigate("/request");

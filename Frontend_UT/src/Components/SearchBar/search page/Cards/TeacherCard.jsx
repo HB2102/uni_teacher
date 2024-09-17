@@ -8,6 +8,9 @@ const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
         navigate("/request");
       }
 
+      const handleTeacherProfile =()=>{
+        navigate("/teacher-profile");
+      }
   return (
     <article dir='rtl' className="farmer-motion p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md w-10/12 sm:w-[48%] md:w-[48%] lg:w-1/4 xl:w-1/5 mt-9">
       <div dir='rtl' className="flex items-center mb-4">
@@ -82,12 +85,13 @@ const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
         { comment  } 
         </button>
         <div className="flex items-center mt-3">
-          <a
+          <button
+          onClick={handleTeacherProfile}
             href="#"
             className="px-3 py-2 text-xs font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
          پروفایل استاد
-          </a>
+          </button>
           <button
           onClick={handleSendRequest}
             className="pl-4 ml-4 text-sm font-medium text-blue-600 border-l border-gray-200 hover:underline dark:text-blue-500 dark:border-gray-600"
