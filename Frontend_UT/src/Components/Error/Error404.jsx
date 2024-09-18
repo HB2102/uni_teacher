@@ -10,7 +10,7 @@ const Error404 = () => {
 
     return (
         <>
-         <div className='flex flex-row gap-5 items-center justify-center flex-wrap mt-20'>       
+         <div className='flex flex-row gap-5 items-center justify-center flex-wrap mt-14'>       
                      <main className="farmer-motion h-80 w-full flex flex-col justify-center items-center">
                     <h1 className="text-9xl font-extrabold text-text-gray dark:text-white tracking-widest">404</h1>
                     <div className="bg-red-900 dark:text-text-gray text-white px-2 text-sm rounded rotate-12 absolute">

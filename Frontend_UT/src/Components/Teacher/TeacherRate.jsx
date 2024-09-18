@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
 const TeacherRate = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const toggleDropdown = () => {
-      setDropdownOpen(!dropdownOpen);
-    };
-  
  return( 
      <section className="pt-12 relative">
     <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">

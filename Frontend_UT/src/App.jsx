@@ -13,7 +13,12 @@ import SearchPage from './Components/SearchBar/search page/SearchPage.jsx';
 import SubjectTeachers from './Components/Relations/Sub-Teacher/SubjectTeachers.jsx';
 import Show from './Components/show.jsx';
 import TeacherProfile from './Components/Teacher/TeacherProfile.jsx';
-
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import SkeletonReviewCard from './Components/Skeletion/CardSkeletion.jsx';
+import UniCardSkeleton from './Components/Skeletion/unicardSkeleton.jsx';
+import CardSkeleton from './Components/Skeletion/MainSkeleton.jsx';
+import NavbarSkeleton from './Components/Skeletion/NavbarSkeleton.jsx';
 
 
 function App() {
@@ -29,6 +34,7 @@ function App() {
         <Route path='/user-info' element={<UserInfo/>} />
         <Route path='/subject-teachers' element={<SubjectTeachers/>} />
         <Route path='/teacher-profile' element={<TeacherProfile/>} />
+        <Route path="/test" element={<NavbarSkeleton />} />
       </Routes>
     </div>
   </Router>

@@ -9,6 +9,8 @@ import SubjectCards from './Cards/SubjectCards';
 import { useNavigate } from 'react-router-dom';
 import Error404 from '../../Error/Error404';
 import Back from '../../BackButton/Back';
+import SkeletonReviewCard from '../../Skeletion/CardSkeletion';
+import UniCardSkeleton from '../../Skeletion/unicardSkeleton';
 
 const SearchPage = () => {
     const navigate = useNavigate();
@@ -18,7 +20,16 @@ const SearchPage = () => {
     const [searchResult, setSearchResult] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [error,setError]=useState(false)
+    const [isLoading, setIsLoading] = useState(true);
 
+    useEffect(() => {
+        // Simulate data fetching delay
+        const timeout = setTimeout(() => {
+          setIsLoading(false); // Set loading to false once data fetching is done
+        }, 3000); // Adjust the time according to your actual data fetching time
+    
+        return () => clearTimeout(timeout); // Cleanup in case the component unmounts
+      }, []);
 
     useEffect(() => {
         if (location.state) {
@@ -37,12 +48,9 @@ const SearchPage = () => {
 
     const Clear = () => {
         setSearchResult([]);
+       
     };
 
-    const handleBackHome = () => {
-        navigate("/");
-        console.log(searchAsk);
-    };
 
     return (
         <>
@@ -59,25 +67,30 @@ const SearchPage = () => {
                 <SwitchSearch setSearchAsk={setSearchAsk} searchAsk={searchAsk} setSearchAsk2={setSearchAsk2}   />
             </div>
 
-            {searchAsk === 1 && (
-                <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
-                    {searchResult.length > 0 ? 
-                        searchResult.map((result, key) => (
-                            result.teacher && (
-                                <ReviewCard                         
-                                    key={key}
-                                    name={result.teacher.full_name}
-                                    Score={result.teacher.total_average_score}
-                                    comment={result.teacher.number_of_comments}
-                                    imageURL={result.teacher.teacher_pic}
-                                    subs={result.subjects}
-                                    unis={result.unis}
-                                />
-                            )
-                        )) : error ? <Error404/> :null
-                    }
-                </div>
-            )}
+       {searchAsk === 1 && (
+        <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
+          {isLoading ? (
+           <SkeletonReviewCard cards={6} />
+          ) : searchResult.length > 0 ? (
+            searchResult.map((result, key) => 
+              result.teacher && (
+                <ReviewCard                         
+                  key={key}
+                  name={result.teacher.full_name}
+                  Score={result.teacher.total_average_score}
+                  comment={result.teacher.number_of_comments}
+                  imageURL={result.teacher.teacher_pic}
+                  subs={result.subjects}
+                  unis={result.unis}
+                />
+              )
+            )
+          ) : error ? (
+         
+            <Error404 />
+          ) : null}
+        </div>
+      )}
 
             {searchAsk === 2 && (
                 <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
@@ -95,7 +108,10 @@ const SearchPage = () => {
 
             {searchAsk === 3 && (
                 <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
-                    {searchResult.length > 0 ?
+                    {
+                    isLoading ? (
+                        <UniCardSkeleton cards={1} />
+                       ) : searchResult.length > 0 ?
                         searchResult.map((result, key) => (
                             <SubjectCards                         
                                 key={key}
