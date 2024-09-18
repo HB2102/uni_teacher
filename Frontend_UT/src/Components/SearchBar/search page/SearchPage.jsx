@@ -22,14 +22,7 @@ const SearchPage = () => {
     const [error,setError]=useState(false)
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // Simulate data fetching delay
-        const timeout = setTimeout(() => {
-          setIsLoading(false); // Set loading to false once data fetching is done
-        }, 3000); // Adjust the time according to your actual data fetching time
-    
-        return () => clearTimeout(timeout); // Cleanup in case the component unmounts
-      }, []);
+ 
 
     useEffect(() => {
         if (location.state) {
@@ -61,6 +54,7 @@ const SearchPage = () => {
                 setSearchInput={setSearchInput} 
                 setSearchResult={setSearchResult} 
                 setError={setError}
+                setIsLoading={setIsLoading}
             />
           
             <div dir="rtl" className="w-full flex items-center justify-center m-auto mt-11">
@@ -70,7 +64,7 @@ const SearchPage = () => {
        {searchAsk === 1 && (
         <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
           {isLoading ? (
-           <SkeletonReviewCard cards={6} />
+           <SkeletonReviewCard cards={8} />
           ) : searchResult.length > 0 ? (
             searchResult.map((result, key) => 
               result.teacher && (
@@ -94,7 +88,9 @@ const SearchPage = () => {
 
             {searchAsk === 2 && (
                 <div className='flex flex-row gap-5 items-center justify-center flex-wrap'>
-                    {searchResult.length > 0 ?
+                    { isLoading ? (
+                        <UniCardSkeleton cards={1} />
+                       ) : searchResult.length > 0 ?
                         searchResult.map((result, key) => (
                             <UniCards                         
                                 key={key}

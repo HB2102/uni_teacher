@@ -39,7 +39,7 @@ const Request = () => {
   };
 
   return (
-    <div dir="rtl" className="bg-background-light dark:bg-background-dark dark:text-text-light tracking-wider leading-normal rtl">
+    <div dir="rtl" className="min-h-screen bg-background-light dark:bg-background-dark dark:text-text-light tracking-wider leading-normal rtl">
       <div className="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-10 ">
         <div className="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
           <div className="block lg:hidden sticky inset-0">

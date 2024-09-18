@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import axios from 'axios';
 
-const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSearchResult  ,setError}) => {
+const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSearchResult  ,setError , setIsLoading}) => {
   const [activeSearch, setActiveSearch] = useState([]);
   const [words, setWords] = useState([]);
   
@@ -21,10 +21,12 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
 
     const Clear=()=>{ 
     setSearchInput('')
+    setIsLoading(false)
     }
   const ResultClick = (s) => {
     setSearchInput(s);
     setActiveSearch('')
+    
   };
 
   const handleSearch = (e) => {
@@ -74,6 +76,7 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+    setIsLoading(true)
     setActiveSearch('')
     switch (searchAsk) {
       case 1:
@@ -91,12 +94,16 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
                 },
               }
             );
+            setIsLoading(true)
               setSearchResult(response.data)
               // console.log(response.data);  
               setActiveSearch('')  
           } catch (error) {
             console.log('Error searching university:', error);
             setError(true)
+          }
+          finally{
+            setIsLoading(false)
           }
         }
         break;
@@ -115,6 +122,7 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
                 },
               }
             );
+            setIsLoading(true)
               setSearchResult(response.data)
               // console.log(response.data);  
               setActiveSearch('')  
@@ -122,7 +130,9 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
           } catch (error) {
             console.log('Error searching university:', error);
             setError(true)
-          }  
+          }  finally{
+            setIsLoading(false)
+          }
         }
         break;
       case 3:
@@ -140,12 +150,15 @@ const Searchbar = ({  searchAsk,searchAsk2 , searchInput, setSearchInput , setSe
                 },
               }
             );
+            setIsLoading(true)
               setSearchResult(response.data)
               // console.log(response.data);  
               setActiveSearch('')  
           } catch (error) {
             console.log('Error searching subject:', error);
             setError(true)
+          }finally{
+            setIsLoading(false)
           }
         }
         break;
