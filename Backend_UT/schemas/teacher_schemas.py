@@ -11,6 +11,7 @@ class TeacherMiniDisplay(BaseModel):
 
 
 class TeacherDisplay(BaseModel):
+    id: int
     full_name: str
     total_average_score: float | None = None
     average_teaching_score: float | None = None
