@@ -4,7 +4,7 @@ import TeacherRate from './TeacherRate';
 const TeacherProfile = () => {
   
  return(
-  <section  className="relative pt-40 pb-24 bg-white ">
+  <section  className="relative pt-40 pb-24 bg-white h-screen">
   <img
     src="https://pagedone.io/asset/uploads/1705473908.png"
     alt="cover"

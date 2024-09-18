@@ -6,13 +6,27 @@ import TCard from './TCard';
 import Error404 from '../../Error/Error404';
 import ReviewCard from '../../SearchBar/search page/Cards/TeacherCard';
 import Back from '../../BackButton/Back';
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import SkeletonReviewCard from '../../Skeletion/CardSkeletion';
 const SubjectTeachers = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [subject_id, setSubjectId] = useState(-1);
     const [data,setData]=useState([])
+    const [title,setTitle]=useState('برترین اساتید')
     const [bestTeachers,setBestTeachers]=useState([])
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate data fetching delay
+        const timeout = setTimeout(() => {
+          setIsLoading(false); // Set loading to false once data fetching is done
+        }, 3000); // Adjust the time according to your actual data fetching time
+    
+        return () => clearTimeout(timeout); // Cleanup in case the component unmounts
+      }, []);
+
     useEffect(() => {
         if (location.state && location.state.subject_id) {
             setSubjectId(location.state.subject_id); 
@@ -82,10 +96,10 @@ const SubjectTeachers = () => {
     return (
         <>
      <div className="flex flex-col gap-5 pt-11 bg-background-light dark:bg-background-dark ">
-        {/* best teachers */}
+       
         <div >
                 <h1 className="flex items-center justify-center font-iran font-bold break-normal text-text-gray dark:text-text-light px-2 text-xl mt-10 lg:mt-0 md:text-2xl  ">
-                    برترین اساتید
+                {title || <Skeleton />}
                 </h1>
                 <Back/>
                 {/* Divider */}
@@ -93,7 +107,10 @@ const SubjectTeachers = () => {
         </div>
         <div className='flex flex-row gap-5 items-center justify-center flex-wrap mt-1 mb-20'>
 
-        {bestTeachers.length > 0 ? 
+        {
+        isLoading ? (
+           <SkeletonReviewCard cards={3} /> 
+          ) : bestTeachers.length > 0 ? 
                 bestTeachers.map((result, key) => (
                     result.teacher && (
                         <ReviewCard                         
@@ -122,7 +139,10 @@ const SubjectTeachers = () => {
                 </div>
                 <div className='flex flex-row gap-5 items-center justify-center flex-wrap mt-1 mb-20'>
 
-                {data.length > 0 ? 
+                {
+                 isLoading ? (
+                    <SkeletonReviewCard cards={3} /> 
+                  ) :data.length > 0 ? 
                         data.map((result, key) => (
                     
                                 <TCard                         
