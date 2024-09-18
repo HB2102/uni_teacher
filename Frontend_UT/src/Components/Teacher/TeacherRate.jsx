@@ -35,15 +35,15 @@ const TeacherRate = () => {
                       } rounded-[30px] bg-indigo-500 flex`}
                     ></span>
                   </p>
-                  <p className="font-medium text-lg py-[1px] text-black mr-[2px]">{rating * 10}</p>
+          
                 </div>
               ))}
             </div>
           </div>
           {/* Right Column */}
           <div className="col-span-12 max-xl:mt-8 xl:col-span-8 xl:pl-8 w-full min-h-[230px]">
-            <div className="grid grid-cols-12 h-full px-8 max-lg:py-8 rounded-3xl bg-gray-100 w-full max-xl:max-w-3xl max-xl:mx-auto">
-              درس ها و دانشگاه های استاد
+            <div className=" h-full px-8 max-lg:py-8 rounded-3xl bg-gray-100 w-full max-xl:max-w-3xl max-xl:mx-auto">
+              درس ها و دانشگاه های استادjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj ujlkjh jbukjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
             </div>
           </div>
         </div>

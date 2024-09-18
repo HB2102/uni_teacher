@@ -2,14 +2,18 @@ import React from 'react';
 import { FaRegComments } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../search.css'
-const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
+const ReviewCard = ({id, name , Score , comment , imageURL , subs , unis}) => {
     const navigate = useNavigate();
     const handleSendRequest=() =>{
         navigate("/request");
       }
 
       const handleTeacherProfile =()=>{
-        navigate("/teacher-profile");
+        navigate('/teacher-profile', {
+          state: {
+              teacher_id: id
+          }
+      });
       }
   return (
     <article dir='rtl' className="farmer-motion p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md w-10/12 sm:w-[48%] md:w-[48%] lg:w-1/4 xl:w-1/5 mt-9">
@@ -27,7 +31,7 @@ const ReviewCard = ({name , Score , comment , imageURL , subs , unis}) => {
         </div>
       </div>
       <div className="flex items-center mb-1 space-x-1">
-        {[...Array({Score})].map((_, index) => (
+        { Array(4).fill(0).map((_, index) => (
           <svg
             key={index}
             className="w-4 h-4 text-yellow-300"

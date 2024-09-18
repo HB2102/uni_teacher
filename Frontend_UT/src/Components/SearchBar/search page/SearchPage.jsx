@@ -70,6 +70,7 @@ const SearchPage = () => {
               result.teacher && (
                 <ReviewCard                         
                   key={key}
+                  id={result.teacher.id}
                   name={result.teacher.full_name}
                   Score={result.teacher.total_average_score}
                   comment={result.teacher.number_of_comments}

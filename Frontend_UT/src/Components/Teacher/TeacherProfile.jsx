@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
 import TeacherRate from './TeacherRate';
+import { useNavigate, useLocation } from 'react-router-dom';
 const TeacherProfile = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [teacher_id, setTeacherId] = useState(-1);
+  useEffect(() => {
+    if (location.state && location.state.teacher_id) {
+      setTeacherId(location.state.teacher_id);
+        
+    }
+}, [location.state]);
+const handleBackHome = ()=> {
+  navigate('/search', { replace: true });
+}
+
+const log = ()=>{
+  console.log(teacher_id);
   
+}
  return(
-  <section  className="relative pt-40 pb-24 bg-white h-screen">
+  <section  className="relative pt-40 pb-24 bg-white min-h-screen">
   <img
     src="https://pagedone.io/asset/uploads/1705473908.png"
     alt="cover"
@@ -41,30 +58,31 @@ const TeacherProfile = () => {
             strokeLinecap="round"
           />
         </svg>
-        <span className="px-2 font-semibold text-base leading-7 text-white">Send Message</span>
+        <span onClick={handleBackHome} className="px-2 font-semibold text-base leading-7 text-white">بازگشت به صفحه‌ی جستجو </span>
       </button>
     </div>
     
     <TeacherRate/>
 
     <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4">
+      <button
+      onClick={log}
+        href="#"
+        className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
+      >
+        نظرات
+      </button>
       <a
         href="#"
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
-        Ux Research
+        نظرات شما
       </a>
       <a
         href="#"
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
-        CX Strategy
-      </a>
-      <a
-        href="#"
-        className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
-      >
-        Project Manager
+        امتیازدهی
       </a>
     </div>
   </div>
