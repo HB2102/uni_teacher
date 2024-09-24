@@ -39,7 +39,7 @@ class TeacherProfileDisplay(BaseModel):
 
 
 class TeacherFullProfileDisplay(TeacherProfileDisplay):
-    comments: list[CommentDisplay] | None
+    comments: list[CommentDisplayUser] | None
 
     class Config:
         from_attributes = True

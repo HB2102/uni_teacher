@@ -266,8 +266,22 @@ async def get_teacher_full_profile(teacher_id: int, db: Session):
     if not teacher:
         raise TEACHER_NOT_FOUND
 
-    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
-    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    uni_ids_tuple = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+
+    uni_ids = []
+    for uni_id in uni_ids_tuple:
+        uni_ids.append(uni_id[0])
+
+    unis = db.query(University).filter(University.id.in_(uni_ids)).all()
+
+    subjects_ids_tuple = db.query(TeacherSubject.subject_id).filter(TeacherSubject.teacher_id == teacher_id).all()
+
+    subjects_ids = []
+    for subject_id in subjects_ids_tuple:
+        subjects_ids.append(subject_id[0])
+
+    subjects = db.query(Subject).filter(Subject.id.in_(subjects_ids)).all()
+
     comments = db.query(Comment).filter(and_(Comment.teacher_id == teacher_id, Comment.is_approved == True)).all()
 
     teacher_display = {
@@ -285,8 +299,22 @@ async def get_teacher_profile_user(teacher_id: int, user_id: int, db: Session):
     if not teacher:
         raise TEACHER_NOT_FOUND
 
-    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
-    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    uni_ids_tuple = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+
+    uni_ids = []
+    for uni_id in uni_ids_tuple:
+        uni_ids.append(uni_id[0])
+
+    unis = db.query(University).filter(University.id.in_(uni_ids)).all()
+
+    subjects_ids_tuple = db.query(TeacherSubject.subject_id).filter(TeacherSubject.teacher_id == teacher_id).all()
+
+    subjects_ids = []
+    for subject_id in subjects_ids_tuple:
+        subjects_ids.append(subject_id[0])
+
+    subjects = db.query(Subject).filter(Subject.id.in_(subjects_ids)).all()
+
     rating = db.query(Rating).filter(and_(Rating.teacher_id == teacher_id, Rating.user_id == user_id)).first()
 
     teacher_display = {
@@ -304,8 +332,23 @@ async def get_teacher_full_profile_user(teacher_id: int, user_id: int, db: Sessi
     if not teacher:
         raise TEACHER_NOT_FOUND
 
-    unis = db.query(TeacherUni).filter(TeacherUni.teacher_id == teacher_id).all()
-    subjects = db.query(TeacherSubject).filter(TeacherSubject.teacher_id == teacher_id).all()
+    uni_ids_tuple = db.query(TeacherUni.university_id).filter(TeacherUni.teacher_id == teacher_id).all()
+
+    uni_ids = []
+    for uni_id in uni_ids_tuple:
+        uni_ids.append(uni_id[0])
+
+    unis = db.query(University).filter(University.id.in_(uni_ids)).all()
+
+    subjects_ids_tuple = db.query(TeacherSubject.subject_id).filter(TeacherSubject.teacher_id == teacher_id).all()
+
+    subjects_ids = []
+    for subject_id in subjects_ids_tuple:
+        subjects_ids.append(subject_id[0])
+
+    subjects = db.query(Subject).filter(Subject.id.in_(subjects_ids)).all()
+
+
     rating = db.query(Rating).filter(and_(Rating.teacher_id == teacher_id, Rating.user_id == user_id)).first()
     comments = db.query(Comment).filter(and_(Comment.teacher_id == teacher_id, Comment.is_approved == True)).order_by(Comment.date_added.desc()).all()
 
@@ -316,8 +359,7 @@ async def get_teacher_full_profile_user(teacher_id: int, user_id: int, db: Sessi
                 comment['action'] = True
             else:
                 comment['action'] = False
-        else:
-            comment['action'] = None
+
 
     teacher_display = {
         'teacher': teacher,
