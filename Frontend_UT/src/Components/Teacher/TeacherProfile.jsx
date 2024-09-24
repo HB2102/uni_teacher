@@ -6,9 +6,27 @@ const TeacherProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [teacher_id, setTeacherId] = useState(-1);
+  const [name, setName] = useState("");
+  const [score, setScore] = useState(-1);
+  const [teachingScore, setTeachingScore] = useState(-1);
+  const [behaviorScore, setBehaviorScore] = useState(-1);
+  const [gradingScore, setGradingScore] = useState(-1);
+  const [comment, setComment] = useState(-1);
+  const [imageURL, setImageURL] = useState("");
+  const [subs, setSubs] = useState([]);
+  const [unis, setUnis] = useState([]);
   useEffect(() => {
     if (location.state && location.state.teacher_id) {
       setTeacherId(location.state.teacher_id);
+      setName(location.state.name);
+      setScore(location.state.Score);
+      setTeachingScore(location.state.teachingScore);
+      setBehaviorScore(location.state.behaviorScore);
+      setGradingScore(location.state.gradingScore);
+      setComment(location.state.comment);
+      setImageURL(location.state.imageURL);
+      setSubs(location.state.subs);
+      setUnis(location.state.unis);
         
     }
 }, [location.state]);
@@ -30,14 +48,14 @@ const log = ()=>{
   <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
     <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
       <img
-        src="https://pagedone.io/asset/uploads/1705471668.png"
+        src={imageURL}
         alt="user avatar"
-        className="border-4 border-white rounded-full object-cover"
+        className="w-36  h-36 border-4 border-white rounded-full object-cover"
       />
     </div>
     <div className="flex items-center justify-center flex-col sm:flex-row sm:justify-between mb-5 space-y-5 sm:space-y-0 sm:space-x-5">
       <div>
-        <h3 className=" font-manrope font-bold text-4xl text-gray-900 text-center sm:text-left">اسم استاد </h3>
+        <h3 className=" font-manrope font-bold text-3xl text-gray-900 text-center sm:text-left">{name}  </h3>
         <p className="pt-3 font-normal text-base leading-7 text-gray-500 text-center sm:text-left">
           {/* Engineer at BB Agency Industry <br className="hidden sm:block" />
           New York, United States */}
@@ -62,7 +80,7 @@ const log = ()=>{
       </button>
     </div>
     
-    <TeacherRate/>
+    <TeacherRate name={name} score={score} teachingScore={teachingScore} behaviorScore={behaviorScore} gradingScore={gradingScore} comment={comment} subs={subs} unis={unis}/>
 
     <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4">
       <button

@@ -2,7 +2,7 @@ import React from 'react';
 import { FaRegComments } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import '../search.css'
-const ReviewCard = ({id, name , Score , comment , imageURL , subs , unis}) => {
+const ReviewCard = ({id, name , Score,teachingScore,behaviorScore,gradingScore , comment , imageURL , subs , unis}) => {
     const navigate = useNavigate();
     const handleSendRequest=() =>{
         navigate("/request");
@@ -11,7 +11,16 @@ const ReviewCard = ({id, name , Score , comment , imageURL , subs , unis}) => {
       const handleTeacherProfile =()=>{
         navigate('/teacher-profile', {
           state: {
-              teacher_id: id
+              teacher_id: id,
+              name: name,
+              Score:Score,
+              teachingScore:teachingScore,
+              behaviorScore:behaviorScore,
+              gradingScore:gradingScore,
+              comment:comment,
+              imageURL:imageURL,
+              subs:subs,
+              unis:unis
           }
       });
       }

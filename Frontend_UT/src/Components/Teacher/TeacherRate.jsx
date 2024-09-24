@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
-const TeacherRate = () => {
-
+const TeacherRate = ({name,score,teachingScore,behaviorScore, gradingScore,comment, subs , unis}) => {
+  const transformedScores = [
+    score,
+    teachingScore,
+    behaviorScore,
+    gradingScore
+  ].filter(Boolean).map(score => Math.round(score * 10) / 10);
  return( 
-     <section className="pt-12 relative">
+     <section  className="pt-12 relative">
     <div className="w-full max-w-7xl px-4 md:px-5 lg:px-6 mx-auto">
       <div className="">
         <div className="grid grid-cols-12 mb-11">
           {/* Left Column */}
           <div className="col-span-12 xl:col-span-4 flex items-center">
-            <div className="flex flex-col gap-y-4 w-full max-xl:max-w-3xl mx-auto">
+            <div  className="flex flex-col gap-y-4 w-full max-xl:max-w-3xl mx-auto">
               {/** Rating bars */}
-              {[5, 4, 3, 2, 1].map((rating, index) => (
+              {transformedScores.map((rating, index) => (
                 <div className="flex items-center w-full" key={index}>
                   <p className="font-medium text-lg py-[1px] text-black mr-[2px]">{rating}</p>
                   <svg
@@ -29,11 +34,11 @@ const TeacherRate = () => {
                     </g>
                   </svg>
                   <p className="h-2 w-full sm:min-w-[278px] rounded-[30px] bg-gray-200 ml-5 mr-3">
-                    <span
-                      className={`h-full ${
-                        rating === 5 ? 'w-[30%]' : rating === 4 ? 'w-[40%]' : rating === 3 ? 'w-[20%]' : rating === 2 ? 'w-[16%]' : 'w-[8%]'
-                      } rounded-[30px] bg-indigo-500 flex`}
-                    ></span>
+                  <span
+  className={`h-full rounded-[30px] bg-indigo-500 flex ${
+    rating > 0 ? `w-[${(rating / 5) * 100}%]` : 'w-[8%]'
+  }`}
+></span>
                   </p>
           
                 </div>
@@ -42,8 +47,25 @@ const TeacherRate = () => {
           </div>
           {/* Right Column */}
           <div className="col-span-12 max-xl:mt-8 xl:col-span-8 xl:pl-8 w-full min-h-[230px]">
-            <div className=" h-full px-8 max-lg:py-8 rounded-3xl bg-gray-100 w-full max-xl:max-w-3xl max-xl:mx-auto">
-              درس ها و دانشگاه های استادjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj ujlkjh jbukjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            <div dir='rtl' className=" h-full px-8 max-lg:py-8 rounded-3xl bg-gray-100 w-full max-xl:max-w-3xl max-xl:mx-auto">
+            <p className="mb-2 mt-4 text-gray-500 dark:text-gray-400">
+        لیست درس‌های استاد:
+      {subs.map((result,key) => (  
+                    <span key={key}>
+                        {" "+ result.name + " "}
+                    </span>    
+                 
+        ))}
+      </p>
+      <p className="mb-3 text-gray-500 dark:text-gray-400">
+      لیست دانشگاه‌های استاد:
+      {unis.map((result,key) => (  
+                    <span key={key}>
+                        {" "+ result.name + "، "}
+                    </span>    
+                 
+        ))}
+      </p>
             </div>
           </div>
         </div>
