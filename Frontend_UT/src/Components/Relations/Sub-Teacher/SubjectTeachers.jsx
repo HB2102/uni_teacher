@@ -86,7 +86,7 @@ const SubjectTeachers = () => {
                                 key={key}
                                 id={result.teacher.id}
                                 name={result.teacher.full_name}
-                                Score={result.teacher.total_average_score}
+                                Score={Number(result.total_average_score ?? 0)}
                                 comment={result.teacher.number_of_comments}
                                 imageURL={result.teacher.teacher_pic}
                                 subs={result.subjects}
@@ -111,7 +111,7 @@ const SubjectTeachers = () => {
                         <TCard                         
                             key={key}
                             name={result.full_name}
-                            Score={result.total_average_score}
+                            Score={Number(result.total_average_score ?? 0)}
                             comment={result.number_of_comments}
                             imageURL={result.teacher_pic}
                         />
