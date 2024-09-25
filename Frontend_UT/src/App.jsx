@@ -19,6 +19,9 @@ import SkeletonReviewCard from './Components/Skeletion/CardSkeletion.jsx';
 import UniCardSkeleton from './Components/Skeletion/unicardSkeleton.jsx';
 import CardSkeleton from './Components/Skeletion/MainSkeleton.jsx';
 import NavbarSkeleton from './Components/Skeletion/NavbarSkeleton.jsx';
+import ErrorPage from './Components/Error/404page.jsx';
+
+import SingleComment from './Components/Comment/Comment.jsx';
 
 
 function App() {
@@ -34,7 +37,8 @@ function App() {
         <Route path='/user-info' element={<UserInfo/>} />
         <Route path='/subject-teachers' element={<SubjectTeachers/>} />
         <Route path='/teacher-profile' element={<TeacherProfile/>} />
-        <Route path="/test" element={<NavbarSkeleton />} />
+        <Route path="/test" element={<SingleComment />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   </Router>

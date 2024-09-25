@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
 import TeacherRate from './TeacherRate';
 import { useNavigate, useLocation } from 'react-router-dom';
+import SingleComment from '../Comment/Comment';
 const TeacherProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,9 +40,9 @@ const log = ()=>{
   
 }
  return(
-  <section  className="relative pt-40 pb-24 bg-white min-h-screen">
+  <section  className="relative pt-40 pb-24 bg-white dark:bg-gray-900 min-h-screen">
   <img
-    src="https://pagedone.io/asset/uploads/1705473908.png"
+    src="https://mwallpaper.ir/wp-content/uploads/2021/10/%D9%88%D8%A7%D9%84%D9%BE%DB%8C%D9%BE%D8%B1-%D8%B2%DB%8C%D8%A8%D8%A7%DB%8C-%D8%AF%DB%8C%D9%88%D8%A7%D8%B1-%D8%A2%D8%AC%D8%B1%DB%8C-%D8%A8%D8%A7-%D8%AA%D9%85-%D8%B1%D9%86%DA%AF-%D8%A8%D9%86%D9%81%D8%B4-1024x768.jpg"
     alt="cover"
     className="w-full absolute top-0 left-0 z-0 h-60 object-cover"
   />
@@ -55,7 +56,7 @@ const log = ()=>{
     </div>
     <div className="flex items-center justify-center flex-col sm:flex-row sm:justify-between mb-5 space-y-5 sm:space-y-0 sm:space-x-5">
       <div>
-        <h3 className=" font-manrope font-bold text-3xl text-gray-900 text-center sm:text-left">{name}  </h3>
+        <h3 className=" font-manrope font-bold text-3xl text-gray-900 dark:text-gray-300 text-center sm:text-left">{name}  </h3>
         <p className="pt-3 font-normal text-base leading-7 text-gray-500 text-center sm:text-left">
           {/* Engineer at BB Agency Industry <br className="hidden sm:block" />
           New York, United States */}
@@ -80,7 +81,7 @@ const log = ()=>{
       </button>
     </div>
     
-    <TeacherRate name={name} score={score} teachingScore={teachingScore} behaviorScore={behaviorScore} gradingScore={gradingScore} comment={comment} subs={subs} unis={unis}/>
+    <TeacherRate score={score} teachingScore={teachingScore} behaviorScore={behaviorScore} gradingScore={gradingScore} subs={subs} unis={unis}/>
 
     <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4">
       <button
@@ -88,6 +89,7 @@ const log = ()=>{
         href="#"
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
+      ({comment})
         نظرات
       </button>
       <a
@@ -104,7 +106,11 @@ const log = ()=>{
       </a>
     </div>
   </div>
-
+  <hr className="bg-gray-300 my-12" />
+<SingleComment/>
+<SingleComment/>
+<SingleComment/>
+<SingleComment/>
 </section>
                                       
  )

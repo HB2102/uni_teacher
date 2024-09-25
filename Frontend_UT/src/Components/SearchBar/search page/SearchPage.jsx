@@ -72,7 +72,7 @@ const SearchPage = () => {
                   key={key}
                   id={result.teacher.id}
                   name={result.teacher.full_name}
-                  Score={result.teacher.total_average_score}
+                  Score={Number(result.teacher.total_average_score ?? 0)}
                   teachingScore={result.teacher.average_teaching_score}
                   behaviorScore={result.teacher.average_behaviour_score}
                   gradingScore={result.teacher.average_grading_score}
