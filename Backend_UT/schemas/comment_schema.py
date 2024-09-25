@@ -9,10 +9,12 @@ class AddCommentModel(BaseModel):
 
 
 class CommentDisplay(BaseModel):
+    id: int
     user_id: int
     username: str
     teacher_id: int
-    subject_id: int | None = 0
+    subject_id: int | None = None
+    subject_name: str | None = None
     text: str
     date_added: datetime.datetime
     number_of_likes: int
@@ -30,6 +32,6 @@ class CommentDisplayUser(CommentDisplay):
         from_attribute = True
 
 
-class TeacherSearchRequest(BaseModel):
+class TeacherCommentRequest(BaseModel):
     teacher_id: int
     order: str | None = None
