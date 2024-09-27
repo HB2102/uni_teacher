@@ -13,6 +13,10 @@ router = APIRouter(
 )
 
 
+@router.get('/get_comments_to_approve', status_code=200, response_model=list[CommentDisplay])
+async def get_comments_to_approve(db: DB_DEPENDENCY):
+    return await comment_functions.get_comments_to_approve(db=db)
+
 @router.delete('/delete_comment', status_code=200)
 async def admin_delete_comment(comment_id: ID_BODY, db: DB_DEPENDENCY):
     return await comment_functions.admin_delete_comment(comment_id=comment_id, db=db)
@@ -21,4 +25,6 @@ async def admin_delete_comment(comment_id: ID_BODY, db: DB_DEPENDENCY):
 @router.put('/approve_comment', status_code=200, response_model=CommentDisplay)
 async def approve_comment(comment_id: int, db: DB_DEPENDENCY):
     return await comment_functions.approve_comment(comment_id=comment_id, db=db)
+
+
 

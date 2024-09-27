@@ -25,6 +25,7 @@ async def add_comment(user_id: int, request: AddCommentModel, db: Session):
         subject = db.query(Subject).filter(Subject.id == request.subject_id).first()
         if not subject:
             raise SUBJECT_DONT_EXIST
+
     else:
         request.subject_id = None
 
@@ -42,6 +43,7 @@ async def add_comment(user_id: int, request: AddCommentModel, db: Session):
     update_teacher_comment_count(teacher_id=teacher.id, db=db)
 
     db.commit()
+
 
     return comment
 
@@ -93,10 +95,15 @@ async def approve_comment(comment_id: int, db: Session):
     if not comment:
         raise COMMENT_NOT_FOUND
 
+
     comment.is_approved = True
     db.commit()
 
     update_teacher_comment_count(teacher_id=comment.teacher_id, db=db)
+
+    if comment.subject_id:
+        subject = db.query(Subject).filter(Subject.id == comment.subject_id).first()
+        comment.subject_name = subject.name
 
     return comment
 
@@ -121,6 +128,12 @@ async def get_all_comments_of_teacher(teacher_id: int, order: str | None, db: Se
 
     if not comments:
         raise NO_COMMENT_FOUND
+
+    for comment in comments:
+        if comment.subject_id:
+            subject = db.query(Subject).filter(Subject.id == comment.subject_id).first()
+            comment.subject_name = subject.name
+
 
     return comments
 
@@ -154,22 +167,30 @@ async def get_comments_of_teacher_for_user(teacher_id: int, user_id: int, order:
         raise NO_COMMENT_FOUND
 
     for comment in comments:
+        if comment.subject_id:
+            subject = db.query(Subject).filter(Subject.id == comment.subject_id).first()
+            comment.subject_name = subject.name
+
         comment_action = db.query(CommentAction).filter(CommentAction.comment_id == comment.id).first()
         if comment_action:
             if comment_action.action:
                 comment['action'] = True
             else:
                 comment['action'] = False
-        else:
-            comment['action'] = None
+
 
     return comments
 
 
 async def get_comments_to_approve(db: Session):
-    comments = db.query(Comment).filter(Comment.is_approved == False).order_by(Comment.date_added.asc()).all()
+    comments = db.query(Comment).filter(Comment.is_approved == False).order_by(Comment.date_added.desc()).all()
     if not comments:
         raise NO_COMMENT_FOUND
+
+    for comment in comments:
+        if comment.subject_id:
+            subject = db.query(Subject).filter(Subject.id == comment.subject_id).first()
+            comment.subject_name = subject.name
 
     return comments
 
@@ -182,6 +203,11 @@ async def get_all_self_comments(user_id: int, db: Session):
     comments = db.query(Comment).filter(Comment.user_id == user_id).all()
     if not comments:
         raise NO_COMMENT_FOUND
+
+    for comment in comments:
+        if comment.subject_id:
+            subject = db.query(Subject).filter(Subject.id == comment.subject_id).first()
+            comment.subject_name = subject.name
 
     return comments
 
