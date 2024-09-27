@@ -79,7 +79,13 @@ const TeacherRate = ({  score, teachingScore, behaviorScore, gradingScore,  subs
               <div dir='rtl' className="h-full px-8 max-lg:py-8 rounded-3xl w-full max-xl:max-w-3xl max-xl:mx-auto py-5">
                 <p className="mb-2 mt-4 text-gray-900 dark:text-white">
                   لیست درس‌های استاد:
-                  {subs.map((result, key) => (
+                  {/* {subs.length === 0 ? (
+                    <p>sss</p>
+                  ) : (
+                    <p>sgggggss</p>
+                  )} */}
+                    {subs.length === 0 && <span className='text-red-500 p-1'>درسی برای این استاد ثبت نشده است </span>}
+                  {subs.length !== 0 && subs.map((result, key) => (
                     <span key={key}>
                       {" " + result.name + " "}
                     </span>
@@ -87,7 +93,8 @@ const TeacherRate = ({  score, teachingScore, behaviorScore, gradingScore,  subs
                 </p>
                 <p className="mb-3 text-gray-900 dark:text-white py-4">
                   لیست دانشگاه‌های استاد:
-                  {unis.map((result, key) => (
+                  {unis.length === 0 && <span className='text-red-500 p-1'>درسی برای این استاد ثبت نشده است </span>}
+                  {unis.length !== 0 && unis.map((result, key) => (
                     <span key={key}>
                       {" " + result.name + "، "}
                     </span>

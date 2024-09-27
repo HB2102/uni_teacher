@@ -6,6 +6,7 @@ import SingleComment from '../Comment/Comment';
 const TeacherProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [ask, setAsk] = useState(0);
   const [teacher_id, setTeacherId] = useState(-1);
   const [name, setName] = useState("");
   const [score, setScore] = useState(-1);
@@ -34,10 +35,18 @@ const TeacherProfile = () => {
 const handleBackHome = ()=> {
   navigate('/search', { replace: true });
 }
-
-const log = ()=>{
-  console.log(teacher_id);
-  
+const renderContent = () => {
+  switch (ask) {
+    case 1:
+      return (<SingleComment teacher_id={teacher_id} />);
+    case 2:
+      return (<p>vggggggg45545454gggggg</p>);
+    default:
+      return <p>vgggggggggggggg</p>;
+  }
+};
+const ShowComponent = (n)=>{
+setAsk(n)
 }
  return(
   <section  className="relative pt-40 pb-24 bg-white dark:bg-gray-900 min-h-screen">
@@ -85,32 +94,30 @@ const log = ()=>{
 
     <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4">
       <button
-      onClick={log}
-        href="#"
+    onClick={() => ShowComponent(1)} 
+    
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
       ({comment})
         نظرات
       </button>
-      <a
-        href="#"
+      <button
+   onClick={() => ShowComponent(2)} 
+
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
         نظرات شما
-      </a>
-      <a
-        href="#"
+      </button>
+      <button
+       
         className="rounded-full py-3 px-6 bg-stone-100 text-gray-700 font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
       >
         امتیازدهی
-      </a>
+      </button>
     </div>
   </div>
   <hr className="bg-gray-300 my-12" />
-<SingleComment/>
-<SingleComment/>
-<SingleComment/>
-<SingleComment/>
+  {renderContent()}
 </section>
                                       
  )
